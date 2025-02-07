@@ -30,6 +30,6 @@ $sql->setValue('environment', '|frontend|backend|script|');
 $sql->setValue('execution_moment', 0);
 $sql->setValue('execution_start', '0000-00-00 00:00:00');
 $sql->setValue('status', 1);
-$sql->addGlobalUpdateFields($installUser);
-$sql->addGlobalCreateFields($installUser);
+$sql->addGlobalUpdateFields('googleplaces');
+$sql->addGlobalCreateFields('googleplaces');
 $sql->insert();

@@ -58,6 +58,6 @@ if (rex_addon::get('cronjob')->isAvailable()) {
     $sql->select();
 
     if (0 === $sql->getRows()) {
-        $this->includeFile(__DIR__ . '/install/cronjob_sync.php', $subScriptParams);
+        $this->includeFile(__DIR__ . '/install/cronjob_sync.php');
     }
 }
