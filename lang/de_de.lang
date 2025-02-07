@@ -1,9 +1,9 @@
 googleplaces_title = Google Places
 googleplaces_information = Info
 googleplaces_config = Konfiguration
-googleplaces_help = Hilfe
-googleplaces_start = Start
-googleplaces_reviews = Reviews
+googleplaces_docs = Docs
+googleplaces_review = Bewertungen
+googleplaces_place_detail = Place Details
 googleplaces_cron_title = Google Places: Reviews per API-Call aktualisieren
 
 googleplaces_label_profile_photo_url = Profilbild
@@ -19,9 +19,6 @@ googleplaces_docs_db = Über die eigene DB
 googleplaces_docs_credits = Credits
 googleplaces_docs_modules = Beispiel-Module
 
-googleplaces_place_detail.table = 📍 Google Places Details
-googleplaces_review.table = 📍 Google Places Bewertungen
-
 googleplaces.review.google_place_id = Google Place ID
 googleplaces.review.author_name = Autor*in
 googleplaces.review.author_url = Autor*in URL
@@ -30,9 +27,14 @@ googleplaces.review.profile_photo_url = Profilbild URL
 googleplaces.review.profile_photo_base64 = Profilbild Base64
 googleplaces.review.rating = Bewertung
 googleplaces.review.text = Text
-googleplaces.review.time = Zeit
-googleplaces.review.createdate_addon = Erstelldatum
+googleplaces.review.time = Datum
+googleplaces.review.createdate = Erstellt am...
+googleplaces.review.updatedate = Zuletzt aktualisiert am...
+googleplaces.review.uuid = UUID
 
-googleplaces.place_detail.place_id = Google Place ID
-googleplaces.place_detail.place_idapi_response_json = API Response JSON
-googleplaces.place_detail.place_idupdatedate = Aktualisierungsdatum
+googleplaces.place_detail.place_id = Place ID
+googleplaces.place_detail.api_response_json = API Response JSON
+googleplaces.place_detail.updatedate = Zuletzt aktualisiert
+
+googleplaces_place_detail.table = 🏪 Google Places Details
+googleplaces_review.table = 🏪 Google Places Reviews

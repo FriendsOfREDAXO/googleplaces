@@ -1,11 +1,19 @@
 <?php
 
+namespace FriendsOfRedaxo\GooglePlaces;
+
+use rex_sql;
+use rex_var;
+use rex_addon;
+use DateTime;
+
+
 /**
  * Google Places AddOn: Gibt Details zu einem Google Place aus.
  *
  * @package redaxo\googleplaces
  */
-class gplace
+class Helper
 {
 
 
@@ -71,7 +79,7 @@ class gplace
     public static function getPlaceDetails($qry = "")
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT api_response_json FROM googleplaces_place_details WHERE place_id = :place_id', ["place_id" => rex_addon::get('googleplaces')->getConfig('gmaps-location-id')]);
+        $sql->setQuery('SELECT api_response_json FROM googleplaces_place_detail WHERE place_id = :place_id', ["place_id" => rex_addon::get('googleplaces')->getConfig('gmaps-location-id')]);
         if ($sql->getRows() > 0) {
             $response = $sql->getArray();
             $response = rex_var::toArray($response[0]['api_response_json']);
@@ -127,7 +135,7 @@ class gplace
             $response[$id]['text'] = $row->getValue('text');
             $response[$id]['profile_photo_url'] = $row->getValue('profile_photo_url');
             $response[$id]['time'] = $row->getValue('time');
-            $response[$id]['createdate_addon'] = $row->getValue('createdate_addon');
+            $response[$id]['createdate'] = $row->getValue('createdate');
             $response[$id]['google_place_id'] = $row->getValue('google_place_id');
         }
         return $response;
@@ -171,7 +179,7 @@ class gplace
      */
     public static function updateReviewsDB()
     {
-        $googlePlace    = gplace::getFromGoogle();
+        $googlePlace    = self::getFromGoogle();
         $googleReviews  = $googlePlace['reviews'];
         $googlePlaceId  = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
 
@@ -200,14 +208,15 @@ class gplace
                     [
                         'author_name' => $gr['author_name'],
                         'author_url' => $gr['author_url'],
-                        'language' => $gr['language'],
+//                        'language' => $gr['language'],
                         'rating' => $gr['rating'],
                         'text' => $gr['text'],
                         'time' => $gr['time'],
                         'profile_photo_url' => $gr['profile_photo_url'],
                         'profile_photo_base64' => $gr_profile_photo_base64,
                         'google_place_id' => $googlePlaceId,
-                        'createdate_addon' => $dateTime
+                        'createdate' => $dateTime,
+                        'uuid' => rand(1, 999999999)
                     ]
                 );
                 $sql->insert();

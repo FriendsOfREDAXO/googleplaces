@@ -10,8 +10,8 @@ if (rex_sql_table::get('mf_googleplaces_reviews')) {
         ->alter();
 }
 
-if (rex_sql_table::get('mf_googleplaces_place_details')) {
-    rex_sql_table::get('mf_googleplaces_place_details')
+if (rex_sql_table::get('mf_googleplaces_place_detail')) {
+    rex_sql_table::get('mf_googleplaces_place_detail')
         ->setName(rex::getTablePrefix().'googleplaces_place_detail')
         ->alter();
 }

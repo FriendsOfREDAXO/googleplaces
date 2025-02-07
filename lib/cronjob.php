@@ -1,16 +1,15 @@
 <?php
-namespace gplaces;
 
-# Cronjob-Klasse;
+namespace FriendsOfRedaxo\GooglePlaces;
 
-class cronjob extends \rex_cronjob
+class Cronjob extends \rex_cronjob
 {
 
     const LABEL = 'Google Places aktualisieren';
 
     public function execute() : bool
     {
-        \gplace::updateReviewsDB();
+        Helper::updateReviewsDB();
         return true;
     }
 

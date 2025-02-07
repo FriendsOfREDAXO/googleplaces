@@ -1,7 +1,7 @@
 # Alle hier gesetzten Werte können über $addon->getProperty($key) abgefragt werden
 
 package: googleplaces
-version: '2.3.2'
+version: '3.0.0-dev-2025-02-07'
 author: 'FriendsOfREDAXO'
 
 page:
@@ -10,30 +10,18 @@ page:
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    reviews: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
+    place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-map-marker" }
+    review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
     config: { title: 'translate:googleplaces_config' }
     docs:
       icon: 'rex-icon fa fa-question-circle'
-      title: 'translate:googleplaces_start'
+      title: 'translate:googleplaces_docs'
       pjax: false
       itemclass: pull-right
-      subpages:
-        intro:
-          title: 'translate:googleplaces_docs_intro'
-          pjax: false
-          subPath: README.md
-        modules:
-          title: 'translate:googleplaces_docs_modules'
-          pjax: false
-          subPath: docs/modules.md
-        credits:
-          title: 'translate:googleplaces_docs_credits'
-          pjax: false
-          subPath: docs/credits.md
 
 requires:
     packages:
-    redaxo: '>=5.10'
+    redaxo: '>=5.17'
 
 default_config:
   gmaps-location-id: ''
