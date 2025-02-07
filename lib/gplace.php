@@ -3,7 +3,7 @@
 /**
  * Google Places AddOn: Gibt Details zu einem Google Place aus.
  *
- * @package redaxo\mf_googleplaces
+ * @package redaxo\googleplaces
  */
 class gplace
 {
@@ -13,11 +13,12 @@ class gplace
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
-    public static function gapi() {
+    public static function gapi()
+    {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://maps.googleapis.com/maps/api/place/details/json?place_id='.rex_addon::get('mf_googleplaces')->getConfig('gmaps-location-id').'&key='.rex_addon::get('mf_googleplaces')->getConfig('gmaps-api-key').'&reviews_no_translations=true&reviews_sort=newest',
+            CURLOPT_URL => 'https://maps.googleapis.com/maps/api/place/details/json?place_id='.rex_addon::get('googleplaces')->getConfig('gmaps-location-id').'&key='.rex_addon::get('googleplaces')->getConfig('gmaps-api-key').'&reviews_no_translations=true&reviews_sort=newest',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -70,8 +71,8 @@ class gplace
     public static function getPlaceDetails($qry = "")
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT api_response_json FROM mf_googleplaces_place_details WHERE place_id = :place_id', ["place_id" => rex_addon::get('mf_googleplaces')->getConfig('gmaps-location-id')]);
-        if($sql->getRows() > 0) {
+        $sql->setQuery('SELECT api_response_json FROM googleplaces_place_details WHERE place_id = :place_id', ["place_id" => rex_addon::get('googleplaces')->getConfig('gmaps-location-id')]);
+        if ($sql->getRows() > 0) {
             $response = $sql->getArray();
             $response = rex_var::toArray($response[0]['api_response_json']);
             if ($qry == "") {
@@ -100,15 +101,15 @@ class gplace
      * @return array
      * @author Daniel Springer
      */
-    public static function getAllReviews(string $orderBy = "", int $limit = NULL)
+    public static function getAllReviews(string $orderBy = "", int $limit = null)
     {
         $sql = rex_sql::factory();
-        $qry = 'SELECT * FROM mf_googleplaces_reviews';
+        $qry = 'SELECT * FROM rex_googleplaces_reviews';
 
-        if($orderBy != ""){
+        if ($orderBy != "") {
             $qry .= ' ORDER BY '.$orderBy;
         }
-        if($limit != ""){
+        if ($limit != "") {
             $qry .= ' LIMIT '.$limit;
         }
         $sql->setQuery($qry);
@@ -140,13 +141,13 @@ class gplace
     public static function getAvgRating()
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT rating FROM mf_googleplaces_reviews');
+        $sql->setQuery('SELECT rating FROM rex_googleplaces_reviews');
         $rating = 0;
         $i = $sql->getRows();
         foreach ($sql as $row) {
-           $rating = $rating + $row->getValue('rating');
+            $rating = $rating + $row->getValue('rating');
         }
-        return round(floatval($rating/$i),1);
+        return round(floatval($rating/$i), 1);
     } // EoF
 
     /**
@@ -157,7 +158,7 @@ class gplace
     public static function getTotalRatings()
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT * FROM mf_googleplaces_reviews');
+        $sql->setQuery('SELECT * FROM rex_googleplaces_reviews');
         $i = $sql->getRows();
         return $i;
     } // EoF
@@ -172,7 +173,7 @@ class gplace
     {
         $googlePlace    = gplace::getFromGoogle();
         $googleReviews  = $googlePlace['reviews'];
-        $googlePlaceId  = rex_addon::get('mf_googleplaces')->getConfig('gmaps-location-id');
+        $googlePlaceId  = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
 
         foreach ($googleReviews as $gr) {
             $googleTime = (string)$gr['time'];
@@ -180,7 +181,7 @@ class gplace
 
             $sql_search = rex_sql::factory();
             $sql_search->setDebug(false);
-            $sql_search->setQuery('SELECT * FROM mf_googleplaces_reviews WHERE time = :time', ['time' => $googleTime]);
+            $sql_search->setQuery('SELECT * FROM rex_googleplaces_reviews WHERE time = :time', ['time' => $googleTime]);
             #dump($sql_search->getRows());
 
             if ($sql_search->getRows() == 0) {
@@ -189,12 +190,12 @@ class gplace
                 $dateTime = $objDateTime->format('Y-m-d H:i:s');
 
                 $gr_profile_photo_base64 = file_get_contents($gr['profile_photo_url']);
-                if ($gr_profile_photo_base64 !== false){
+                if ($gr_profile_photo_base64 !== false) {
                     $gr_profile_photo_base64 = base64_encode($gr_profile_photo_base64);
                 }
                 $sql = rex_sql::factory();
                 $sql->setDebug(false);
-                $sql->setTable('mf_googleplaces_reviews');
+                $sql->setTable('rex_googleplaces_reviews');
                 $sql->setValues(
                     [
                         'author_name' => $gr['author_name'],
@@ -216,7 +217,7 @@ class gplace
         }
 
         $sql_place = rex_sql::factory();
-        $sql_place->setTable('mf_googleplaces_place_details');
+        $sql_place->setTable('rex_googleplaces_place_details');
         $sql_place->setValues(
             [
                 'updatedate' => date('Y-m-d H:i:s'),
@@ -235,5 +236,3 @@ class gplace
     } // EoF
 
 } // EoC
-
-?>

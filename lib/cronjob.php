@@ -16,7 +16,7 @@ class cronjob extends \rex_cronjob
 
     public function getTypeName() : string
     {
-        return \rex_i18n::msg( 'mf_googleplaces_cron_title' );
+        return \rex_i18n::msg( 'googleplaces_cron_title' );
     }
 
 }

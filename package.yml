@@ -1,47 +1,40 @@
 # Alle hier gesetzten Werte können über $addon->getProperty($key) abgefragt werden
 
-package: mf_googleplaces
-version: '2.3.1'
-author: 'Medienfeuer, Daniel Springer'
-compile: 0
+package: googleplaces
+version: '2.3.2'
+author: 'FriendsOfREDAXO'
 
 page:
   title: 'Google Places'
-  perm: mf_googleplaces[]
+  perm: googleplaces[]
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    help:
-      #icon: 'rex-icon fa fa-question'
-      title: 'translate:mf_googleplaces_start'
+    reviews: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
+    config: { title: 'translate:googleplaces_config' }
+    docs:
+      icon: 'rex-icon fa fa-question-circle'
+      title: 'translate:googleplaces_start'
       pjax: false
-      #itemclass: pull-right
+      itemclass: pull-right
       subpages:
         intro:
-          title: 'translate:mf_googleplaces_docs_intro'
+          title: 'translate:googleplaces_docs_intro'
           pjax: false
           subPath: README.md
         modules:
-          title: 'translate:mf_googleplaces_docs_modules'
+          title: 'translate:googleplaces_docs_modules'
           pjax: false
           subPath: docs/modules.md
-       #google_api:
-         #title: 'translate:mf_googleplaces_docs_google_api'
-         #pjax: false
-         #subPath: docs/google_api.md
-       #db:
-         #title: 'translate:mf_googleplaces_docs_db'
-         #pjax: false
-         #subPath: docs/db.md
         credits:
-          title: 'translate:mf_googleplaces_docs_credits'
+          title: 'translate:googleplaces_docs_credits'
           pjax: false
           subPath: docs/credits.md
-    config: { title: 'translate:mf_googleplaces_config' }
-    reviews: { title: 'translate:mf_googleplaces_reviews', icon: "fa fa-star" }
-    info: { title: 'translate:mf_googleplaces_information' }
 
 requires:
     packages:
-    
     redaxo: '>=5.10'
+
+default_config:
+  gmaps-location-id: ''
+  gmaps-api-key: ''
