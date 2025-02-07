@@ -10,8 +10,6 @@ use DateTime;
 
 /**
  * Google Places AddOn: Gibt Details zu einem Google Place aus.
- *
- * @package redaxo\googleplaces
  */
 class Helper
 {
@@ -21,12 +19,16 @@ class Helper
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
-    public static function gapi()
+    public static function gapi(string $place_id = null) : array
     {
+
+        if($place_id == null) {
+            $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
+        }
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://maps.googleapis.com/maps/api/place/details/json?place_id='.rex_addon::get('googleplaces')->getConfig('gmaps-location-id').'&key='.rex_addon::get('googleplaces')->getConfig('gmaps-api-key').'&reviews_no_translations=true&reviews_sort=newest',
+            CURLOPT_URL => 'https://maps.googleapis.com/maps/api/place/details/json?place_id='.$place_id.'&key='.rex_addon::get('googleplaces')->getConfig('gmaps-api-key').'&reviews_no_translations=true&reviews_sort=newest',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -49,7 +51,7 @@ class Helper
      * @return array | string
      * @author Daniel Springer
      */
-    public static function get(string $qry = "")
+    public static function get(string $qry = "") : array
     {
         return self::getFromGoogle($qry);
     } // EoF
@@ -76,7 +78,7 @@ class Helper
      * @return array | false
      * @author Daniel Springer
      */
-    public static function getPlaceDetails($qry = "")
+    public static function getPlaceDetails($qry = "") : array | false
     {
         $sql = rex_sql::factory();
         $sql->setQuery('SELECT api_response_json FROM googleplaces_place_detail WHERE place_id = :place_id', ["place_id" => rex_addon::get('googleplaces')->getConfig('gmaps-location-id')]);
@@ -109,7 +111,7 @@ class Helper
      * @return array
      * @author Daniel Springer
      */
-    public static function getAllReviews(string $orderBy = "", int $limit = null)
+    public static function getAllReviews(string $orderBy = "", int $limit = null) : array
     {
         $sql = rex_sql::factory();
         $qry = 'SELECT * FROM rex_googleplaces_review';
@@ -146,7 +148,7 @@ class Helper
      * @return float
      * @author Daniel Springer
      */
-    public static function getAvgRating()
+    public static function getAvgRating() : float
     {
         $sql = rex_sql::factory();
         $sql->setQuery('SELECT rating FROM rex_googleplaces_review');
@@ -163,7 +165,7 @@ class Helper
      * @return int
      * @author Daniel Springer
      */
-    public static function getTotalRatings()
+    public static function getTotalRatings() : int
     {
         $sql = rex_sql::factory();
         $sql->setQuery('SELECT * FROM rex_googleplaces_review');
@@ -177,7 +179,7 @@ class Helper
      * @return bool
      * @author Daniel Springer
      */
-    public static function updateReviewsDB()
+    public static function updateReviewsDB() : bool
     {
         $googlePlace    = self::getFromGoogle();
         $googleReviews  = $googlePlace['reviews'];
