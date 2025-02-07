@@ -1,7 +1,10 @@
 <?php
+
+use FriendsOfRedaxo\GooglePlaces\Helper;
+
 date_default_timezone_set('Europe/Berlin');
-$reviews    = gplace::getAllReviews('time DESC');
-$gplace     = gplace::getPlaceDetails();
+$reviews    = Helper::getAllReviews('time DESC');
+$gplace     = Helper::getPlaceDetails();
 $googleLogo =
     '
 <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -33,12 +36,12 @@ $googleLogoBig =
                     </div>
                 </div><!-- /. media -->
                 <div class="avg-rating">
-                    <?= gplace::getAvgRating() ?> / 5
+                    <?= Helper::getAvgRating() ?> / 5
                 </div>
                 <div class="review-stars">
                     <ul>
                     <?php
-                    $avg = gplace::getAvgRating();
+                    $avg = Helper::getAvgRating();
                     switch ($avg) {
                         case  ($avg == 5):
                             echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
@@ -71,7 +74,7 @@ $googleLogoBig =
                     ?>
                     </ul>
                     <span class="grey-text">
-                                <?= gplace::getTotalRatings() ?> Bewertungen gesamt
+                                <?= Helper::getTotalRatings() ?> Bewertungen gesamt
                     </span>
                 </div>
             </div>
