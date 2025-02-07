@@ -90,51 +90,54 @@ Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Or
 
 ### Beispiel-Modul mit Bootstrap 5 Markup
 
-![BS4 Modul](../assets/Add-ons/googleplaces/img/bsp-modul-bs5.jpg)
+![BS5 Modul](..//assets/addons/googleplaces/img/bsp-modul-bs5.jpg)
 
-Das Modul benötigt Bootstrap 4 und FontAwesome für die Sterne.
+Das Modul benötigt Bootstrap 4 und Font Awesome für die Sterne.
 
 CSS-Style:
 
-`assets/Add-ons/googleplaces/css/googleplaces-reviews-bs5.css`
+`/assets/addons/googleplaces/css/reviews-bs5.css`
 
 ```php
 <?php
 $fragment = new rex_fragment();
-echo $fragment->parse('googleplaces/reviews.bs4.php');
+$fragment->setVar('place', Place::get(1), false);
+echo $fragment->parse('googleplaces/reviews.bs5.php');
 ?>
 ```
 
 ### Beispiel-Modul mit Bootstrap 4 Markup
 
-![BS4 Modul](../assets/Add-ons/googleplaces/img/bsp-modul-bs4.jpg)
+![BS4 Modul](..//assets/addons/googleplaces/img/bsp-modul-bs4.jpg)
 
-Das Modul benötigt Bootstrap 4 und FontAwesome für die Sterne.
+Das Modul benötigt Bootstrap 4 und Font Awesome für die Sterne.
 
 CSS-Style:
 
-`assets/Add-ons/googleplaces/css/googleplaces-reviews-bs4.css`
+`/assets/addons/googleplaces/css/reviews-bs4.css`
 
 ```php
 <?php
 $fragment = new rex_fragment();
+$fragment->setVar('place', Place::get(1), false);
 echo $fragment->parse('googleplaces/reviews.bs4.php');
 ?>
 ```
 
 ### Beispiel-Modul mit Bootstrap 3 Markup
 
-![BS3 Modul](../assets/Add-ons/googleplaces/img/bsp-modul-bs3.jpg)
+![BS3 Modul](..//assets/addons/googleplaces/img/bsp-modul-bs3.jpg)
 
-Das Modul benötigt Bootstrap 3 und FontAwesome für die Sterne.
+Das Modul benötigt Bootstrap 3 und Font Awesome für die Sterne.
 
 CSS-Style:
 
-`assets/Add-ons/googleplaces/css/googleplaces-reviews-bs3.css`
+`/assets/addons/googleplaces/css/reviews-bs3.css`
 
 ```php
 <?php
 $fragment = new rex_fragment();
+$fragment->setVar('place', Place::get(1), false);
 echo $fragment->parse('googleplaces/reviews.bs3.php');
 ?>
 ```

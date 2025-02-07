@@ -1,0 +1,77 @@
+.ratings {
+    background-image: linear-gradient(to top, #fdfdfd, #939393)
+}
+
+.ratings .sm-text {
+    font-size: 10px;
+    letter-spacing: 1px
+}
+
+.ratings .sm-text-1 {
+    font-size: 14px
+}
+
+.ratings .green-tab {
+    background-color: #00C853;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 3px 5px 3px
+}
+
+.ratings .btn-red {
+    background-color: #E64A19;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    outline: none
+}
+
+.ratings .btn-red:hover {
+    background-color: #BF360C;
+    color: #ffffff;
+}
+
+.ratings .btn-red:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+
+.ratings .grey-text,
+.ratings .grey-text a,
+.ratings .grey-text a:hover,
+.ratings .grey-text a:focus,
+.ratings .grey-text a:visited,
+.ratings .grey-text a:active {
+    color: #BDBDBD;
+    text-decoration: none;
+}
+
+.ratings .green-text {
+    color: #4CAF50
+}
+
+.ratings .profile-pic img {
+    border-radius: 50%
+}
+
+.ratings .via {
+    border-radius: 20px;
+    height: 28px
+}
+
+.ratings .review-stars ul,
+.ratings .review-stars li {
+    display: inline;
+}
+
+.ratings .review-stars ul {
+    margin-left: -45px;
+}
+
+.ratings .review-stars .fa-star,
+.ratings .review-stars .fa-star-half {
+    color: rgb(255, 180, 0);
+    font-size: 1.7em;
+}
