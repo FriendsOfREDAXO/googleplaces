@@ -104,7 +104,7 @@ class gplace
     public static function getAllReviews(string $orderBy = "", int $limit = null)
     {
         $sql = rex_sql::factory();
-        $qry = 'SELECT * FROM rex_googleplaces_reviews';
+        $qry = 'SELECT * FROM rex_googleplaces_review';
 
         if ($orderBy != "") {
             $qry .= ' ORDER BY '.$orderBy;
@@ -141,7 +141,7 @@ class gplace
     public static function getAvgRating()
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT rating FROM rex_googleplaces_reviews');
+        $sql->setQuery('SELECT rating FROM rex_googleplaces_review');
         $rating = 0;
         $i = $sql->getRows();
         foreach ($sql as $row) {
@@ -158,7 +158,7 @@ class gplace
     public static function getTotalRatings()
     {
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT * FROM rex_googleplaces_reviews');
+        $sql->setQuery('SELECT * FROM rex_googleplaces_review');
         $i = $sql->getRows();
         return $i;
     } // EoF
@@ -181,7 +181,7 @@ class gplace
 
             $sql_search = rex_sql::factory();
             $sql_search->setDebug(false);
-            $sql_search->setQuery('SELECT * FROM rex_googleplaces_reviews WHERE time = :time', ['time' => $googleTime]);
+            $sql_search->setQuery('SELECT * FROM rex_googleplaces_review WHERE time = :time', ['time' => $googleTime]);
             #dump($sql_search->getRows());
 
             if ($sql_search->getRows() == 0) {
@@ -195,7 +195,7 @@ class gplace
                 }
                 $sql = rex_sql::factory();
                 $sql->setDebug(false);
-                $sql->setTable('rex_googleplaces_reviews');
+                $sql->setTable('rex_googleplaces_review');
                 $sql->setValues(
                     [
                         'author_name' => $gr['author_name'],
@@ -217,7 +217,7 @@ class gplace
         }
 
         $sql_place = rex_sql::factory();
-        $sql_place->setTable('rex_googleplaces_place_details');
+        $sql_place->setTable('rex_googleplaces_place_detail');
         $sql_place->setValues(
             [
                 'updatedate' => date('Y-m-d H:i:s'),
