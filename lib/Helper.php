@@ -38,7 +38,7 @@ class Helper
         $response = json_decode($response);
         $response = json_decode(json_encode($response->result), true);
         curl_close($curl);
-        return $response;
+        return $response ?? [];	
     }
 
     /**
