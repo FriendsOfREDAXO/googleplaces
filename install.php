@@ -29,3 +29,4 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') == "") {
 rex_config::removeNamespace('mf_googleplaces');
 
 include(__DIR__ . '/install/table.php');
+include(__DIR__ . '/install/tableset.php');

@@ -127,7 +127,7 @@ class gplace
             $response[$id]['text'] = $row->getValue('text');
             $response[$id]['profile_photo_url'] = $row->getValue('profile_photo_url');
             $response[$id]['time'] = $row->getValue('time');
-            $response[$id]['createdate_addon'] = $row->getValue('createdate_addon');
+            $response[$id]['createdate'] = $row->getValue('createdate');
             $response[$id]['google_place_id'] = $row->getValue('google_place_id');
         }
         return $response;
@@ -207,7 +207,7 @@ class gplace
                         'profile_photo_url' => $gr['profile_photo_url'],
                         'profile_photo_base64' => $gr_profile_photo_base64,
                         'google_place_id' => $googlePlaceId,
-                        'createdate_addon' => $dateTime
+                        'createdate' => $dateTime
                     ]
                 );
                 $sql->insert();

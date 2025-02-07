@@ -18,3 +18,23 @@ googleplaces_docs_google_api = Direkt über die Google Places API
 googleplaces_docs_db = Über die eigene DB
 googleplaces_docs_credits = Credits
 googleplaces_docs_modules = Beispiel-Module
+
+googleplaces.review.google_place_id = Google Place ID
+googleplaces.review.author_name = Autor*in
+googleplaces.review.author_url = Autor*in URL
+googleplaces.review.language = Sprache
+googleplaces.review.profile_photo_url = Profilbild URL
+googleplaces.review.profile_photo_base64 = Profilbild Base64
+googleplaces.review.rating = Bewertung
+googleplaces.review.text = Text
+googleplaces.review.time = Datum
+googleplaces.review.createdate = Erstellt am...
+googleplaces.review.updatedate = Zuletzt aktualisiert am...
+googleplaces.review.uuid = UUID
+
+googleplaces.place_detail.place_id = Place ID
+googleplaces.place_detail.api_response_json = API Response JSON
+googleplaces.place_detail.updatedate = Zuletzt aktualisiert
+
+googleplaces_place_detail.table = 🏪 Google Places Details
+googleplaces_review.table = 🏪 Google Places Reviews

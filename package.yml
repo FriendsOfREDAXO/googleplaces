@@ -10,7 +10,7 @@ page:
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-info-circle" }
+    place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-map-marker" }
     review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
     config: { title: 'translate:googleplaces_config' }
     docs:
