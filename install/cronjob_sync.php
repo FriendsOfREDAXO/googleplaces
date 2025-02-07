@@ -19,6 +19,7 @@ $job_intervall = [
 
 $timestamp = rex_cronjob_manager_sql::calculateNextTime($job_intervall);
 
+$sql = rex_sql::factory();
 $sql->setTable(rex::getTable('cronjob'));
 $sql->setValue('name', '[googleplaces] Google Places Daten synchronisieren');
 $sql->setValue('description', 'Synchronisiert die Google Places Daten.');
