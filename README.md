@@ -13,7 +13,7 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 * 🦖 Umstellung auf **FriendsOfREDAXO-Namespace**
 * ✅ **YOrm**-basierte Klassen für Places und Reviews
 * ➡️ **YForm**-Tableset für Places und Reviews
-* 🏪 Neue Ba**ckend-Ansicht für Places**
+* 🏪 Neue **Backend-Ansicht für Places**
 * 💁🏻 **Überarbeitete Dokumentation** mit Beispielen zu den neuen Methoden
 
 ## Voraussetzungen
