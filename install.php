@@ -7,6 +7,7 @@
 // mf_googleplaces_place_details in rex_googleplaces_place_detail um
 
 use FriendsOfRedaxo\GooglePlaces\Place;
+use FriendsOfRedaxo\GooglePlaces\Review;
 
 $table = rex_sql_table::get('mf_googleplaces_reviews');
 if ($table->exists()) {
@@ -27,8 +28,27 @@ if (rex_config::get('mf_googleplaces', 'gmaps-api-key') !== "") {
     rex_config::set('googleplaces', 'gmaps-api-key', rex_config::get('mf_googleplaces', 'gmaps-api-key'));
 }
 
+// Einrichtung und Installation
+
+include(__DIR__ . '/install/table.php');
+include(__DIR__ . '/install/tableset.php');
+
 if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
-    
+        
+
+        
+    if (rex_addon::get('yform')->isAvailable() && !rex::isSafeMode()) {
+        rex_yform_manager_dataset::setModelClass(
+            'rex_googleplaces_place_detail',
+            Place::class
+        );
+
+        rex_yform_manager_dataset::setModelClass(
+            'rex_googleplaces_review',
+            Review::class
+        );
+    }
+
     // Get existing place or create new one
     $place = Place::query()
         ->where('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'))
@@ -44,8 +64,3 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
 }
 
 rex_config::removeNamespace('mf_googleplaces');
-
-// Einrichtung und Installation
-
-include(__DIR__ . '/install/table.php');
-include(__DIR__ . '/install/tableset.php');
