@@ -3,7 +3,8 @@ googleplaces_information = Info
 googleplaces_config = Konfiguration
 googleplaces_help = Hilfe
 googleplaces_start = Start
-googleplaces_reviews = Reviews
+googleplaces_review = Bewertungen
+googleplaces_place_detail = Place Details
 googleplaces_cron_title = Google Places: Reviews per API-Call aktualisieren
 
 googleplaces_label_profile_photo_url = Profilbild
