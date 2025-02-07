@@ -2,9 +2,6 @@
 
 /**
  * Job "Cronjob" konfigurieren.
- *
- * @var rex_sql $sql Kommt aus dem aufrufenden install.php
- * @var string $installUser Kommt aus dem aufrufenden install.php
  */
 
 use FriendsOfRedaxo\GooglePlaces\Cronjob;
