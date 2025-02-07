@@ -1,5 +1,7 @@
 <?php
 
+use FriendsOfRedaxo\GooglePlaces\Helper;
+
 $addon = rex_addon::get('googleplaces');
 
 $table_name = 'rex_googleplaces_place_detail';
