@@ -3,9 +3,17 @@
 namespace FriendsOfRedaxo\GooglePlaces;
 
 use rex_yform_manager_dataset;
-
+use rex_yform_manager_collection;
 class Place extends rex_yform_manager_dataset {
 	
+    /* Reviews */
+    /** @api */
+    public function getReviews() :rex_yform_manager_collection {
+        return Review::query()
+            ->where('place_id', $this->getId())
+            ->find();
+    }
+
     /* Place ID */
     /** @api */
     public function getPlaceId() : ?string {
