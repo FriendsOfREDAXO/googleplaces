@@ -27,8 +27,11 @@ page:
       title: "translate:googleplaces_config"
 
 requires:
-  packages:
+  php:
+    version: '>8.1,<9'
   redaxo: ">=5.17"
+  packages:
+    yform: ">=4.0.0"
 
 default_config:
   gmaps-location-id: ""
