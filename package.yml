@@ -10,8 +10,8 @@ page:
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
     place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-info-circle" }
+    review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
     config: { title: 'translate:googleplaces_config' }
     docs:
       icon: 'rex-icon fa fa-question-circle'
