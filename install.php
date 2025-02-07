@@ -3,13 +3,14 @@
 
 // Migration von mf_googleplaces nach googleplaces
 
-// Benenne bestehende Tabellen mf_googleplaces_reviews in googleplaces_reviews um
+// Benenne bestehende Tabellen mf_googleplaces_reviews in rex_googleplaces_review und
+// mf_googleplaces_place_details in rex_googleplaces_place_detail um
 
 use FriendsOfRedaxo\GooglePlaces\Place;
 
 try {
     rex_sql_table::get('mf_googleplaces_reviews')
-        ->setName(rex::getTablePrefix().'googleplaces_reviews')
+        ->setName(rex::getTablePrefix().'googleplaces_review')
         ->alter();
 } catch (rex_sql_exception $e) {
     // Table does not exist
@@ -17,7 +18,7 @@ try {
 
 try {
     rex_sql_table::get('mf_googleplaces_place_details')
-        ->setName(rex::getTablePrefix().'googleplaces_place_details')
+        ->setName(rex::getTablePrefix().'googleplaces_place_detail')
         ->alter();
 } catch (rex_sql_exception $e) {
     // Table does not exist
