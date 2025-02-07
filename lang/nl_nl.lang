@@ -1,0 +1,33 @@
+googleplaces_title = Google Places
+googleplaces_config = Instellingen
+googleplaces_docs = Documentatie
+googleplaces_review = Beoordelingen
+googleplaces_place_detail = Google Places
+googleplaces_cron_title = Google Places: Places-details en beoordelingen via Google Api ophalen
+googleplaces_sync = Nu bijwerken
+googleplaces_sync_success = De Google Places gegevens zijn succesvol bijgewerkt.
+
+googleplaces_review.place_detail_id = Google Place
+googleplaces.review.google_place_id = Google Place ID
+googleplaces.review.author_name = Auteur
+googleplaces.review.author_url = Auteur URL
+googleplaces.review.language = Taal
+googleplaces.review.profile_photo_url = Profielfoto URL
+googleplaces.review.profile_photo_base64 = Profielfoto Base64
+googleplaces.review.rating = Beoordeling
+googleplaces.review.text = Tekst
+googleplaces.review.time = Datum
+googleplaces.review.createdate = Aangemaakt op...
+googleplaces_review.publishdate = Gepubliceerd op...
+googleplaces.review.updatedate = Laatst bijgewerkt op...
+googleplaces.review.uuid = UUID
+
+googleplaces.place_detail.place_id = Place ID
+googleplaces.place_detail.api_response_json = API Response JSON
+googleplaces.place_detail.createdate = Aangemaakt op...
+googleplaces.place_detail.updatedate = Laatst bijgewerkt op...
+googleplaces_place_detail.place_id.validate.unique = Deze Place ID bestaat al
+googleplaces_place_detail.review_ids = Beoordelingen
+
+googleplaces_place_detail.table = 🏪 Google Places Details
+googleplaces_review.table = 🏪 Google Places Beoordelingen
