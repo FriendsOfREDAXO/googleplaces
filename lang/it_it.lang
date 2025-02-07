@@ -1,0 +1,33 @@
+googleplaces_title = Google Places
+googleplaces_config = Impostazioni
+googleplaces_docs = Documenti
+googleplaces_review = Recensioni
+googleplaces_place_detail = Google Places
+googleplaces_cron_title = Google Places: Recupera dettagli luoghi e recensioni tramite API Google
+googleplaces_sync = Aggiorna ora
+googleplaces_sync_success = I dati di Google Places sono stati aggiornati con successo.
+
+googleplaces_review.place_detail_id = Google Place
+googleplaces.review.google_place_id = ID Google Place
+googleplaces.review.author_name = Autore/Autrice
+googleplaces.review.author_url = URL Autore/Autrice
+googleplaces.review.language = Lingua
+googleplaces.review.profile_photo_url = URL foto profilo
+googleplaces.review.profile_photo_base64 = Foto profilo Base64
+googleplaces.review.rating = Valutazione
+googleplaces.review.text = Testo
+googleplaces.review.time = Data
+googleplaces.review.createdate = Creato il...
+googleplaces_review.publishdate = Pubblicato il...
+googleplaces.review.updatedate = Ultimo aggiornamento il...
+googleplaces.review.uuid = UUID
+
+googleplaces.place_detail.place_id = ID Place
+googleplaces.place_detail.api_response_json = Risposta API JSON
+googleplaces.place_detail.createdate = Creato il...
+googleplaces.place_detail.updatedate = Ultimo aggiornamento il...
+googleplaces_place_detail.place_id.validate.unique = L'ID Place esiste già
+googleplaces_place_detail.review_ids = Recensioni
+
+googleplaces_place_detail.table = 🏪 Dettagli Google Places
+googleplaces_review.table = 🏪 Recensioni Google Places
