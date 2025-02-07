@@ -162,6 +162,19 @@ class Review extends rex_yform_manager_dataset
         return $this;
     }
 
+    /* Veröffenhtlicht am... */
+    /** @api */
+    public function getPublishedate(): ?string
+    {
+        return $this->getValue("publishedate");
+    }
+    /** @api */
+    public function setPublishedate(string $value): self
+    {
+        $this->setValue("publishedate", $value);
+        return $this;
+    }
+
     /* Zuletzt aktualisiert am... */
     /** @api */
     public function getUpdatedate(): ?string
@@ -198,6 +211,22 @@ class Review extends rex_yform_manager_dataset
         /** @var rex_yform_list $list */
         $list = $ep->getSubject();
 
+        $list->setColumnFormat(
+            'place_detail_id',
+            'custom',
+            static function ($a) {
+                $place = Place::get($a['value']);
+                if($place) {
+                    $place_details = $place->getApiResponseAsArray();
+                    $place_name = "Unbekannt";
+                    if(isset($place_details['name'])) {
+                        $place_name = $place_details['name'];
+                    }
+                    return '<a href="index.php?page=googleplaces/place/detail&google_place_id='.$place->getId().'" target="_blank">'.$place_name.'</a>';
+                }
+                return "<code>".$a['list']->getValue('place_id')."</code>";
+            },
+        );
         // Profilbild bei Autor ausgeben
         $list->setColumnFormat(
             'author_name',
@@ -206,7 +235,7 @@ class Review extends rex_yform_manager_dataset
                 $profile_photo_base64 = $a['list']->getValue('profile_photo_base64');
                 $output = $a['value'];
                 if ($profile_photo_base64) {
-                    $output = '<img src="data:image/jpeg;base64,' . $profile_photo_base64 . '" alt="' . $a['value'] . '" style="max-width: 30px; max-height: 30px; border-radius: 50%;"><span class="text-nowrap">' . $a['value'] . '</span>';
+                    $output = '<img src="data:image/jpeg;base64,' . $profile_photo_base64 . '" alt="' . $a['value'] . '" style="max-width: 30px; max-height: 30px; border-radius: 50%;"> <span class="text-nowrap">' . $a['value'] . '</span>';
                 }
                 return $output;
             }
