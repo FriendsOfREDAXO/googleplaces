@@ -4,6 +4,18 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 
 ![splashscreen](https://user-images.githubusercontent.com/16903055/140534021-cd09791c-9dc5-4c11-8f40-d16e72b43cf8.jpg)
 
+## Neu in Version 3.X
+
+* 💯 Verwalte **beliebig viele Places**
+* ⭐ Speichere **Reviews** für mehrere Places
+* 🔄️ **Manuelle Synchronisation** aus dem Backend heraus
+* 5️⃣ **Bootstrap 5** Modul-Beispiel
+* 🦖 Umstellung auf **FriendsOfREDAXO-Namespace**
+* ✅ **YOrm**-basierte Klassen für Places und Reviews
+* ➡️ **YForm**-Tableset für Places und Reviews
+* 🏪 Neue Ba**ckend-Ansicht für Places**
+* 💁🏻 **Überarbeitete Dokumentation** mit Beispielen zu den neuen Methoden
+
 ## Voraussetzungen
 
 ### Google Places API-Key
@@ -14,11 +26,9 @@ Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulass
 
 ### Google Places ID
 
-Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden:
+Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden: <https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
 
-<https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
-
-__Gültiger API-Key und Place-ID müssen in die Konfiguration des Add-ons eingetragen werden.__
+**Gültiger API-Key und Place-ID müssen in die Konfiguration des Add-ons eingetragen werden.**
 
 ## Google-Place-Informationen
 
@@ -26,21 +36,19 @@ __Gültiger API-Key und Place-ID müssen in die Konfiguration des Add-ons einget
 
 Mittels der Funktion `gplace::get()` ist es möglich, direkt über die Google-API Informationen zum PLace in Google Maps zu erhalten.
 
-Mit `dump(gplace::get());` kann man die Rückgabe sichtbar machen.
-
 ### Einzelne Attribute zum Place
 
 Einzelne Werte oder Arrays kann man wie folgt ansprechen:
 
-- `gplace::get('name_des_wertes')`
+* `gplace::get('name_des_wertes')`
 
 Entsprechend beispielhaft:
 
-- Öffnungszeiten (Array) bspw.: `gplace::get('opening_hours')`
+* Öffnungszeiten (Array) bspw.: `gplace::get('opening_hours')`
 
-- Maps-URL (string): `gplace::get('url')`
+* Maps-URL (string): `gplace::get('url')`
 
-- Adresse (string): `gplace::get('formatted_address')`
+* Adresse (string): `gplace::get('formatted_address')`
 
 Detailinfos zu den Google-Place-Attributen gibt es hier:
 
@@ -54,7 +62,7 @@ Außerdem kann man Reviews automatisch in einer eigenen Tabelle speichern und so
 
 ### "Live"-Aufruf der Reviews über die Google-API
 
-- `gplace::getAllReviewsFromGoogle()`
+* `gplace::getAllReviewsFromGoogle()`
 
 Ruft Reviews zum Google Place direkt über die Google API ab (wsl. limitiert auf die letzten 5 Reviews). Pro Aufruf wird hier von Google ein API-Call registriert und abgerechnet.
 
@@ -64,8 +72,8 @@ Weiterhin ist es möglich die Reviews zu einem Google Place in einer eigenen RED
 
 Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder greift man selbst per SQL darauf zu oder nutzt die vom Add-on mitgelieferten Funktionen:
 
-- `gplace::getAllReviews()`
--
+* `gplace::getAllReviews()`
+*
   Ruft alle Reviews aus der eigenen DB ab und gibt ein Array zurück.
 
 ### Reviews automatisch via Cronjob in Datenbanktabelle speichern
@@ -138,13 +146,13 @@ echo $fragment->parse('googleplaces/reviews.bs3.php');
 
 ## Autor
 
-__Friends Of REDAXO__
+**Friends Of REDAXO**
 
-- <http://www.redaxo.org>
-- <https://github.com/FriendsOfREDAXO>
+* <http://www.redaxo.org>
+* <https://github.com/FriendsOfREDAXO>
 
-__Lead__
+**Lead**
 [Alexander Walther](https://github.com/alxndr-w)
 
-__Ursprünglich entwickelt von__
+**Ursprünglich entwickelt von**
 [Daniel Springer]([https://www.e-recht24.de](https://github.com/danspringer))
