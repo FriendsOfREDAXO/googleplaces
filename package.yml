@@ -21,7 +21,7 @@ page:
 
 requires:
     packages:
-    redaxo: '>=5.10'
+    redaxo: '>=5.17'
 
 default_config:
   gmaps-location-id: ''
