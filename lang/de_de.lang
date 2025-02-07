@@ -19,6 +19,7 @@ googleplaces_docs_db = Über die eigene DB
 googleplaces_docs_credits = Credits
 googleplaces_docs_modules = Beispiel-Module
 
+googleplaces_review.place_detail_id = Google Places Detail ID
 googleplaces.review.google_place_id = Google Place ID
 googleplaces.review.author_name = Autor*in
 googleplaces.review.author_url = Autor*in URL
