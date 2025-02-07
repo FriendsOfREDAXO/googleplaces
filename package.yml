@@ -10,11 +10,13 @@ page:
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    help:
-      #icon: 'rex-icon fa fa-question'
+    reviews: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
+    config: { title: 'translate:googleplaces_config' }
+    docs:
+      icon: 'rex-icon fa fa-question-circle'
       title: 'translate:googleplaces_start'
       pjax: false
-      #itemclass: pull-right
+      itemclass: pull-right
       subpages:
         intro:
           title: 'translate:googleplaces_docs_intro'
@@ -24,23 +26,11 @@ page:
           title: 'translate:googleplaces_docs_modules'
           pjax: false
           subPath: docs/modules.md
-       #google_api:
-         #title: 'translate:googleplaces_docs_google_api'
-         #pjax: false
-         #subPath: docs/google_api.md
-       #db:
-         #title: 'translate:googleplaces_docs_db'
-         #pjax: false
-         #subPath: docs/db.md
         credits:
           title: 'translate:googleplaces_docs_credits'
           pjax: false
           subPath: docs/credits.md
-    config: { title: 'translate:googleplaces_config' }
-    reviews: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
-    info: { title: 'translate:googleplaces_information' }
 
 requires:
     packages:
-    
     redaxo: '>=5.10'
