@@ -66,7 +66,7 @@ Aufrufe der Google-API zu vermeiden. Dies hat außerdem den Vorteil, dass die Be
 -API-Aufruf von Google mit der Zeit umgangen werden kann, da Reviews automatisch in der eigenen Datenbank via
 mitgeliefertem Cronjob gespeichert werden können.
 
-Die Reviews befinden sich in der Tabelle `rex_googleplaces_reviews`. Entweder greift man selbst per SQL darauf zu oder
+Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder greift man selbst per SQL darauf zu oder
 nutzt die vom AddOn mitgelieferten Funktionen:
 
 - `gplace::getAllReviews()` <br>
@@ -74,7 +74,7 @@ nutzt die vom AddOn mitgelieferten Funktionen:
 
 ### Reviews automatisch via Cronjob in REDAXO-DB speichern
 
-Bei der Installation des AddOns wurde eine Tabelle mit dem Namen `rex_googleplaces_reviews` angelegt. Außerdem steht im
+Bei der Installation des AddOns wurde eine Tabelle mit dem Namen `rex_googleplaces_review` angelegt. Außerdem steht im
 Cronjob-AddOn der Cronjob-Typ `Google Places: Reviews per API-Call aktualisieren` zur Verfügung.<br>
 Der Cronjob ruft die Funktion `gplace::updateReviewsDB()` aus und speichert die letzten 5 Reviews, die als Antwort von
 Google kommen in der Tabelle. Anhand des Timestamps wird überprüft, ob der Review bereits in der Tabelle vorhanden ist
@@ -88,7 +88,7 @@ dann nur einmal pro Tag aufgerufen und nicht bei jeder Darstellung der Reviews.
 
 #### ACHTUNG: Löschung der Tabelle bei Deinstallation
 
-Bei einer Deinstallation des AddOns wird auch die Tabelle `rex_googleplaces_reviews` gelöscht und damit die Einträge
+Bei einer Deinstallation des AddOns wird auch die Tabelle `rex_googleplaces_review` gelöscht und damit die Einträge
 darin.
 
 Falls man das AddOn bereits einige Zeit in Benutzung hat und sich mehr als die letzten 5 Reviews darin befinden, sind
