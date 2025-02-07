@@ -36,8 +36,10 @@ class Helper
         ));
         $response = curl_exec($curl);
         $response = json_decode($response);
+
         $response = json_decode(json_encode($response->result), true);
         curl_close($curl);
+
         return $response ?? [];	
     }
 
@@ -54,6 +56,7 @@ class Helper
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
         }
         $response = self::googleApiResult($place_id);
+
         if ($key === null) {
             return $response;
         } else {
