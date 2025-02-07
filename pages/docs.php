@@ -5,11 +5,12 @@
  * @psalm-scope-this rex_addon
  */
 
-$mdFiles = glob(rex_path::addon('googleplaces', 'docs/*.md'));
-if ($mdFiles === false) {
+$files = glob(rex_path::addon('googleplaces', 'docs/*.md'));
+if ($files === false) {
     throw new rex_exception('No files found');
 }
 
+$mdFiles = [];
 foreach ($files as $file) {
     $mdFiles[mb_substr(basename($file), 0, -3)] = $file;
 }
@@ -23,7 +24,7 @@ $page = rex_be_controller::getPageObject('googleplaces/docs');
 
 if (null !== $page) {
     foreach ($mdFiles as $key => $mdFile) {
-        $keyWithoudPrio = mb_substr((string)$key, 3);
+        $keyWithoudPrio = mb_substr($key, 3);
         $currenMDFileWithoudPrio = mb_substr($currenMDFile, 3);
         $page->addSubpage(
             (new rex_be_page($key, rex_i18n::msg('googleplaces_docs_' . $keyWithoudPrio)))

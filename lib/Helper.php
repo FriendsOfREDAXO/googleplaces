@@ -12,6 +12,7 @@ class Helper
 
 
     /**
+     * @api
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
@@ -41,6 +42,7 @@ class Helper
     }
 
     /**
+     * @api
      * Ruft Details zu einem Google Place direkt über die Google API ab.
      * @param string $place_id
      * @return array | string
@@ -52,7 +54,7 @@ class Helper
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
         }
         $response = self::googleApiResult($place_id);
-        if ($key == "") {
+        if ($key === null) {
             return $response;
         } else {
             return $response[$key];
@@ -60,11 +62,12 @@ class Helper
     }
 
     /**
+     * @api
      * Ruft Details zu einem Google Place ab.
      * @return array | false
      * @author Daniel Springer
      */
-    public static function getPlaceDetails($place_id = null): array | false
+    public static function getPlaceDetails(string $place_id = null): array | string | false
     {
 
         if ($place_id === null) {
@@ -85,6 +88,7 @@ class Helper
     }
 
     /**
+     * @api
      * Ruft die 5 letzten Reviews zu einem Google Place direkt über die Google API ab.
      * @return array
      * @author Daniel Springer
@@ -96,6 +100,7 @@ class Helper
     }
 
     /**
+     * @api
      * Holt die Reviews von der Google API und speichert sie in der DB. Wenn der Eintrag bereits vorhanden ist, wird
      * er nicht verändert.
      * @return bool
@@ -107,6 +112,7 @@ class Helper
         $success = false;
 
         foreach ($places as $place) {
+            /** @var Place $place */
             $success = $place->sync();
         }
         return $success;

@@ -47,16 +47,13 @@ $googleLogo =
                                 <?php
                                 $avg = $place->getAvgRatingApi();
 switch ($avg) {
-    case ($avg == 5):
+    case (($avg > 4.0) && ($avg <= 5.0)):
         echo '⭐⭐⭐⭐⭐';
         break;
-    case (($avg > 4.0) && ($avg < 5.0)):
-        echo '⭐⭐⭐⭐⭐';
-        break;
-    case (($avg > 3.0) && ($avg < 4.0)):
+    case (($avg > 3.0) && ($avg <= 4.0)):
         echo '⭐⭐⭐⭐';
         break;
-    case (($avg > 2.0) && ($avg < 3.0)):
+    case (($avg > 2.0) && ($avg <= 3.0)):
         echo '⭐⭐⭐';
         break;
     case (($avg > 1.0) && ($avg <= 2.0)):

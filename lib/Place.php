@@ -16,7 +16,7 @@ class Place extends rex_yform_manager_dataset
     {
         return Review::query()
             ->where('place_id', $this->getId())
-            ->where('rating', '>=', $minRating)
+            ->where('rating', $minRating, '>=')
             ->limit($offset, $limit)
             ->orderBy($orderByField, $orderBy)
             ->find();
@@ -44,7 +44,7 @@ class Place extends rex_yform_manager_dataset
 
     public function getApiResponseAsArray() : ?array
     {
-        return json_decode($this->getApiResponseJson(), true);
+        return json_decode($this->getApiResponseJson() ?: '', true);
     }
 
     /** @api */
@@ -73,7 +73,7 @@ class Place extends rex_yform_manager_dataset
             return;
         }
 
-        /** @var rex_yform_list $list */
+        /** @var \rex_yform_list $list */
         $list = $ep->getSubject();
 
         $list->setColumnFormat(
@@ -113,6 +113,8 @@ class Place extends rex_yform_manager_dataset
 
         
     }
+    
+    /** @api */
     public function sync() : bool
     {
 
@@ -175,6 +177,7 @@ class Place extends rex_yform_manager_dataset
         return $success;
     }
 
+    /** @api */
     public function countReviews() : int
     {
         return Review::query()
@@ -182,6 +185,7 @@ class Place extends rex_yform_manager_dataset
             ->count();
     }
 
+    /** @api */
     public function getAvgRatingDb() : float
     {
         $reviews = $this->getReviews(0, 0, 0);
@@ -198,6 +202,7 @@ class Place extends rex_yform_manager_dataset
         return $rating / $i;
     }
 
+    /** @api */
     public function getAvgRatingApi() : float
     {
         $googlePlace = $this->getApiResponseAsArray();

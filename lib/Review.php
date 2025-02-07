@@ -55,9 +55,9 @@ class Review extends rex_yform_manager_dataset
 
     /* Bewertung */
     /** @api */
-    public function getRating(): ?int
+    public function getRating(): int
     {
-        return $this->getValue("rating");
+        return (int) $this->getValue("rating");
     }
     /** @api */
     public function setRating(int $value): self
@@ -277,7 +277,7 @@ class Review extends rex_yform_manager_dataset
             $query->where('place_id', $place_id);
         }
         if ($minRating >= 0) {
-            $query->where('rating', '>=', $minRating);
+            $query->where('rating', $minRating, '>=');
         }
         if ($limit >= 0) {
             $query->limit($offset, $limit);
