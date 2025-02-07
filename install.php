@@ -8,7 +8,7 @@
 use FriendsOfRedaxo\GooglePlaces\Place;
 
 try {
-    rex_sql_table::get(rex::getTablePrefix().'googleplaces_review')
+    rex_sql_table::get('mf_googleplaces_reviews')
         ->setName(rex::getTablePrefix().'googleplaces_reviews')
         ->alter();
 } catch (rex_sql_exception $e) {
@@ -16,7 +16,7 @@ try {
 }
 
 try {
-    rex_sql_table::get(rex::getTablePrefix().'googleplaces_place_detail')
+    rex_sql_table::get('mf_googleplaces_place_details')
         ->setName(rex::getTablePrefix().'googleplaces_place_details')
         ->alter();
 } catch (rex_sql_exception $e) {
