@@ -13,7 +13,7 @@ Das Modul benötigt Bootstrap 4 und Fontawesome für die Sterne. <br>
 CSS-Style:<br>
 `assets/addons/googleplaces/css/googleplaces-reviews-bs4.css`
 
-```
+```php
 <?php
 $fragment = new rex_fragment();
 echo $fragment->parse('googleplaces_reviews.bs4.php');
@@ -28,7 +28,7 @@ Das Modul benötigt Bootstrap 3 und Fontawesome für die Sterne. <br>
 CSS-Style:<br>
 `assets/addons/googleplaces/css/googleplaces-reviews-bs3.css`
 
-```
+```php
 <?php
 $fragment = new rex_fragment();
 echo $fragment->parse('googleplaces_reviews.bs3.php');
