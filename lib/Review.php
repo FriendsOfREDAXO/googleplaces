@@ -11,19 +11,19 @@ class Review extends rex_yform_manager_dataset
     /** @api */
     public function getPlace(): ?Place
     {
-        return $this->getRelatedDataset("place_id");
+        return $this->getRelatedDataset("place_detail_id");
     }
 
     /* Place ID */
     /** @api */
     public function getPlaceId(): ?int
     {
-        return $this->getValue("place_id");
+        return $this->getValue("place_detail_id");
     }
     /** @api */
     public function setPlaceId(int $value): self
     {
-        $this->setValue("place_id", $value);
+        $this->setValue("place_detail_id", $value);
         return $this;
     }
 
@@ -165,14 +165,14 @@ class Review extends rex_yform_manager_dataset
 
     /* Veröffenhtlicht am... */
     /** @api */
-    public function getPublishedate(): ?string
+    public function getPublishdate(): ?string
     {
-        return $this->getValue("publishedate");
+        return $this->getValue("publishdate");
     }
     /** @api */
-    public function setPublishedate(string $value): self
+    public function setPublishdate(string $value): self
     {
-        $this->setValue("publishedate", $value);
+        $this->setValue("publishdate", $value);
         return $this;
     }
 
@@ -264,6 +264,17 @@ class Review extends rex_yform_manager_dataset
                     return "";
                 }
                 return \rex_formatter::strftime($a['value'], 'datetime');
+            },
+        );
+        // publishdate formatierrt ausgeben mit rex_formatter
+        $list->setColumnFormat(
+            'publishdate',
+            'custom',
+            static function ($a) {
+                if ($a['value'] === "0000-00-00 00:00:00") {
+                    return "";
+                }
+                return '<span class="text-nowrap">'. \rex_formatter::strftime($a['value'], 'datetime') .'</span>';
             },
         );
     }

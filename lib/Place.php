@@ -86,7 +86,7 @@ class Place extends rex_yform_manager_dataset
                     $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $api_json_response->name. '</a></strong>';
                     $output .= '<br>' . $api_json_response->formatted_address;
                     $output .= '<br>' . $api_json_response->formatted_phone_number;
-                    $output .= '<br><i class="fa fa-image"></i> ×' . count($api_json_response->photos);
+                    $output .= '<br><i class="fa fa-image"></i> ×' . count($api_json_response->photos ?? []);
                     $output .= '<br><i class="fa fa-star"></i> ' . $api_json_response->rating ." (".$api_json_response->user_ratings_total .")";
                     $output .= "<br><code>" . $a['value'] . "</code>";
 
@@ -119,10 +119,18 @@ class Place extends rex_yform_manager_dataset
     {
 
         
-        $googlePlace = Helper::getFromGoogle($this->getPlaceId());
-        $reviews_from_api = $googlePlace['reviews'] ?? [];
-
         $success = false;
+
+        $googlePlace = Helper::getFromGoogle($this->getPlaceId());
+        if($googlePlace === null) {
+            dd('Google Place not found');
+            return false;
+        }
+        $reviews_from_api = $googlePlace['reviews'];
+        if($reviews_from_api === null) {
+            dd('Google Place reviews not found');
+            return false;
+        }
         
         // Update place details
         $this
@@ -135,9 +143,11 @@ class Place extends rex_yform_manager_dataset
         if ($success) {
 
             $place_dataset_id = $this->getId();
+            $place_id = $this->getPlaceId();
+
 
             foreach ($reviews_from_api as $review_from_api) {
-                $uuid = rex_yform_value_uuid::guidv4($place_dataset_id . $review_from_api['author_url']);
+                $uuid = rex_yform_value_uuid::guidv4(md5($place_id . $review_from_api['author_url']));
 
                 // Statt SQL-Query via rex_sql, den Eintrag über Review-Model prüfen
                 $review = Review::query()
@@ -147,9 +157,10 @@ class Place extends rex_yform_manager_dataset
                 if (!$review) {
                     // Neuen Review anlegen
                     $review = Review::create()
-                    ->setPlaceId($place_dataset_id)
                     ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
                 }
+
+                $review->setPlaceId($place_dataset_id);
 
                 // Base64 Profilbild holen wenn verfügbar
                 $review_profile_photo_base64 = @file_get_contents($review_from_api['profile_photo_url']);
@@ -166,7 +177,7 @@ class Place extends rex_yform_manager_dataset
                     ->setProfilePhotoUrl($review_from_api['profile_photo_url'])
                     ->setProfilePhotoBase64($review_profile_photo_base64)
                     ->setGooglePlaceId($this->getPlaceId())
-                    ->setPublishedate((new DateTime('@' . $review_from_api['time']))->format('Y-m-d H:i:s'))
+                    ->setPublishdate((new DateTime('@' . $review_from_api['time']))->format('Y-m-d H:i:s'))
                     ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
                     ->setUuid($uuid);
 
