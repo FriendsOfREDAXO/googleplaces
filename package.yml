@@ -1,9 +1,8 @@
 # Alle hier gesetzten Werte können über $addon->getProperty($key) abgefragt werden
 
 package: googleplaces
-version: '2.3.1'
-author: 'Medienfeuer, Daniel Springer'
-compile: 0
+version: '2.3.2'
+author: 'FriendsOfREDAXO'
 
 page:
   title: 'Google Places'
