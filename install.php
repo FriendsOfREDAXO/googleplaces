@@ -8,20 +8,17 @@
 
 use FriendsOfRedaxo\GooglePlaces\Place;
 
-try {
+$table = rex_sql_table::get('mf_googleplaces_reviews');
+if ($table->exists()) {
     rex_sql_table::get('mf_googleplaces_reviews')
         ->setName(rex::getTablePrefix().'googleplaces_review')
         ->alter();
-} catch (rex_sql_exception $e) {
-    // Table does not exist
 }
-
-try {
+$table = rex_sql_table::get('mf_googleplaces_place_details');
+if ($table->exists()) {
     rex_sql_table::get('mf_googleplaces_place_details')
         ->setName(rex::getTablePrefix().'googleplaces_place_detail')
         ->alter();
-} catch (rex_sql_exception $e) {
-    // Table does not exist
 }
 
 // Config-Werte übernehmen
