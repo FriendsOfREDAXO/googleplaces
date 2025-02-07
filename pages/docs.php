@@ -5,13 +5,8 @@
  * @psalm-scope-this rex_addon
  */
 
-$files = glob(rex_path::addon('googleplaces', 'docs/*.md'));
-if ($files === false) {
-    throw new rex_exception('No files found');
-}
-
 $mdFiles = [];
-foreach ($files as $file) {
+foreach (glob(rex_path::addon('googleplaces', 'docs/*.md')) as $file) {
     $mdFiles[mb_substr(basename($file), 0, -3)] = $file;
 }
 
@@ -30,11 +25,12 @@ if (null !== $page) {
             (new rex_be_page($key, rex_i18n::msg('googleplaces_docs_' . $keyWithoudPrio)))
             ->setSubPath($mdFile)
             ->setHref('index.php?page=googleplaces/docs&mdfile=' . $key)
-            ->setIsActive($key === $currenMDFile),
+            ->setIsActive($key == $currenMDFile),
         );
     }
 }
 
+echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 [$Toc, $Content] = rex_markdown::factory()->parseWithToc(rex_file::require($mdFiles[$currenMDFile]), 2, 3, [
     rex_markdown::SOFT_LINE_BREAKS => false,

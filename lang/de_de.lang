@@ -7,6 +7,13 @@ googleplaces_cron_title = Google Places: Places-Details und Bewertungen via Goog
 googleplaces_sync = Jetzt aktualisieren
 googleplaces_sync_success = Die Google Places Daten wurden erfolgreich aktualisiert.
 
+googleplaces_docs_intro = Intro
+googleplaces_docs_upgrade = Upgrade
+googleplaces_docs_place = Place
+googleplaces_docs_review = Review
+googleplaces_docs_module = Modul
+
+
 googleplaces_review.place_detail_id = Google Place
 googleplaces.review.google_place_id = Google Place ID
 googleplaces.review.author_name = Autor*in
