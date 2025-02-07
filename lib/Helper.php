@@ -35,12 +35,12 @@ class Helper
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
         $response = curl_exec($curl);
-        $response = json_decode($response);
+        $json_response = json_decode($response);
 
-        $response = json_decode(json_encode($response->result), true);
+        $array_response = json_decode(json_encode($json_response->result), true);
         curl_close($curl);
 
-        return $response ?? [];	
+        return $array_response ?? [];	
     }
 
     /**
