@@ -1,28 +1,35 @@
 # Alle hier gesetzten Werte können über $addon->getProperty($key) abgefragt werden
 
 package: googleplaces
-version: '3.0.0-dev-2025-02-07'
-author: 'FriendsOfREDAXO'
+version: "3.0.0-dev-2025-02-07"
+author: "FriendsOfREDAXO"
 
 page:
-  title: 'Google Places'
+  title: "Google Places"
   perm: googleplaces[]
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-map-marker" }
-    review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
-    config: { title: 'translate:googleplaces_config' }
+    place_detail:
+      title: "translate:googleplaces_place_detail"
+      icon: "fa fa-map-marker"
+    review: 
+      title: "translate:googleplaces_review"
+      icon: "fa fa-star" 
     docs:
-      icon: 'rex-icon fa fa-question-circle'
-      title: 'translate:googleplaces_docs'
+      icon: "rex-icon fa fa-question-circle"
+      title: "translate:googleplaces_docs"
       pjax: false
       itemclass: pull-right
+    config:
+      icon: "rex-icon fa fa-cog"
+      itemclass: "pull-right"
+      title: "translate:googleplaces_config"
 
 requires:
-    packages:
-    redaxo: '>=5.17'
+  packages:
+  redaxo: ">=5.17"
 
 default_config:
-  gmaps-location-id: ''
-  gmaps-api-key: ''
+  gmaps-location-id: ""
+  gmaps-api-key: ""
