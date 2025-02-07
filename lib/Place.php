@@ -173,7 +173,6 @@ class Place extends rex_yform_manager_dataset
                     ->setAuthorUrl($review_from_api['author_url'])
                     ->setRating($review_from_api['rating'])
                     ->setText($review_from_api['text'])
-                    ->setTime($review_from_api['time'])
                     ->setProfilePhotoUrl($review_from_api['profile_photo_url'])
                     ->setProfilePhotoBase64($review_profile_photo_base64)
                     ->setGooglePlaceId($this->getPlaceId())
