@@ -5,8 +5,12 @@
  * @psalm-scope-this rex_addon
  */
 
-$mdFiles = [];
-foreach (glob(rex_path::addon('googleplaces', 'docs/*.md')) as $file) {
+$mdFiles = glob(rex_path::addon('googleplaces', 'docs/*.md'));
+if ($mdFiles === false) {
+    throw new rex_exception('No files found');
+}
+
+foreach ($files as $file) {
     $mdFiles[mb_substr(basename($file), 0, -3)] = $file;
 }
 
@@ -19,13 +23,13 @@ $page = rex_be_controller::getPageObject('googleplaces/docs');
 
 if (null !== $page) {
     foreach ($mdFiles as $key => $mdFile) {
-        $keyWithoudPrio = mb_substr($key, 3);
+        $keyWithoudPrio = mb_substr((string)$key, 3);
         $currenMDFileWithoudPrio = mb_substr($currenMDFile, 3);
         $page->addSubpage(
             (new rex_be_page($key, rex_i18n::msg('googleplaces_docs_' . $keyWithoudPrio)))
             ->setSubPath($mdFile)
             ->setHref('index.php?page=googleplaces/docs&mdfile=' . $key)
-            ->setIsActive($key == $currenMDFile),
+            ->setIsActive($key === $currenMDFile),
         );
     }
 }

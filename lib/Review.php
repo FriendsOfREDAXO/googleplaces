@@ -8,6 +8,7 @@ class Review extends rex_yform_manager_dataset
 {
 
     /* Place */
+    /** @api */
     public function getPlace(): ?Place
     {
         return $this->getRelatedDataset("place_id");
@@ -201,28 +202,27 @@ class Review extends rex_yform_manager_dataset
         return $this;
     }
 
-
     public static function epYformDataList(\rex_extension_point $ep)
     {
         if ($ep->getParam('table')->getTableName() !== self::table()->getTableName()) {
             return;
         }
 
-        /** @var rex_yform_list $list */
+        /** @var \rex_yform_list $list */
         $list = $ep->getSubject();
 
         $list->setColumnFormat(
             'place_detail_id',
             'custom',
             static function ($a) {
-                if($a['value'] == 0) {
+                if ($a['value'] === 0 || $a['value'] === null) {
                     return "";
                 }
                 $place = Place::get($a['value']);
-                if($place) {
+                if ($place !== null) {
                     $place_details = $place->getApiResponseAsArray();
                     $place_name = "Unbekannt";
-                    if(isset($place_details['name'])) {
+                    if (isset($place_details['name'])) {
                         $place_name = $place_details['name'];
                     }
                     return '<a href="index.php?page=googleplaces/place/detail&google_place_id='.$place->getId().'" target="_blank">'.$place_name.'</a>';
@@ -249,7 +249,7 @@ class Review extends rex_yform_manager_dataset
             'updatedate',
             'custom',
             static function ($a) {
-                if ($a['value'] == "0000-00-00 00:00:00") {
+                if ($a['value'] === "0000-00-00 00:00:00") {
                     return "";
                 }
                 return \rex_formatter::strftime($a['value'], 'datetime');
@@ -260,7 +260,7 @@ class Review extends rex_yform_manager_dataset
             'createdate',
             'custom',
             static function ($a) {
-                if ($a['value'] == "0000-00-00 00:00:00") {
+                if ($a['value'] === "0000-00-00 00:00:00") {
                     return "";
                 }
                 return \rex_formatter::strftime($a['value'], 'datetime');
@@ -268,16 +268,18 @@ class Review extends rex_yform_manager_dataset
         );
     }
     
-    public static function findFilter(string $place_id = null, int $limit = 5, int $offset = 0, $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC'): \rex_yform_manager_collection | null {
+    /** @api */
+    public static function findFilter(string $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC'): \rex_yform_manager_collection | null
+    {
 
         $query = self::query();
-        if($place_id) {
+        if ($place_id !== null) {
             $query->where('place_id', $place_id);
         }
-        if($minRating) {
+        if ($minRating >= 0) {
             $query->where('rating', '>=', $minRating);
         }
-        if($limit) {
+        if ($limit >= 0) {
             $query->limit($offset, $limit);
         }
         return $query

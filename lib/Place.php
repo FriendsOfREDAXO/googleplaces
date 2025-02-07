@@ -12,7 +12,7 @@ class Place extends rex_yform_manager_dataset
     
     /* Reviews */
     /** @api */
-    public function getReviews(int $limit = 100, int $offset = 0, $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC') :rex_yform_manager_collection
+    public function getReviews(int $limit = 100, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC') :rex_yform_manager_collection
     {
         return Review::query()
             ->where('place_id', $this->getId())
@@ -63,7 +63,7 @@ class Place extends rex_yform_manager_dataset
     /** @api */
     public function setUpdatedate(string $datetime) : self
     {
-        $this->getValue("updatedate", $datetime);
+        $this->setValue("updatedate", $datetime);
         return $this;
     }
             
@@ -82,7 +82,7 @@ class Place extends rex_yform_manager_dataset
             static function ($a) {
                 $api_json_response = \json_decode($a['list']->getValue('api_response_json'));
                 $output = "<code>" . $a['value'] . "</code>";
-                if ($api_json_response) {
+                if ($api_json_response !== null) {
                     $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $api_json_response->name. '</a></strong>';
                     $output .= '<br>' . $api_json_response->formatted_address;
                     $output .= '<br>' . $api_json_response->formatted_phone_number;
@@ -98,7 +98,7 @@ class Place extends rex_yform_manager_dataset
             'api_response_json',
             'custom',
             static function ($a) {
-                return "<textarea rows=10 disabled cols=50>" . $a['value'] . "</textarea>";
+                return '<textarea rows="10" disabled cols="50">' . $a['value'] . "</textarea>";
             },
         );
 
@@ -113,11 +113,12 @@ class Place extends rex_yform_manager_dataset
 
         
     }
-    public function sync() {
+    public function sync() : bool
+    {
 
         
         $googlePlace = Helper::getFromGoogle($this->getPlaceId());
-        $reviews_from_api = $googlePlace['reviews'];
+        $reviews_from_api = $googlePlace['reviews'] ?? [];
 
         $success = false;
         
@@ -187,7 +188,7 @@ class Place extends rex_yform_manager_dataset
         $rating = 0;
         $i = 0;
         foreach ($reviews as $review) {
-            /** @var Rating $review */
+            /** @var Review $review */
             $rating += $review->getRating();
             $i++;
         }
@@ -200,7 +201,7 @@ class Place extends rex_yform_manager_dataset
     public function getAvgRatingApi() : float
     {
         $googlePlace = $this->getApiResponseAsArray();
-        if(!isset($googlePlace['rating'])) {
+        if (!isset($googlePlace['rating'])) {
             return 0;
         }
         return $googlePlace['rating'];

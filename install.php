@@ -7,25 +7,23 @@
 
 use FriendsOfRedaxo\GooglePlaces\Place;
 
-if (rex_sql_table::get('mf_googleplaces_reviews')) {
-    rex_sql_table::get('mf_googleplaces_reviews')
-        ->setName(rex::getTablePrefix().'googleplaces_review')
-        ->alter();
-}
+rex_sql_table::get('mf_googleplaces_reviews')
+    ->setName(rex::getTablePrefix().'googleplaces_review')
+    ->alter();
 
-if (rex_sql_table::get('mf_googleplaces_place_detail')) {
-    rex_sql_table::get('mf_googleplaces_place_detail')
-        ->setName(rex::getTablePrefix().'googleplaces_place_detail')
-        ->alter();
-}
+
+rex_sql_table::get('mf_googleplaces_place_detail')
+    ->setName(rex::getTablePrefix().'googleplaces_place_detail')
+    ->alter();
+
 
 // Config-Werte übernehmen
 
-if (rex_config::get('mf_googleplaces', 'gmaps-api-key') != "") {
+if (rex_config::get('mf_googleplaces', 'gmaps-api-key') !== "") {
     rex_config::set('googleplaces', 'gmaps-api-key', rex_config::get('mf_googleplaces', 'gmaps-api-key'));
 }
 
-if (rex_config::get('mf_googleplaces', 'gmaps-location-id') != "") {
+if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
     
     // Get existing place or create new one
     $place = Place::query()

@@ -2,7 +2,7 @@
 
 $addon = rex_addon::get('googleplaces');
 
-if (rex_request('sync', 'int') == 1) {
+if (rex_request('sync', 'int', null) === 1) {
     echo rex_view::success($addon->i18n('googleplaces_sync_success'));
 }
 

@@ -7,6 +7,7 @@ $addon = rex_addon::get('googleplaces');
 $places = Place::query()->find();
 
 foreach ($places as $place) {
+    /** @var Place $place */
     $place->sync();
 }
 

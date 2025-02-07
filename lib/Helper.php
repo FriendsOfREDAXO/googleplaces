@@ -18,7 +18,7 @@ class Helper
     public static function googleApiResult(string $place_id = null): array
     {
 
-        if ($place_id == null) {
+        if ($place_id === null) {
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
         }
         $curl = curl_init();
@@ -77,7 +77,7 @@ class Helper
 
         if ($place) {
             return json_decode($place->getApiResponseJson(), true);
-        } 
+        }
         if ($place_id) {
             return self::getFromGoogle($place_id);
         }
@@ -106,7 +106,7 @@ class Helper
         $places = Place::query()->find();
         $success = false;
 
-        foreach($places as $place) {
+        foreach ($places as $place) {
             $success = $place->sync();
         }
         return $success;

@@ -20,12 +20,12 @@ rex_sql_table::get(rex::getTable('googleplaces_review'))
     ->ensureIndex(new rex_sql_index('google_place_id_author_url', ['google_place_id', 'author_url'], rex_sql_index::UNIQUE))
     ->ensure();
 
-    rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
-    ->ensurePrimaryIdColumn()
-    ->ensureColumn(new rex_sql_column('place_id', 'varchar(191)', false, ''))
-    ->ensureColumn(new rex_sql_column('api_response_json', 'mediumtext'))
-    ->ensureColumn(new rex_sql_column('createdate', 'datetime'))
-    ->ensureColumn(new rex_sql_column('updatedate', 'datetime'))
-    ->ensureColumn(new rex_sql_column('review_ids', 'varchar(191)'))
-    ->ensureIndex(new rex_sql_index('unique_index', ['place_id'], rex_sql_index::UNIQUE))
-    ->ensure();
+rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
+->ensurePrimaryIdColumn()
+->ensureColumn(new rex_sql_column('place_id', 'varchar(191)', false, ''))
+->ensureColumn(new rex_sql_column('api_response_json', 'mediumtext'))
+->ensureColumn(new rex_sql_column('createdate', 'datetime'))
+->ensureColumn(new rex_sql_column('updatedate', 'datetime'))
+->ensureColumn(new rex_sql_column('review_ids', 'varchar(191)'))
+->ensureIndex(new rex_sql_index('unique_index', ['place_id'], rex_sql_index::UNIQUE))
+->ensure();
