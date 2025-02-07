@@ -11,7 +11,7 @@ page:
   icon: rex-icon fa fa-map-marker
   subpages:
     review: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
-    place_details: { title: 'translate:googleplaces_place_details', icon: "fa fa-info-circle" }
+    place_detail: { title: 'translate:googleplaces_place_details', icon: "fa fa-info-circle" }
     config: { title: 'translate:googleplaces_config' }
     docs:
       icon: 'rex-icon fa fa-question-circle'
