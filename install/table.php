@@ -29,3 +29,7 @@ rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
 ->ensureColumn(new rex_sql_column('review_ids', 'varchar(191)'))
 ->ensureIndex(new rex_sql_index('unique_index', ['place_id'], rex_sql_index::UNIQUE))
 ->ensure();
+
+// unix timestamp to datetime
+rex_sql::factory()
+    ->setQuery('UPDATE rex_googleplaces_review SET `publishdate` = FROM_UNIXTIME(`time`) WHERE `publishdate` IS NULL OR `publishdate` = "0000-00-00 00:00:00"'); 

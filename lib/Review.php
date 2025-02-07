@@ -137,19 +137,6 @@ class Review extends rex_yform_manager_dataset
         return $this;
     }
 
-    /* Datum */
-    /** @api */
-    public function getTime(): ?string
-    {
-        return $this->getValue("time");
-    }
-    /** @api */
-    public function setTime(mixed $value): self
-    {
-        $this->setValue("time", $value);
-        return $this;
-    }
-
     /* Erstellt am... */
     /** @api */
     public function getCreatedate(): ?string
