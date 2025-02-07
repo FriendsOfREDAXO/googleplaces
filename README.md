@@ -94,9 +94,7 @@ Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Or
 
 Das Modul benötigt Bootstrap 4 und Font Awesome für die Sterne.
 
-CSS-Style:
-
-`/assets/addons/googleplaces/css/reviews-bs5.css`
+CSS-Style: `/assets/addons/googleplaces/css/reviews-bs5.css`
 
 ```php
 <?php
@@ -112,9 +110,7 @@ echo $fragment->parse('googleplaces/reviews.bs5.php');
 
 Das Modul benötigt Bootstrap 4 und Font Awesome für die Sterne.
 
-CSS-Style:
-
-`/assets/addons/googleplaces/css/reviews-bs4.css`
+CSS-Style: `/assets/addons/googleplaces/css/reviews-bs4.css`
 
 ```php
 <?php
@@ -130,9 +126,7 @@ echo $fragment->parse('googleplaces/reviews.bs4.php');
 
 Das Modul benötigt Bootstrap 3 und Font Awesome für die Sterne.
 
-CSS-Style:
-
-`/assets/addons/googleplaces/css/reviews-bs3.css`
+CSS-Style: `/assets/addons/googleplaces/css/reviews-bs3.css`
 
 ```php
 <?php
