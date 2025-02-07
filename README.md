@@ -16,6 +16,8 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 * 🏪 Neue **Backend-Ansicht für Places**
 * 💁🏻 **Überarbeitete Dokumentation** mit Beispielen zu den neuen Methoden
 
+> **Hinweis:** Diese Dokumentation wurde noch nicht vollständig aktualisiert. Einige Informationen können veraltet sein.
+
 ## Voraussetzungen
 
 ### Google Places API-Key
@@ -32,28 +34,6 @@ Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Üb
 
 ## Google-Place-Informationen
 
-### Infos zu einem Place
-
-Mittels der Funktion `gplace::get()` ist es möglich, direkt über die Google-API Informationen zum PLace in Google Maps zu erhalten.
-
-### Einzelne Attribute zum Place
-
-Einzelne Werte oder Arrays kann man wie folgt ansprechen:
-
-* `gplace::get('name_des_wertes')`
-
-Entsprechend beispielhaft:
-
-* Öffnungszeiten (Array) bspw.: `gplace::get('opening_hours')`
-
-* Maps-URL (string): `gplace::get('url')`
-
-* Adresse (string): `gplace::get('formatted_address')`
-
-Detailinfos zu den Google-Place-Attributen gibt es hier:
-
-<https://developers.google.com/maps/documentation/places/web-service/details#Place>
-
 ## Google-Reviews
 
 Das Add-on ermöglicht den direkten Aufruf über die Google-API, was bei jedem Aufruf über den im Add-on hinterlegten API-Key bei Google abgerechnet wird.
@@ -62,7 +42,7 @@ Außerdem kann man Reviews automatisch in einer eigenen Tabelle speichern und so
 
 ### "Live"-Aufruf der Reviews über die Google-API
 
-* `gplace::getAllReviewsFromGoogle()`
+* `Helper::getAllReviewsFromGoogle()`
 
 Ruft Reviews zum Google Place direkt über die Google API ab (wsl. limitiert auf die letzten 5 Reviews). Pro Aufruf wird hier von Google ein API-Call registriert und abgerechnet.
 
@@ -73,8 +53,7 @@ Weiterhin ist es möglich die Reviews zu einem Google Place in einer eigenen RED
 Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder greift man selbst per SQL darauf zu oder nutzt die vom Add-on mitgelieferten Funktionen:
 
 * `gplace::getAllReviews()`
-*
-  Ruft alle Reviews aus der eigenen DB ab und gibt ein Array zurück.
+* Ruft alle Reviews aus der eigenen DB ab und gibt ein Array zurück.
 
 ### Reviews automatisch via Cronjob in Datenbanktabelle speichern
 
