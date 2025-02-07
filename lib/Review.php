@@ -264,4 +264,22 @@ class Review extends rex_yform_manager_dataset
             },
         );
     }
+    
+    public static function findFilter(string $place_id = null, int $limit = 5, int $offset = 0, $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC'): \rex_yform_manager_collection | null {
+
+        $query = self::query();
+        if($place_id) {
+            $query->where('place_id', $place_id);
+        }
+        if($minRating) {
+            $query->where('rating', '>=', $minRating);
+        }
+        if($limit) {
+            $query->limit($offset, $limit);
+        }
+        return $query
+        ->orderBy($orderByField, $orderBy)
+        ->find();
+    }
+
 }
