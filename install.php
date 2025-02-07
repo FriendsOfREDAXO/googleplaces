@@ -37,28 +37,12 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
         
     rex_delete_cache();
 
-        
-    if (rex_addon::get('yform')->isAvailable() && !rex::isSafeMode()) {
-        rex_yform_manager_dataset::setModelClass(
-            'rex_googleplaces_place_detail',
-            Place::class
-        );
-
-        rex_yform_manager_dataset::setModelClass(
-            'rex_googleplaces_review',
-            Review::class
-        );
-    }
-
     // Get existing place or create new one
-    $place = Place::query()
-        ->where('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'))
-        ->findOne();
-    if ($place !== null) {
-        $place = Place::create();
-        $place->setPlaceId(rex_config::get('mf_googleplaces', 'gmaps-location-id'));
-        $place->save();
-    }
+    $sql = rex_sql::factory();
+    $sql->setTable(rex::getTablePrefix().'googleplaces_place');
+    $sql->setValue('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
+    $sql->insertOrUpdate();
+
 
     rex_config::set('googleplaces', 'gmaps-location-id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
 
