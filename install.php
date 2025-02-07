@@ -39,7 +39,7 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
 
     // Get existing place or create new one
     $sql = rex_sql::factory();
-    $sql->setTable(rex::getTablePrefix().'googleplaces_place');
+    $sql->setTable(rex::getTablePrefix().'googleplaces_place_detail');
     $sql->setValue('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
     $sql->insertOrUpdate();
 
