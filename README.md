@@ -93,3 +93,15 @@ darin.
 Falls man das AddOn bereits einige Zeit in Benutzung hat und sich mehr als die letzten 5 Reviews darin befinden, sind
 diese verloren, da man über die Google-API nicht mehr auf die alten Reviews zugreifen kann.
 <br>__DB-Backup nicht vergessen, wenn man die historischen Daten nicht verlieren möchte!__
+
+
+## Autor
+**Friends Of REDAXO**
+* http://www.redaxo.org
+* https://github.com/FriendsOfREDAXO
+
+**Lead**
+[Alexander Walther](https://github.com/alxndr-w)
+
+**Ursprünglich entwickelt von**
+[Daniel Springer]([https://www.e-recht24.de](https://github.com/danspringer))
