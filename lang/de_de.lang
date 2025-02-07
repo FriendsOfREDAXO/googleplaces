@@ -1,23 +1,9 @@
 googleplaces_title = Google Places
-googleplaces_information = Info
-googleplaces_config = Konfiguration
+googleplaces_config = Einstellungen
 googleplaces_docs = Docs
 googleplaces_review = Bewertungen
-googleplaces_place_detail = Place Details
-googleplaces_cron_title = Google Places: Reviews per API-Call aktualisieren
-
-googleplaces_label_profile_photo_url = Profilbild
-googleplaces_label_author_name = Name
-googleplaces_label_author = Verfasser*in
-googleplaces_label_rating = Bewertung
-googleplaces_label_text = Text
-googleplaces_label_time = Datum
-
-googleplaces_docs_intro = Zusammenfassung
-googleplaces_docs_google_api = Direkt über die Google Places API
-googleplaces_docs_db = Über die eigene DB
-googleplaces_docs_credits = Credits
-googleplaces_docs_modules = Beispiel-Module
+googleplaces_place_detail = Google Places
+googleplaces_cron_title = Google Places: Places-Details und Bewertungen via Google Api abrufen
 
 googleplaces_review.place_detail_id = Google Places Detail ID
 googleplaces.review.google_place_id = Google Place ID
