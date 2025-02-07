@@ -7,6 +7,25 @@ use rex_yform_manager_dataset;
 class Review extends rex_yform_manager_dataset
 {
 
+    /* Place */
+    public function getPlace(): ?Place
+    {
+        return $this->getRelatedDataset("place_id");
+    }
+
+    /* Place ID */
+    /** @api */
+    public function getPlaceId(): ?int
+    {
+        return $this->getValue("place_id");
+    }
+    /** @api */
+    public function setPlaceId(int $value): self
+    {
+        $this->setValue("place_id", $value);
+        return $this;
+    }
+
     /* Google Place ID */
     /** @api */
     public function getGooglePlaceId(): ?string
