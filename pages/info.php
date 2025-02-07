@@ -22,10 +22,9 @@ $fragment->setVar('body', rex_string::highlight($code), false);
 echo $fragment->parse('core/page/section.php');
 
 
-if (rex_addon::get('mf_googleplaces')->getConfig('gmaps-api-key') && rex_addon::get('mf_googleplaces')->getConfig('gmaps-location-id')) {
+if (rex_addon::get('googleplaces')->getConfig('gmaps-api-key') && rex_addon::get('googleplaces')->getConfig('gmaps-location-id')) {
     echo '<h3>Array des konfigurierten Google Place</h3>
 	<p>Die einzelnen Werte können wie oben beschrieben über <code>gplace::get(\'name_des_wertes\')</code> (kostenpflichtig über die Google-API) oder <code>gplace::getPlaceDetails(\'name_des_wertes\')</code> (gratis aus der eigenen DB) geholt werden.</p>
 	';
-    dump( gplace::getPlaceDetails() );
+    dump(gplace::getPlaceDetails());
 }
-?>
