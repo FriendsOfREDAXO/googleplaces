@@ -215,6 +215,9 @@ class Review extends rex_yform_manager_dataset
             'place_detail_id',
             'custom',
             static function ($a) {
+                if($a['value'] == 0) {
+                    return "";
+                }
                 $place = Place::get($a['value']);
                 if($place) {
                     $place_details = $place->getApiResponseAsArray();
