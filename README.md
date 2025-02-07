@@ -132,7 +132,9 @@ echo $fragment->parse('googleplaces/reviews.bs3.php');
 * <https://github.com/FriendsOfREDAXO>
 
 **Lead**
+
 [Alexander Walther](https://github.com/alxndr-w)
 
 **Ursprünglich entwickelt von**
-[Daniel Springer]([https://www.e-recht24.de](https://github.com/danspringer))
+
+[Daniel Springer](https://github.com/danspringer)
