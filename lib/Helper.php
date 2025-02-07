@@ -71,7 +71,7 @@ class Helper
     public static function getPlaceDetails($place_id = null): array | false
     {
 
-        if($place_id === null) {
+        if ($place_id === null) {
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
         }
 

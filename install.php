@@ -31,10 +31,10 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') != "") {
     $place = Place::query()
         ->where('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'))
         ->findOne();
-    if(!$place) {
+    if (!$place) {
         $place = Place::create();
         $place->setPlaceId(rex_config::get('mf_googleplaces', 'gmaps-location-id'));
-            $place->save();
+        $place->save();
     }
 
     rex_config::set('googleplaces', 'gmaps-location-id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));

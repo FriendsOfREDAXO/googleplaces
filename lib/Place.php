@@ -1,14 +1,17 @@
-<?php 
+<?php
 
 namespace FriendsOfRedaxo\GooglePlaces;
 
 use rex_yform_manager_dataset;
 use rex_yform_manager_collection;
-class Place extends rex_yform_manager_dataset {
-	
+
+class Place extends rex_yform_manager_dataset
+{
+    
     /* Reviews */
     /** @api */
-    public function getReviews() :rex_yform_manager_collection {
+    public function getReviews() :rex_yform_manager_collection
+    {
         return Review::query()
             ->where('place_id', $this->getId())
             ->find();
@@ -16,43 +19,51 @@ class Place extends rex_yform_manager_dataset {
 
     /* Place ID */
     /** @api */
-    public function getPlaceId() : ?string {
+    public function getPlaceId() : ?string
+    {
         return $this->getValue("place_id");
     }
     /** @api */
-    public function setPlaceId(mixed $value) : self {
+    public function setPlaceId(mixed $value) : self
+    {
         $this->setValue("place_id", $value);
         return $this;
     }
 
     /* API Response JSON */
     /** @api */
-    public function getApiResponseJson() : ?string {
+    public function getApiResponseJson() : ?string
+    {
         return $this->getValue("api_response_json");
     }
 
-    public function getApiResponseAsArray() : ?array {
+    public function getApiResponseAsArray() : ?array
+    {
         return json_decode($this->getApiResponseJson(), true);
     }
 
     /** @api */
-    public function setApiResponseJson(mixed $value) : self {
+    public function setApiResponseJson(mixed $value) : self
+    {
         $this->setValue("api_response_json", $value);
         return $this;
     }
             
     /* Zuletzt aktualisiert */
     /** @api */
-    public function getUpdatedate() : ?string {
+    public function getUpdatedate() : ?string
+    {
         return $this->getValue("updatedate");
     }
     /** @api */
-    public function setUpdatedate(string $datetime) : self {
+    public function setUpdatedate(string $datetime) : self
+    {
         $this->getValue("updatedate", $datetime);
         return $this;
     }
             
-    public static function epYformDataList(\rex_extension_point $ep) {
+    public static function epYformDataList(\rex_extension_point $ep)
+    {
         if ($ep->getParam('table')->getTableName() !== self::table()->getTableName()) {
             return;
         }
@@ -66,7 +77,7 @@ class Place extends rex_yform_manager_dataset {
             static function ($a) {
                 $api_json_response = \json_decode($a['list']->getValue('api_response_json'));
                 $output = "<code>" . $a['value'] . "</code>";
-                if($api_json_response) {
+                if ($api_json_response) {
                     $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $api_json_response->name. '</a></strong>';
                     $output .= '<br>' . $api_json_response->formatted_address;
                     $output .= '<br>' . $api_json_response->formatted_phone_number;

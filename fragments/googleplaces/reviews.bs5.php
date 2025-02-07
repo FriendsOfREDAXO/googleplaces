@@ -42,36 +42,36 @@ $googleLogo =
                                 <ul>
                                 <?php
                                 $avg = Helper::getAvgRating();
-                                switch ($avg) {
-                                    case  ($avg == 5):
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-                                        break;
-                                    case  (($avg > 4.0) && ($avg < 5.0)):
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-                                        break;
-                                    case 4:
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-                                        break;
-                                    case  (($avg > 3.0) && ($avg < 4.0)):
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-                                        break;
-                                    case 3:
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-                                        break;
-                                    case  (($avg > 2.0) && ($avg < 3.0)):
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-                                        break;
-                                    case 2:
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-                                        break;
-                                    case  (($avg > 1.0) && ($avg < 2.0)):
-                                        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-                                        break;
-                                    case 1:
-                                        echo '<li><i class="fa fa-star"></i></li>';
-                                        break;
-                                }
-                                ?>
+switch ($avg) {
+    case ($avg == 5):
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        break;
+    case (($avg > 4.0) && ($avg < 5.0)):
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
+        break;
+    case 4:
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        break;
+    case (($avg > 3.0) && ($avg < 4.0)):
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
+        break;
+    case 3:
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        break;
+    case (($avg > 2.0) && ($avg < 3.0)):
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
+        break;
+    case 2:
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        break;
+    case (($avg > 1.0) && ($avg < 2.0)):
+        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
+        break;
+    case 1:
+        echo '<li><i class="fa fa-star"></i></li>';
+        break;
+}
+?>
                                 </ul>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ $googleLogo =
                     <?php
                     foreach ($reviews as $review) {
                         $profile_photo = $review['profile_photo_url'];
-                        if($review['profile_photo_base64'] != "") {
+                        if ($review['profile_photo_base64'] != "") {
                             $profile_photo = 'data:image/jpg;base64,'.$review['profile_photo_base64'];
                         }
                         $stars = intval($review['rating']);
@@ -125,7 +125,7 @@ $googleLogo =
                 </div>
                 </div>';
                     }
-                    ?>
+?>
 
                 </div>
             </div>

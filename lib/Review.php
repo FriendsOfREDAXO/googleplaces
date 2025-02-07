@@ -217,7 +217,7 @@ class Review extends rex_yform_manager_dataset
             'updatedate',
             'custom',
             static function ($a) {
-                if($a['value'] == "0000-00-00 00:00:00") {
+                if ($a['value'] == "0000-00-00 00:00:00") {
                     return "";
                 }
                 return \rex_formatter::strftime($a['value'], 'datetime');
@@ -228,7 +228,7 @@ class Review extends rex_yform_manager_dataset
             'createdate',
             'custom',
             static function ($a) {
-                if($a['value'] == "0000-00-00 00:00:00") {
+                if ($a['value'] == "0000-00-00 00:00:00") {
                     return "";
                 }
                 return \rex_formatter::strftime($a['value'], 'datetime');
