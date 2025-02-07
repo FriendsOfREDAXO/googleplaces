@@ -229,6 +229,7 @@ class Helper
                     ->setProfilePhotoUrl($gr['profile_photo_url'])
                     ->setProfilePhotoBase64($gr_profile_photo_base64)
                     ->setGooglePlaceId($googlePlaceId)
+                    ->setPublishedate((new DateTime('@' . $gr['time']))->format('Y-m-d H:i:s'))
                     ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
                     ->setUuid($uuid);
 
