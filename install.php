@@ -34,7 +34,7 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') != "") {
     if(!$place) {
         $place = Place::create();
         $place->setPlaceId(rex_config::get('mf_googleplaces', 'gmaps-location-id'));
-        $place->save();
+            $place->save();
     }
 
     rex_config::set('googleplaces', 'gmaps-location-id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
