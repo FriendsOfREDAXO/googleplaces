@@ -34,7 +34,8 @@ googleplaces.review.uuid = UUID
 
 googleplaces.place_detail.place_id = Place ID
 googleplaces.place_detail.api_response_json = API Response JSON
-googleplaces.place_detail.updatedate = Zuletzt aktualisiert
+googleplaces.place_detail.createdate = Erstellt am...
+googleplaces.place_detail.updatedate = Zuletzt aktualisiert am...
 
 googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Reviews
