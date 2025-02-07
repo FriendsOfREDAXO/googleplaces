@@ -34,3 +34,7 @@ page:
 requires:
     packages:
     redaxo: '>=5.10'
+
+default_config:
+  gmaps-location-id: ''
+  gmaps-api-key: ''
