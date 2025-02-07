@@ -52,6 +52,7 @@ if (rex_addon::get('cronjob')->isAvailable()) {
     /**
      * Fehlenden CronJob eintragen.
      */
+    $sql = rex_sql::factory();
     $sql->setTable(rex::getTable('cronjob'));
     $sql->setWhere('`type` = :class', [':class' => 'FriendsOfRedaxo\\GooglePlaces\\Cronjob']);
     $sql->select();
