@@ -1,6 +1,7 @@
 <?php
 
 $addon = rex_addon::get('googleplaces');
+echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 if (rex_request('sync', 'int', null) === 1) {
     echo rex_view::success($addon->i18n('googleplaces_sync_success'));

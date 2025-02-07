@@ -1,6 +1,7 @@
 <?php
 
 $addon = rex_addon::get('googleplaces');
+echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 $form = rex_config_form::factory($addon->getName());
 

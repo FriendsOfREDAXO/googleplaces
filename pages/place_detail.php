@@ -3,6 +3,7 @@
 use FriendsOfRedaxo\GooglePlaces\Helper;
 
 $addon = rex_addon::get('googleplaces');
+echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 $table_name = 'rex_googleplaces_place_detail';
 
