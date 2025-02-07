@@ -1,23 +1,31 @@
 <?php
-rex_sql_table::get('mf_googleplaces_reviews')
-    ->ensurePrimaryIdColumn()
-    ->ensureColumn(new rex_sql_column('author_name', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('author_url', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('language', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('profile_photo_url', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('profile_photo_base64', 'text'))
-    ->ensureColumn(new rex_sql_column('rating', 'int(11)', true))
-    ->ensureColumn(new rex_sql_column('text', 'text'))
-    ->ensureColumn(new rex_sql_column('time', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('createdate_addon', 'datetime'))
-    ->ensureColumn(new rex_sql_column('google_place_id', 'varchar(191)'))
-    ->ensure();
 
-rex_sql_table::get('mf_googleplaces_place_details')
-    ->ensurePrimaryIdColumn()
-    ->ensureColumn(new rex_sql_column('place_id', 'varchar(191)'))
-    ->ensureColumn(new rex_sql_column('api_response_json', 'text'))
-    ->ensureIndex(new rex_sql_index('unique_index', ['place_id'], rex_sql_index::UNIQUE))
-    ->ensureColumn(new rex_sql_column('updatedate', 'datetime'))
-    ->ensure();
-?>
+
+// Migration von mf_googleplaces nach googleplaces
+
+// Benenne bestehende Tabellen mf_googleplaces_reviews in googleplaces_reviews um
+if (rex_sql_table::get('mf_googleplaces_reviews')) {
+    rex_sql_table::get('mf_googleplaces_reviews')
+        ->setName(rex::getTablePrefix().'googleplaces_reviews')
+        ->alter();
+}
+
+if (rex_sql_table::get('mf_googleplaces_place_details')) {
+    rex_sql_table::get('mf_googleplaces_place_details')
+        ->setName(rex::getTablePrefix().'googleplaces_place_details')
+        ->alter();
+}
+
+// Config-Werte übernehmen
+
+if (rex_config::get('mf_googleplaces', 'gmaps-api-key') == "") {
+    rex_config::set('googleplaces', 'gmaps-api-key', rex_config::get('mf_googleplaces', 'gmaps-api-key'));
+}
+
+if (rex_config::get('mf_googleplaces', 'gmaps-location-id') == "") {
+    rex_config::set('googleplaces', 'gmaps-location-id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
+}
+
+rex_config::removeNamespace('mf_googleplaces');
+
+include(__DIR__ . '/install/table.php');
