@@ -12,7 +12,7 @@ foreach (glob(rex_path::addon('googleplaces', 'docs/*.md')) as $file) {
 
 $currenMDFile = rex_request('mdfile', 'string', '01_intro');
 if (!array_key_exists($currenMDFile, $mdFiles)) {
-    $currenMDFile = '01_a_intro';
+    $currenMDFile = '01_intro';
 }
 
 $page = rex_be_controller::getPageObject('googleplaces/docs');

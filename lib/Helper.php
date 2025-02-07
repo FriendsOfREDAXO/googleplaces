@@ -6,7 +6,7 @@ use rex_sql;
 use rex_var;
 use rex_addon;
 use DateTime;
-
+use rex_yform_value_uuid;
 
 /**
  * Google Places AddOn: Gibt Details zu einem Google Place aus.
@@ -189,61 +189,53 @@ class Helper
             $googleTime = (string)$gr['time'];
             #dump($googleTime);
 
-            $sql_search = rex_sql::factory();
-            $sql_search->setDebug(false);
-            $sql_search->setQuery('SELECT * FROM rex_googleplaces_review WHERE time = :time', ['time' => $googleTime]);
-            #dump($sql_search->getRows());
+            // Statt SQL-Query via rex_sql, den Eintrag über Review-Model prüfen
+            $existingReview = Review::query()
+                ->where('uuid',rex_yform_value_uuid::guidv4($googleTime))
+                ->findOne();
 
-            if ($sql_search->getRows() == 0) {
-                // Wenn Review noch nicht existiert, in DB schreiben
-                $objDateTime = new DateTime('NOW');
-                $dateTime = $objDateTime->format('Y-m-d H:i:s');
-
-                $gr_profile_photo_base64 = file_get_contents($gr['profile_photo_url']);
+            if (!$existingReview) {
+                // Neuen Review anlegen
+                $review = Review::create();
+                
+                // Base64 Profilbild holen wenn verfügbar 
+                $gr_profile_photo_base64 = @file_get_contents($gr['profile_photo_url']); 
                 if ($gr_profile_photo_base64 !== false) {
                     $gr_profile_photo_base64 = base64_encode($gr_profile_photo_base64);
                 }
-                $sql = rex_sql::factory();
-                $sql->setDebug(false);
-                $sql->setTable('rex_googleplaces_review');
-                $sql->setValues(
-                    [
-                        'author_name' => $gr['author_name'],
-                        'author_url' => $gr['author_url'],
-//                        'language' => $gr['language'],
-                        'rating' => $gr['rating'],
-                        'text' => $gr['text'],
-                        'time' => $gr['time'],
-                        'profile_photo_url' => $gr['profile_photo_url'],
-                        'profile_photo_base64' => $gr_profile_photo_base64,
-                        'google_place_id' => $googlePlaceId,
-                        'createdate' => $dateTime,
-                        'uuid' => rand(1, 999999999)
-                    ]
-                );
-                $sql->insert();
-            } else {
-                #echo 'Review existiert in DB bereits';
+
+                // Review-Daten über Model-Methoden setzen
+                $review->setAuthorName($gr['author_name'])
+                    ->setAuthorUrl($gr['author_url'])
+                    ->setRating($gr['rating'])
+                    ->setText($gr['text'])
+                    ->setTime($gr['time'])
+                    ->setProfilePhotoUrl($gr['profile_photo_url'])
+                    ->setProfilePhotoBase64($gr_profile_photo_base64)
+                    ->setGooglePlaceId($googlePlaceId)
+                    ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
+                    ->setUuid(rex_yform_value_uuid::guidv4($gr['time']));
+
+                // Review speichern 
+                $review->save();
             }
         }
 
-        $sql_place = rex_sql::factory();
-        $sql_place->setTable('rex_googleplaces_place_detail');
-        $sql_place->setValues(
-            [
-                'updatedate' => date('Y-m-d H:i:s'),
-                'place_id' => $googlePlaceId,
-                'api_response_json' => json_encode($googlePlace)
-            ]
-        );
-        $sql_place->setWhere([
-            'place_id' => $googlePlaceId
-        ]);
-        // InsertOrUpdate braucht einen unique_key, mit dem das funktionieren kann. Dazu muss man die Tabelle entsprechend in der jeweiligen Spalte anpassen mit:
-        // ALTER TABLE `tabellen_name` ADD UNIQUE `unique_index`(`keys_die`, `unique_werden`, `sollen`, `key`);
-        $sql_place->insertOrUpdate();
+        // Get existing place or create new one
+        $place = Place::query()
+            ->where('place_id', $googlePlaceId)
+            ->findOne();
 
-        return true;
-    } // EoF
+        if (!$place) {
+            $place = Place::create();
+            $place->setPlaceId($googlePlaceId);
+        }
+        // Update place details
+        $place->setApiResponseJson(json_encode($googlePlace))
+            ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
+            
+        // Save place
+        return $place->save();
+    }
 
-} // EoC
+}
