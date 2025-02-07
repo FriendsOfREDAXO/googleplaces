@@ -10,27 +10,14 @@ page:
   pjax: true
   icon: rex-icon fa fa-map-marker
   subpages:
-    review: { title: 'translate:googleplaces_reviews', icon: "fa fa-star" }
-    place_detail: { title: 'translate:googleplaces_place_details', icon: "fa fa-info-circle" }
+    review: { title: 'translate:googleplaces_review', icon: "fa fa-star" }
+    place_detail: { title: 'translate:googleplaces_place_detail', icon: "fa fa-info-circle" }
     config: { title: 'translate:googleplaces_config' }
     docs:
       icon: 'rex-icon fa fa-question-circle'
       title: 'translate:googleplaces_start'
       pjax: false
       itemclass: pull-right
-      subpages:
-        intro:
-          title: 'translate:googleplaces_docs_intro'
-          pjax: false
-          subPath: README.md
-        modules:
-          title: 'translate:googleplaces_docs_modules'
-          pjax: false
-          subPath: docs/modules.md
-        credits:
-          title: 'translate:googleplaces_docs_credits'
-          pjax: false
-          subPath: docs/credits.md
 
 requires:
     packages:
