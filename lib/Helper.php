@@ -1,11 +1,19 @@
 <?php
 
+namespace FriendsOfRedaxo\GooglePlaces;
+
+use rex_sql;
+use rex_var;
+use rex_addon;
+use DateTime;
+
+
 /**
  * Google Places AddOn: Gibt Details zu einem Google Place aus.
  *
  * @package redaxo\googleplaces
  */
-class gplace
+class Helper
 {
 
 
@@ -171,7 +179,7 @@ class gplace
      */
     public static function updateReviewsDB()
     {
-        $googlePlace    = gplace::getFromGoogle();
+        $googlePlace    = self::getFromGoogle();
         $googleReviews  = $googlePlace['reviews'];
         $googlePlaceId  = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
 
@@ -200,14 +208,15 @@ class gplace
                     [
                         'author_name' => $gr['author_name'],
                         'author_url' => $gr['author_url'],
-                        'language' => $gr['language'],
+//                        'language' => $gr['language'],
                         'rating' => $gr['rating'],
                         'text' => $gr['text'],
                         'time' => $gr['time'],
                         'profile_photo_url' => $gr['profile_photo_url'],
                         'profile_photo_base64' => $gr_profile_photo_base64,
                         'google_place_id' => $googlePlaceId,
-                        'createdate' => $dateTime
+                        'createdate' => $dateTime,
+                        'uuid' => rand(1, 999999999)
                     ]
                 );
                 $sql->insert();
