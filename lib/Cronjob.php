@@ -5,12 +5,9 @@ namespace FriendsOfRedaxo\GooglePlaces;
 class Cronjob extends \rex_cronjob
 {
 
-    const LABEL = 'Google Places aktualisieren';
-
     public function execute() : bool
     {
-        Helper::updateReviewsDB();
-        return true;
+        return Helper::syncAll();
     }
 
     public function getTypeName() : string

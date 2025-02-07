@@ -19,7 +19,7 @@ class Helper
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
-    public static function gapi(string $place_id = null): array
+    public static function googleApiResult(string $place_id = null): array
     {
 
         if ($place_id == null) {
@@ -50,16 +50,16 @@ class Helper
      * @return array | string
      * @author Daniel Springer
      */
-    public static function getFromGoogle(string $place_id = null): array | string
+    public static function getFromGoogle(string $place_id = null, string $key = null): array | string
     {
         if ($place_id === null) {
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
         }
-        $response = self::gapi($place_id);
-        if ($place_id == "") {
+        $response = self::googleApiResult($place_id);
+        if ($key == "") {
             return $response;
         } else {
-            return $response[$place_id];
+            return $response[$key];
         }
     }
 
@@ -87,52 +87,14 @@ class Helper
     }
 
     /**
-     * Ruft Reviews zu einem Google Place direkt über die Google API ab (wsl. limitiert auf die letzten 5).
+     * Ruft die 5 letzten Reviews zu einem Google Place direkt über die Google API ab.
      * @return array
      * @author Daniel Springer
      */
-    public static function getAllReviewsFromGoogle()
+    public static function getAllReviewsLive(string $place_id = null): array
     {
-        $qry = 'reviews';
-        $response = self::gapi();
-        return $response['result'][$qry];
-    }
-
-    /**
-     * Ruft alle Reviews zu einem Google Place aus der eigenen DB ab.
-     * @return array
-     * @author Daniel Springer
-     */
-    public static function getAllReviews(string $orderBy = "", int $limit = null): array
-    {
-        $sql = rex_sql::factory();
-        $qry = 'SELECT * FROM rex_googleplaces_review';
-
-        if ($orderBy != "") {
-            $qry .= ' ORDER BY ' . $orderBy;
-        }
-        if ($limit != "") {
-            $qry .= ' LIMIT ' . $limit;
-        }
-        $sql->setQuery($qry);
-
-        $response = [];
-        foreach ($sql as $row) {
-            $id = $row->getValue('id');
-            $response[$id]['id'] = $row->getValue('id');
-            $response[$id]['author_name'] = $row->getValue('author_name');
-            $response[$id]['author_url'] = $row->getValue('author_url');
-            $response[$id]['language'] = $row->getValue('language');
-            $response[$id]['profile_photo_url'] = $row->getValue('profile_photo_url');
-            $response[$id]['profile_photo_base64'] = $row->getValue('profile_photo_base64');
-            $response[$id]['rating'] = $row->getValue('rating');
-            $response[$id]['text'] = $row->getValue('text');
-            $response[$id]['profile_photo_url'] = $row->getValue('profile_photo_url');
-            $response[$id]['time'] = $row->getValue('time');
-            $response[$id]['createdate'] = $row->getValue('createdate');
-            $response[$id]['google_place_id'] = $row->getValue('google_place_id');
-        }
-        return $response;
+        $response = self::googleApiResult($place_id);
+        return $response['reviews'];
     }
 
     /**
@@ -171,71 +133,13 @@ class Helper
      * @return bool
      * @author Daniel Springer, Alexander Walther
      */
-    public static function updateReviewsDB(): bool
+    public static function syncAll(): bool
     {
-        $googlePlace    = self::getFromGoogle();
-        $googleReviews  = $googlePlace['reviews'];
-        $googlePlaceId  = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
-
+        $places = Place::query()->find();
         $success = false;
 
-        // Get existing place or create new one
-        $place = Place::query()
-            ->where('place_id', $googlePlaceId)
-            ->findOne();
-
-        if (!$place) {
-            $place = Place::create();
-            $place->setPlaceId($googlePlaceId);
-        }
-        // Update place details
-        $place->setApiResponseJson(json_encode($googlePlace, \JSON_PRETTY_PRINT))
-            ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
-
-        // Save place
-        $success = $place->save();
-
-        if ($success) {
-
-            $place_dataset_id = $place->getId();
-
-            foreach ($googleReviews as $gr) {
-                $uuid = rex_yform_value_uuid::guidv4($gr['author_url']);
-
-                // Statt SQL-Query via rex_sql, den Eintrag über Review-Model prüfen
-                $review = Review::query()
-                    ->where('uuid', $uuid)
-                    ->findOne();
-
-                if (!$review) {
-                    // Neuen Review anlegen
-                    $review = Review::create()
-                    ->setPlaceId($place_dataset_id)
-                    ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
-                }
-
-                // Base64 Profilbild holen wenn verfügbar
-                $gr_profile_photo_base64 = @file_get_contents($gr['profile_photo_url']);
-                if ($gr_profile_photo_base64 !== false) {
-                    $gr_profile_photo_base64 = base64_encode($gr_profile_photo_base64);
-                }
-
-                // Review-Daten über Model-Methoden setzen
-                $review->setAuthorName($gr['author_name'])
-                    ->setAuthorUrl($gr['author_url'])
-                    ->setRating($gr['rating'])
-                    ->setText($gr['text'])
-                    ->setTime($gr['time'])
-                    ->setProfilePhotoUrl($gr['profile_photo_url'])
-                    ->setProfilePhotoBase64($gr_profile_photo_base64)
-                    ->setGooglePlaceId($googlePlaceId)
-                    ->setPublishedate((new DateTime('@' . $gr['time']))->format('Y-m-d H:i:s'))
-                    ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
-                    ->setUuid($uuid);
-
-                // Review speichern
-                $success = ($review->save() ?: $success);
-            }
+        foreach($places as $place) {
+            $success = $place->sync();
         }
         return $success;
     }
