@@ -25,6 +25,10 @@ page:
       icon: "rex-icon fa fa-cog"
       itemclass: "pull-right"
       title: "translate:googleplaces_config"
+    sync:
+      icon: "rex-icon fa fa-refresh"
+      itemclass: "pull-right"
+      title: "translate:googleplaces_sync"
 
 requires:
   php:

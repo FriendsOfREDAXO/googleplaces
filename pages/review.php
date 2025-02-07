@@ -2,6 +2,10 @@
 
 $addon = rex_addon::get('googleplaces');
 
+if (rex_request('sync', 'int') == 1) {
+    echo rex_view::success($addon->i18n('googleplaces_sync_success'));
+}
+
 $table_name = 'rex_googleplaces_review';
 
 rex_extension::register(

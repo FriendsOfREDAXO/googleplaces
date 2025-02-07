@@ -4,6 +4,8 @@ googleplaces_docs = Docs
 googleplaces_review = Bewertungen
 googleplaces_place_detail = Google Places
 googleplaces_cron_title = Google Places: Places-Details und Bewertungen via Google Api abrufen
+googleplaces_sync = Jetzt aktualisieren
+googleplaces_sync_success = Die Google Places Daten wurden erfolgreich aktualisiert.
 
 googleplaces_review.place_detail_id = Google Places Detail ID
 googleplaces.review.google_place_id = Google Place ID
