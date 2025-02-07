@@ -186,12 +186,11 @@ class Helper
         $googlePlaceId  = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
 
         foreach ($googleReviews as $gr) {
-            $googleTime = (string)$gr['time'];
-            #dump($googleTime);
+            $uuid = rex_yform_value_uuid::guidv4($gr['author_url']);
 
             // Statt SQL-Query via rex_sql, den Eintrag über Review-Model prüfen
             $existingReview = Review::query()
-                ->where('uuid',rex_yform_value_uuid::guidv4($googleTime))
+                ->where('uuid',$uuid)
                 ->findOne();
 
             if (!$existingReview) {
@@ -214,7 +213,7 @@ class Helper
                     ->setProfilePhotoBase64($gr_profile_photo_base64)
                     ->setGooglePlaceId($googlePlaceId)
                     ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
-                    ->setUuid(rex_yform_value_uuid::guidv4($gr['time']));
+                    ->setUuid($uuid);
 
                 // Review speichern 
                 $review->save();
@@ -231,7 +230,7 @@ class Helper
             $place->setPlaceId($googlePlaceId);
         }
         // Update place details
-        $place->setApiResponseJson(json_encode($googlePlace))
+        $place->setApiResponseJson(json_encode($googlePlace, \JSON_PRETTY_PRINT))
             ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
             
         // Save place

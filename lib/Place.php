@@ -42,4 +42,48 @@ class Place extends rex_yform_manager_dataset {
         return $this;
     }
             
-}?>
+    public static function epYformDataList(\rex_extension_point $ep) {
+        if ($ep->getParam('table')->getTableName() !== self::table()->getTableName()) {
+            return;
+        }
+
+        /** @var rex_yform_list $list */
+        $list = $ep->getSubject();
+
+        $list->setColumnFormat(
+            'place_id',
+            'custom',
+            static function ($a) {
+                $api_json_response = \json_decode($a['list']->getValue('api_response_json'));
+                $output = "<code>" . $a['value'] . "</code>";
+                if($api_json_response) {
+                    $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $api_json_response->name. '</a></strong>';
+                    $output .= '<br>' . $api_json_response->formatted_address;
+                    $output .= '<br>' . $api_json_response->formatted_phone_number;
+                    $output .= '<br><i class="fa fa-image"></i> ×' . count($api_json_response->photos);
+                    $output .= '<br><i class="fa fa-star"></i> ' . $api_json_response->rating ." (".$api_json_response->user_ratings_total .")";
+                    $output .= "<br><code>" . $a['value'] . "</code>";
+
+                }
+                return $output;
+            },
+        );
+        $list->setColumnFormat(
+            'api_response_json',
+            'custom',
+            static function ($a) {
+                return "<textarea rows=10 disabled cols=50>" . $a['value'] . "</textarea>";
+            },
+        );
+
+        // updatedate formatiert ausgeben mit rex_formatter
+        $list->setColumnFormat(
+            'updatedate',
+            'custom',
+            static function ($a) {
+                return \rex_formatter::strftime($a['value'], 'datetime');
+            },
+        );
+
+    }
+}

@@ -17,3 +17,9 @@ if (rex_addon::get('yform')->isAvailable() && !rex::isSafeMode()) {
 		Review::class, // Hier anpassen, falls Namespace verwendet wird
 	);
 }
+
+if (in_array(rex_be_controller::getCurrentPagePart(1), ['yform', 'googleplaces'], true)) {
+	rex_extension::register('YFORM_DATA_LIST', Place::epYformDataList(...));
+	rex_extension::register('YFORM_DATA_LIST', Review::epYformDataList(...));
+
+}
