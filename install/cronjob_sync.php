@@ -10,11 +10,11 @@
 use FriendsOfRedaxo\GooglePlaces\Cronjob;
 
 $job_intervall = [
-    'minutes' => '0',
-    'hours' => '0',
+    'minutes' => [0],
+    'hours' => [0],
     'days' => 'all',
     'weekdays' => 'all',
-    'month' => 'all',
+    'months' => 'all',
 ];
 
 $timestamp = rex_cronjob_manager_sql::calculateNextTime($job_intervall);
