@@ -35,6 +35,7 @@ include(__DIR__ . '/install/tableset.php');
 
 if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== "") {
         
+    rex_delete_cache();
 
         
     if (rex_addon::get('yform')->isAvailable() && !rex::isSafeMode()) {
