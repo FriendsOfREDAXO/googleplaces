@@ -1,4 +1,4 @@
-# Google-Places Add-on für REDAXO 5
+# Google Places Add-on für REDAXO 5
 
 Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places API. Es ist möglich, Informationen wie bspw. Bewertungen (Reviews), Geodaten, Bilder, Öffnungszeiten, etc. zu einem Eintrag in Google Maps via API-Aufruf zu erhalten und Reviews in der eigenen Datenbank zu speichern und auszugeben.
 
@@ -6,13 +6,13 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 
 ## Voraussetzungen
 
-### Google-Places API-Key
+### Google Places API-Key
 
-Das Add-on benötigt einen gültigen API-Key. Der Key muss die PLaces-API zulassen (In jedem Fall die Einschränkung des API-Keys auf bestimmte Domains oder IP-Adressen berücksichtigen, damit der Key nicht unbefugt benutzt werden kann). Auf dieser Seite wird beschrieben, wie man einen API-Key generiert:
+Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulassen (In jedem Fall die Einschränkung des API-Keys auf bestimmte Domains oder IP-Adressen berücksichtigen, damit der Key nicht unbefugt benutzt werden kann). Auf dieser Seite wird beschrieben, wie man einen API-Key generiert:
 
 <https://developers.google.com/maps/documentation/places/web-service/get-api-key>
 
-### Google-Places ID
+### Google Places ID
 
 Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden:
 
@@ -50,9 +50,9 @@ Detailinfos zu den Google-Place-Attributen gibt es hier:
 
 Das Add-on ermöglicht den direkten Aufruf über die Google-API, was bei jedem Aufruf über den im Add-on hinterlegten API-Key bei Google abgerechnet wird.
 
-Außerdem kann man Reviews automatisch in einer eigenen Tabelle peichern und so Googles-API-Beschränkungen umgehen bzw. die Anzahl der API-Calls reduzieren.
+Außerdem kann man Reviews automatisch in einer eigenen Tabelle speichern und so Googles-API-Beschränkungen umgehen bzw. die Anzahl der API-Calls reduzieren.
 
-### "Live-"-Aufruf der Reviews über die Google-API
+### "Live"-Aufruf der Reviews über die Google-API
 
 - `gplace::getAllReviewsFromGoogle()`
 
@@ -60,7 +60,7 @@ Ruft Reviews zum Google Place direkt über die Google API ab (wsl. limitiert auf
 
 ### Review-Aufrufe über die eigene Datenbank
 
-Weiterhin ist es möglich die Reviews zu einem Google Place in einer eigenen REDAXO-Datenbank zu speichern und so häufige Aufrufe der Google-API zu vermeiden. Dies hat außerdem den Vorteil, dass die Beschränkung auf 5 Reviews bei einem "live" -API-Aufruf von Google mit der Zeit umgangen werden kann, da Reviews automatisch in der eigenen Datenbank via mitgeliefertem Cronjob gespeichert werden können.
+Weiterhin ist es möglich die Reviews zu einem Google Place in einer eigenen REDAXO-Datenbank zu speichern und so häufige Aufrufe der Google-API zu vermeiden. Dies hat den Vorteil, dass die Beschränkung auf 5 Reviews bei einem "live" -API-Aufruf von Google mit der Zeit umgangen werden kann, da Reviews automatisch in der eigenen Datenbank via Cronjob gespeichert werden können.
 
 Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder greift man selbst per SQL darauf zu oder nutzt die vom Add-on mitgelieferten Funktionen:
 
@@ -68,7 +68,7 @@ Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder gre
 -
   Ruft alle Reviews aus der eigenen DB ab und gibt ein Array zurück.
 
-### Reviews automatisch via Cronjob in REDAXO-DB speichern
+### Reviews automatisch via Cronjob in Datenbanktabelle speichern
 
 Bei der Installation des Add-ons wurde eine Tabelle mit dem Namen `rex_googleplaces_review` angelegt. Außerdem steht im Cronjob-Add-on der Cronjob-Typ `Google Places: Reviews per API-Call aktualisieren` zur Verfügung.
 
@@ -86,7 +86,7 @@ Das Add-on bringt ein Beispiel-Modul für den Output mit. Hierzu wird bspw. das 
 
 Die Beispiel-Module holen die Reviews jeweils aus der eigenen Datenbank und nicht über die Google-API.
 
-Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im assets-Ordner des Add-ons.
+Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Ordner des Add-ons.
 
 ### Beispiel-Modul mit Bootstrap 5 Markup
 
