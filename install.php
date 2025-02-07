@@ -46,3 +46,17 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== null) {
 }
 
 rex_config::removeNamespace('mf_googleplaces');
+
+
+if (rex_addon::get('cronjob')->isAvailable()) {
+    /**
+     * Fehlenden CronJob eintragen.
+     */
+    $sql->setTable(rex::getTable('cronjob'));
+    $sql->setWhere('`type` = :class', [':class' => 'FriendsOfRedaxo\\GooglePlaces\\Cronjob']);
+    $sql->select();
+
+    if (0 === $sql->getRows()) {
+        $this->includeFile(__DIR__ . '/install/cronjob_sync.php', $subScriptParams);
+    }
+}
