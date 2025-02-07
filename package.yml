@@ -15,7 +15,7 @@ page:
     config: { title: 'translate:googleplaces_config' }
     docs:
       icon: 'rex-icon fa fa-question-circle'
-      title: 'translate:googleplaces_start'
+      title: 'translate:googleplaces_docs'
       pjax: false
       itemclass: pull-right
 
