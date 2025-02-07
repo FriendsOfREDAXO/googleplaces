@@ -38,5 +38,4 @@ requires:
     yform: ">=4.0.0"
 
 default_config:
-  gmaps-location-id: ""
   gmaps-api-key: ""
