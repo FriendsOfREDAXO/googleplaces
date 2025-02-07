@@ -1,10 +1,16 @@
 <?php
 
-use FriendsOfRedaxo\GooglePlaces\Helper;
+use FriendsOfRedaxo\GooglePlaces\Place;
+
+/** @var rex_fragment $this */
+/** @var Place $place */
+$place = $this->getVar('place');
+$place_detail = $place->getApiResponseAsArray();
 
 date_default_timezone_set('Europe/Berlin');
-$reviews    = Helper::getAllReviews('time DESC');
-$gplace     = Helper::getPlaceDetails();
+
+$reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
+
 $googleLogo =
     '
 <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -36,45 +42,33 @@ $googleLogoBig =
                     </div>
                 </div><!-- /. media -->
                 <div class="avg-rating">
-                    <?= Helper::getAvgRating() ?> / 5
+                    <?= $place->getAvgRatingApi() ?> / 5
                 </div>
                 <div class="review-stars">
-                    <ul>
                     <?php
-                    $avg = Helper::getAvgRating();
+                    $avg = $place->getAvgRatingApi();
 switch ($avg) {
     case ($avg == 5):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        echo '⭐⭐⭐⭐⭐';
         break;
     case (($avg > 4.0) && ($avg < 5.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 4:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        echo '⭐⭐⭐⭐⭐';
         break;
     case (($avg > 3.0) && ($avg < 4.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 3:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+        echo '⭐⭐⭐⭐';
         break;
     case (($avg > 2.0) && ($avg < 3.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
+        echo '⭐⭐⭐';
         break;
-    case 2:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+    case (($avg > 1.0) && ($avg <= 2.0)):
+        echo '⭐⭐';
         break;
-    case (($avg > 1.0) && ($avg < 2.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 1:
-        echo '<li><i class="fa fa-star"></i></li>';
-        break;
+    default:
+        echo '⭐';
 }
 ?>
-                    </ul>
                     <span class="grey-text">
-                                <?= Helper::getTotalRatings() ?> Bewertungen gesamt
+                                <?= $place->countReviews() ?> Bewertungen gesamt
                     </span>
                 </div>
             </div>

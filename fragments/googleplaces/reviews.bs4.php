@@ -1,10 +1,16 @@
 <?php
 
-use FriendsOfRedaxo\GooglePlaces\Helper;
+use FriendsOfRedaxo\GooglePlaces\Place;
+
+/** @var rex_fragment $this */
+/** @var Place $place */
+$place = $this->getVar('place');
+$place_detail = $place->getApiResponseAsArray();
 
 date_default_timezone_set('Europe/Berlin');
-$reviews    = Helper::getAllReviews('time DESC');
-$gplace     = Helper::getPlaceDetails();
+
+$reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
+
 $googleLogo =
     '
 <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -30,49 +36,37 @@ $googleLogo =
                     <div class="d-flex row pt-3 pb-5 px-5 bg-light">
                         <div class="green-tab p-2 px-3 mx-2">
                             <p class="sm-text mb-0">&Oslash; Bewertung</p>
-                            <h4><?= Helper::getAvgRating() ?> / 5</h4>
+                            <h4><?= $place->getAvgRatingApi() ?> / 5</h4>
                         </div>
                         <div class="white-tab p-2 mx-2 text-muted">
                             <p class="sm-text mb-0">Anzahl</p>
-                            <h4><?= Helper::getTotalRatings() ?></h4>
+                            <h4><?= $place->countReviews() ?></h4>
                         </div>
                         <div class="white-tab p-2 mx-2">
                             <p class="sm-text mb-0 text-muted">Gesamt-Bewertung</p>
                             <div class="review-stars">
-                                <ul>
                                 <?php
-                                $avg = Helper::getAvgRating();
-switch ($avg) {
-    case ($avg == 5):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-        break;
-    case (($avg > 4.0) && ($avg < 5.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 4:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-        break;
-    case (($avg > 3.0) && ($avg < 4.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 3:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-        break;
-    case (($avg > 2.0) && ($avg < 3.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 2:
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-        break;
-    case (($avg > 1.0) && ($avg < 2.0)):
-        echo '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-half"></i></li>';
-        break;
-    case 1:
-        echo '<li><i class="fa fa-star"></i></li>';
-        break;
-}
+                                $avg = $place->getAvgRatingApi();
+                                switch ($avg) {
+                                    case ($avg == 5):
+                                        echo '⭐⭐⭐⭐⭐';
+                                        break;
+                                    case (($avg > 4.0) && ($avg < 5.0)):
+                                        echo '⭐⭐⭐⭐⭐';
+                                        break;
+                                    case (($avg > 3.0) && ($avg < 4.0)):
+                                        echo '⭐⭐⭐⭐';
+                                        break;
+                                    case (($avg > 2.0) && ($avg < 3.0)):
+                                        echo '⭐⭐⭐';
+                                        break;
+                                    case (($avg > 1.0) && ($avg <= 2.0)):
+                                        echo '⭐⭐';
+                                        break;
+                                    default:
+                                        echo '⭐';
+                                }
 ?>
-                                </ul>
                             </div>
                         </div>
                         <div class="ml-md-auto p-2 mx-md-2 pt-4 pt-md-3"><a href="" class="btn btn-red px-4">Eigene Bewertung verfassen</a></div>
