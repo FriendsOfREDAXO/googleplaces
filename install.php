@@ -6,9 +6,6 @@
 // Benenne bestehende Tabellen mf_googleplaces_reviews in rex_googleplaces_review und
 // mf_googleplaces_place_details in rex_googleplaces_place_detail um
 
-use FriendsOfRedaxo\GooglePlaces\Place;
-use FriendsOfRedaxo\GooglePlaces\Review;
-
 $table = rex_sql_table::get('mf_googleplaces_reviews');
 if ($table->exists()) {
     rex_sql_table::get('mf_googleplaces_reviews')
