@@ -5,11 +5,11 @@ $buttons = '';
 // Einstellungen speichern
 if (rex_post('formsubmit', 'string') == '1') {
     $this->setConfig(rex_post('baseconfig', [
-		['gmaps-api-key', 'string'],
-		['gmaps-location-id', 'string'],
-		
+        ['gmaps-api-key', 'string'],
+        ['gmaps-location-id', 'string'],
+        
     ]));
-	
+    
     echo rex_view::success('Einstellungen gespeichert');
 }
 
@@ -21,9 +21,9 @@ $content .= '<fieldset>';
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="mf-places-gmaps-api-key">Google Maps API-Key</label>';
-$n['field'] = '<input class="form-control mf_places-gmaps-api-key" type="text" id="mf-places-gmaps-api-key" name="baseconfig[gmaps-api-key]" value="' . $this->getConfig('gmaps-api-key') . '"/>';
+$n['field'] = '<input class="form-control places-gmaps-api-key" type="text" id="mf-places-gmaps-api-key" name="baseconfig[gmaps-api-key]" value="' . $this->getConfig('gmaps-api-key') . '"/>';
 $formElements[] = $n;
-	
+
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
@@ -32,9 +32,9 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="mf-places-location-id">Google Places Location ID</label>';
-$n['field'] = '<input class="form-control mf_places-location-id" type="text" id="mf-places-location-id" name="baseconfig[gmaps-location-id]" value="' . $this->getConfig('gmaps-location-id') . '"/>';
+$n['field'] = '<input class="form-control places-location-id" type="text" id="mf-places-location-id" name="baseconfig[gmaps-location-id]" value="' . $this->getConfig('gmaps-location-id') . '"/>';
 $formElements[] = $n;
-	
+
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
@@ -74,9 +74,4 @@ $output = '
 </form>
 ';
 
-echo $output;	
-?>
-
-
-
-
+echo $output;

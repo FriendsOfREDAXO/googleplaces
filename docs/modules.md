@@ -11,7 +11,7 @@ Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im assets-Ordn
 
 Das Modul benötigt Bootstrap 4 und Fontawesome für die Sterne. <br>
 CSS-Style:<br>
-`assets/addons/googleplaces/css/mf_googleplaces-reviews-bs4.css`
+`assets/addons/googleplaces/css/googleplaces-reviews-bs4.css`
 
 ```
 <?php
@@ -26,7 +26,7 @@ echo $fragment->parse('googleplaces_reviews.bs4.php');
 
 Das Modul benötigt Bootstrap 3 und Fontawesome für die Sterne. <br>
 CSS-Style:<br>
-`assets/addons/googleplaces/css/mf_googleplaces-reviews-bs3.css`
+`assets/addons/googleplaces/css/googleplaces-reviews-bs3.css`
 
 ```
 <?php

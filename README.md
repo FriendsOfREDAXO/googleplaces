@@ -1,4 +1,5 @@
 # Google-Places AddOn für REDAXO 5
+
 Das AddOn Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places API. Es ist möglich, Informationen wie
 z.B. Bewertungen (Reviews), Geodaten, Bilder, Öffnungszeiten, etc. zu einem Eintrag in Google Maps via API-Aufruf zu
 erhalten und Reviews in der eigenen Datenbank zu speichern und auszugeben.
@@ -12,13 +13,13 @@ erhalten und Reviews in der eigenen Datenbank zu speichern und auszugeben.
 Das AddOn benötigt einen gültigen API-Key. Der Key muss die PLaces-API zulassen (In jedem Fall die Einschränkung des
 API-Keys auf bestimmte Domains oder IP-Adressen berücksichtigen, damit der Key nicht unbefugt benutzt werden kann). Auf
 dieser Seite wird beschrieben, wie man einen API-Key generiert:<br>
-https://developers.google.com/maps/documentation/places/web-service/get-api-key
+<https://developers.google.com/maps/documentation/places/web-service/get-api-key>
 
 ### Google-Places ID
 
 Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID
 herausfinden:<br>
-https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de
+<https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
 
 __Gültiger API-Key und Place-ID müssen in die Konfiguration des AddOns eingetragen werden.__
 
@@ -43,7 +44,7 @@ Entsprechend beispielhaft:
 - Adresse (string): `gplace::get('formatted_address')`
 
 Detailinfos zu den Google-Place-Attributen gibt es hier:<br>
-https://developers.google.com/maps/documentation/places/web-service/details#Place
+<https://developers.google.com/maps/documentation/places/web-service/details#Place>
 
 ## Google-Reviews
 
@@ -65,7 +66,7 @@ Aufrufe der Google-API zu vermeiden. Dies hat außerdem den Vorteil, dass die Be
 -API-Aufruf von Google mit der Zeit umgangen werden kann, da Reviews automatisch in der eigenen Datenbank via
 mitgeliefertem Cronjob gespeichert werden können.
 
-Die Reviews befinden sich in der Tabelle `mf_googleplaces_reviews`. Entweder greift man selbst per SQL darauf zu oder
+Die Reviews befinden sich in der Tabelle `rex_googleplaces_reviews`. Entweder greift man selbst per SQL darauf zu oder
 nutzt die vom AddOn mitgelieferten Funktionen:
 
 - `gplace::getAllReviews()` <br>
@@ -73,7 +74,7 @@ nutzt die vom AddOn mitgelieferten Funktionen:
 
 ### Reviews automatisch via Cronjob in REDAXO-DB speichern
 
-Bei der Installation des AddOns wurde eine Tabelle mit dem Namen `mf_googleplaces_reviews` angelegt. Außerdem steht im
+Bei der Installation des AddOns wurde eine Tabelle mit dem Namen `rex_googleplaces_reviews` angelegt. Außerdem steht im
 Cronjob-AddOn der Cronjob-Typ `Google Places: Reviews per API-Call aktualisieren` zur Verfügung.<br>
 Der Cronjob ruft die Funktion `gplace::updateReviewsDB()` aus und speichert die letzten 5 Reviews, die als Antwort von
 Google kommen in der Tabelle. Anhand des Timestamps wird überprüft, ob der Review bereits in der Tabelle vorhanden ist
@@ -87,21 +88,20 @@ dann nur einmal pro Tag aufgerufen und nicht bei jeder Darstellung der Reviews.
 
 #### ACHTUNG: Löschung der Tabelle bei Deinstallation
 
-Bei einer Deinstallation des AddOns wird auch die Tabelle `mf_googleplaces_reviews` gelöscht und damit die Einträge
+Bei einer Deinstallation des AddOns wird auch die Tabelle `rex_googleplaces_reviews` gelöscht und damit die Einträge
 darin.
 
 Falls man das AddOn bereits einige Zeit in Benutzung hat und sich mehr als die letzten 5 Reviews darin befinden, sind
 diese verloren, da man über die Google-API nicht mehr auf die alten Reviews zugreifen kann.
 <br>__DB-Backup nicht vergessen, wenn man die historischen Daten nicht verlieren möchte!__
 
-
 ## Autor
-**Friends Of REDAXO**
-* http://www.redaxo.org
-* https://github.com/FriendsOfREDAXO
+__Friends Of REDAXO__
+- <http://www.redaxo.org>
+- <https://github.com/FriendsOfREDAXO>
 
-**Lead**
+__Lead__
 [Alexander Walther](https://github.com/alxndr-w)
 
-**Ursprünglich entwickelt von**
+__Ursprünglich entwickelt von__
 [Daniel Springer]([https://www.e-recht24.de](https://github.com/danspringer))

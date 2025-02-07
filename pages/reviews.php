@@ -1,5 +1,5 @@
 <?php
-$list = rex_list::factory('SELECT * FROM mf_googleplaces_reviews ORDER BY time DESC', 50);
+$list = rex_list::factory('SELECT * FROM rex_googleplaces_reviews ORDER BY time DESC', 50);
 
 $list->setColumnSortable('time');
 $list->setColumnSortable('rating');
