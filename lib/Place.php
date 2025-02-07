@@ -12,10 +12,13 @@ class Place extends rex_yform_manager_dataset
     
     /* Reviews */
     /** @api */
-    public function getReviews() :rex_yform_manager_collection
+    public function getReviews(int $limit = 100, int $offset = 0, $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC') :rex_yform_manager_collection
     {
         return Review::query()
             ->where('place_id', $this->getId())
+            ->where('rating', '>=', $minRating)
+            ->limit($offset, $limit)
+            ->orderBy($orderByField, $orderBy)
             ->find();
     }
 
@@ -169,6 +172,38 @@ class Place extends rex_yform_manager_dataset
             }
         }
         return $success;
+    }
+
+    public function countReviews() : int
+    {
+        return Review::query()
+            ->where('place_id', $this->getId())
+            ->count();
+    }
+
+    public function getAvgRatingDb() : float
+    {
+        $reviews = $this->getReviews(0, 0, 0);
+        $rating = 0;
+        $i = 0;
+        foreach ($reviews as $review) {
+            /** @var Rating $review */
+            $rating += $review->getRating();
+            $i++;
+        }
+        if ($i === 0) {
+            return 0;
+        }
+        return $rating / $i;
+    }
+
+    public function getAvgRatingApi() : float
+    {
+        $googlePlace = $this->getApiResponseAsArray();
+        if(!isset($googlePlace['rating'])) {
+            return 0;
+        }
+        return $googlePlace['rating'];
     }
 
 }

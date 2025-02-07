@@ -2,11 +2,7 @@
 
 namespace FriendsOfRedaxo\GooglePlaces;
 
-use rex_sql;
-use rex_var;
 use rex_addon;
-use DateTime;
-use rex_yform_value_uuid;
 
 /**
  * Google Places Add-on: Gibt Details zu einem Google Place aus.
@@ -64,7 +60,7 @@ class Helper
     }
 
     /**
-     * Ruft Details zu einem Google Place über die eigene DB ab.
+     * Ruft Details zu einem Google Place ab.
      * @return array | false
      * @author Daniel Springer
      */
@@ -81,9 +77,11 @@ class Helper
 
         if ($place) {
             return json_decode($place->getApiResponseJson(), true);
-        } else {
-            return false;
+        } 
+        if ($place_id) {
+            return self::getFromGoogle($place_id);
         }
+        return false;
     }
 
     /**
@@ -95,36 +93,6 @@ class Helper
     {
         $response = self::googleApiResult($place_id);
         return $response['reviews'];
-    }
-
-    /**
-     * Ruft die durschnittliche Bewertung aller Reviews zu einem Google Place aus der eigenen DB ab.
-     * @return float
-     * @author Daniel Springer
-     */
-    public static function getAvgRating(): float
-    {
-        $sql = rex_sql::factory();
-        $sql->setQuery('SELECT rating FROM rex_googleplaces_review');
-        $rating = 0;
-        $i = $sql->getRows();
-        foreach ($sql as $row) {
-            $rating = $rating + $row->getValue('rating');
-        }
-        return round(floatval($rating / $i), 1);
-    }
-
-    /**
-     * Ruft die Anzahl aller Reviews zu einem Google Place aus der eigenen DB ab.
-     * @return int
-     * @author Daniel Springer
-     */
-    public static function getTotalRatings(): int
-    {
-        $sql = rex_sql::factory();
-        $sql->setQuery('SELECT * FROM rex_googleplaces_review');
-        $i = $sql->getRows();
-        return $i;
     }
 
     /**
