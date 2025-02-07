@@ -14,7 +14,7 @@ rex_sql_table::get(rex::getTablePrefix().'googleplaces_reviews')
     ->ensureColumn(new rex_sql_column('google_place_id', 'varchar(191)'))
     ->ensure();
 
-rex_sql_table::get(rex::getTablePrefix().'googleplaces_place_details')
+rex_sql_table::get(rex::getTablePrefix().'googleplaces_place_detail')
     ->ensurePrimaryIdColumn()
     ->ensureColumn(new rex_sql_column('place_id', 'varchar(191)'))
     ->ensureColumn(new rex_sql_column('api_response_json', 'text'))
