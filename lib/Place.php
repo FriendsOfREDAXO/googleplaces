@@ -27,12 +27,14 @@ class Place extends rex_yform_manager_dataset {
 
     /* API Response JSON */
     /** @api */
-    public function getApiResponseJson(bool $asPlaintext = false) : ?string {
-        if($asPlaintext) {
-            return strip_tags($this->getValue("api_response_json"));
-        }
+    public function getApiResponseJson() : ?string {
         return $this->getValue("api_response_json");
     }
+
+    public function getApiResponseAsArray() : ?array {
+        return json_decode($this->getApiResponseJson(), true);
+    }
+
     /** @api */
     public function setApiResponseJson(mixed $value) : self {
         $this->setValue("api_response_json", $value);
