@@ -5,6 +5,11 @@ use FriendsOfRedaxo\GooglePlaces\Place;
 $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
+// Wenn kein API-Schlüssel hinterlegt ist, dann Hinweis ausgeben
+if (empty($addon->getConfig('api_key'))) {
+    echo rex_view::warning(rex_i18n::msg('googleplaces_no_api_key'));
+}
+
 // Wenn ein Place hinzugefügt werden soll
 if (rex_get('place_id')) {
     $placeId = rex_get('place_id');

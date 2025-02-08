@@ -67,3 +67,5 @@ googleplaces_query_place_added = Der Google Places-Eintrag wurde erfolgreich hin
 googleplaces_review.status = Status
 googleplaces_review_status_hidden = 🚫 Versteckt
 googleplaces_review_status_visible = 🟢 Sichtbar
+
+googleplaces_no_api_key = Es wurde kein API-Schlüssel hinterlegt. Bitte fügen Sie einen API-Schlüssel in den Einstellungen hinzu.
