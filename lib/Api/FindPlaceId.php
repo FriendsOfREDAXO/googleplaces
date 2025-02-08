@@ -51,7 +51,8 @@ class rex_api_find_place_id extends rex_api_function {
     public static function queryPlaces($name, $street, $zip, $city, $apiKey)
     {
         // Erstelle die Suchanfrage
-        $query = urlencode("$name, $city");
+        $quarry = [$name, $street, $zip, $city];
+        $query = implode(', ', $quarry);
         $url = "https://places.googleapis.com/v1/places:searchText?key=$apiKey";
 
 
