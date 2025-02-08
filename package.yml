@@ -27,6 +27,10 @@ page:
       icon: "rex-icon fa fa-refresh"
       itemclass: "pull-right"
       title: "translate:googleplaces_sync"
+    query:
+      icon: "rex-icon fa fa-search"
+      itemclass: "pull-right"
+      title: "translate:googleplaces_query"
 
 requires:
   php:
@@ -36,4 +40,4 @@ requires:
     yform: ">=4.0.0"
 
 default_config:
-  gmaps-api-key: ""
+  api_key: ""

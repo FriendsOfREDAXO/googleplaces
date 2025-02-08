@@ -38,3 +38,28 @@ googleplaces_place_detail.review_ids = Bewertungen
 
 googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Reviews
+
+# Backend-Seite
+
+googleplaces_query = Eintrag suchen
+googleplaces_query_title = Google Places durchsuchen
+googleplaces_query_info = Hier können Sie nach Google Places-Einträgen suchen und diese hinzufügen. Der API-Schlüssel muss die entsprechende Berechtigung haben.
+
+googleplaces_query_name = Name
+googleplaces_query_name_placeholder = Yakamara
+googleplaces_query_street = Straße
+googleplaces_query_street_placeholder = Bethmannstraße 7-9
+googleplaces_query_zip = PLZ
+googleplaces_query_zip_placeholder = 60311 
+googleplaces_query_city = Stadt
+googleplaces_query_city_placeholder = Frankfurt am Main
+googleplaces_query_submit = Suchen
+
+googleplaces_query_results = Ergebnisse
+
+googleplaces_query_place_id = Place ID
+googleplaces_query_table_name = Name
+
+googleplaces_query_action = Aktion
+googleplaces_query_add = Hinzufügen
+googleplaces_query_place_added = Der Google Places-Eintrag wurde erfolgreich hinzugefügt.
