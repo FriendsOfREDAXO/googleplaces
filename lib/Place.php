@@ -98,7 +98,7 @@ class Place extends rex_yform_manager_dataset
             'api_response_json',
             'custom',
             static function ($a) {
-                return '<textarea rows="10" disabled cols="50">' . $a['value'] . "</textarea>";
+                return '<textarea rows="6" disabled cols="30">' . $a['value'] . "</textarea>";
             },
         );
 
