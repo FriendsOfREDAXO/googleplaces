@@ -38,6 +38,7 @@ requires:
   redaxo: ">=5.17"
   packages:
     yform: ">=4.0.0"
+    yform_field: ">=2.9.0"
 
 default_config:
   api_key: ""

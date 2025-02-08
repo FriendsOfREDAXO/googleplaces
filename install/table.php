@@ -11,11 +11,12 @@ rex_sql_table::get(rex::getTable('googleplaces_review'))
     ->ensureColumn(new rex_sql_column('text', 'text'))
     ->ensureColumn(new rex_sql_column('profile_photo_url', 'varchar(191)', false, ''))
     ->ensureColumn(new rex_sql_column('profile_photo_base64', 'text'))
-    ->ensureColumn(new rex_sql_column('time', 'varchar(191)', false, ''))
     ->ensureColumn(new rex_sql_column('createdate', 'datetime'))
+    ->ensureColumn(new rex_sql_column('status', 'tinyint(1)'))
     ->ensureColumn(new rex_sql_column('publishdate', 'datetime'))
     ->ensureColumn(new rex_sql_column('updatedate', 'datetime'))
     ->ensureColumn(new rex_sql_column('uuid', 'varchar(36)'))
+    ->ensureColumn(new rex_sql_column('time', 'varchar(191)', false, ''))
     ->ensureIndex(new rex_sql_index('uuid', ['uuid'], rex_sql_index::UNIQUE))
     ->ensureIndex(new rex_sql_index('google_place_id_author_url', ['google_place_id', 'author_url'], rex_sql_index::UNIQUE))
     ->ensure();
@@ -32,4 +33,4 @@ rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
 
 // unix timestamp to datetime
 rex_sql::factory()
-    ->setQuery('UPDATE rex_googleplaces_review SET `publishdate` = FROM_UNIXTIME(`time`) WHERE `publishdate` IS NULL OR `publishdate` = "0000-00-00 00:00:00"'); 
+    ->setQuery('UPDATE rex_googleplaces_review SET `publishdate` = FROM_UNIXTIME(`time`) WHERE `publishdate` IS NULL OR `publishdate` = "0000-00-00 00:00:00"');
