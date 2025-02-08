@@ -2,10 +2,15 @@
 
 namespace FriendsOfRedaxo\GooglePlaces;
 
+use rex_i18n;
 use rex_yform_manager_dataset;
 
 class Review extends rex_yform_manager_dataset
 {
+
+    // Status-Werte definieren
+    public const STATUS_VISIBLE = 1;
+    public const STATUS_HIDDEN = 0;
 
     /* Place */
     /** @api */
@@ -283,6 +288,14 @@ class Review extends rex_yform_manager_dataset
         return $query
         ->orderBy($orderByField, $orderBy)
         ->find();
+    }
+
+    public static function getStatusOptions(): array
+    {
+        return [
+            self::STATUS_VISIBLE => rex_i18n::msg('googleplaces_review_status_visible'),
+            self::STATUS_HIDDEN => rex_i18n::msg('googleplaces_review_status_hidden'),
+        ];
     }
 
 }

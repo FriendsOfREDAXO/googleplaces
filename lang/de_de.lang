@@ -63,3 +63,7 @@ googleplaces_query_table_name = Name
 googleplaces_query_action = Aktion
 googleplaces_query_add = Hinzufügen
 googleplaces_query_place_added = Der Google Places-Eintrag wurde erfolgreich hinzugefügt.
+
+googleplaces_review.status = Status
+googleplaces_review_status_hidden = 🚫 Versteckt
+googleplaces_review_status_visible = 🟢 Sichtbar
