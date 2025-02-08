@@ -63,3 +63,5 @@ googleplaces_query_table_name = Name
 googleplaces_query_action = Aktion
 googleplaces_query_add = Hinzufügen
 googleplaces_query_place_added = Der Google Places-Eintrag wurde erfolgreich hinzugefügt.
+
+googleplaces_no_api_key = Es wurde kein API-Schlüssel hinterlegt. Bitte fügen Sie einen API-Schlüssel in den Einstellungen hinzu.
