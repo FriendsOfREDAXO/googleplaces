@@ -10,12 +10,13 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 * ⭐ Speichere **Reviews** für mehrere Places
 * 🔄️ **Manuelle Synchronisation** aus dem Backend heraus
 * 🔄️ **Automatische Synchronisation** mit vorinstalliertem Cronjob
-* 5️⃣ **Bootstrap 5** Modul-Beispiel
+* 🏪 Neue **Backend-Ansicht für Places**
+* 💁🏻 **Überarbeitete Dokumentation** mit Beispielen zu den neuen Methoden
+* 🔎 **Suche direkt im Backend** nach Google Places-Einträgen
 * 🦖 Umstellung auf **FriendsOfREDAXO-Namespace**
 * ✅ **YOrm**-basierte Klassen für Places und Reviews
 * ➡️ **YForm**-Tableset für Places und Reviews
-* 🏪 Neue **Backend-Ansicht für Places**
-* 💁🏻 **Überarbeitete Dokumentation** mit Beispielen zu den neuen Methoden
+* 5️⃣ **Bootstrap 5** Modul-Beispiel
 
 > **Hinweis:** Diese Dokumentation wurde noch nicht vollständig aktualisiert. Einige Informationen können veraltet sein.
 
