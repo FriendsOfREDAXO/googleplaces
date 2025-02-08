@@ -40,9 +40,6 @@ if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== null) {
     $sql->setValue('place_id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
     $sql->insertOrUpdate();
 
-
-    rex_config::set('googleplaces', 'gmaps-location-id', rex_config::get('mf_googleplaces', 'gmaps-location-id'));
-
 }
 
 rex_config::removeNamespace('mf_googleplaces');
