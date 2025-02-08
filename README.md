@@ -28,15 +28,15 @@ Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulass
 
 <https://developers.google.com/maps/documentation/places/web-service/get-api-key>
 
-### Google Places ID
+### Google Places-Einträge
 
 Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden: <https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
 
-**Gültiger API-Key und Place-ID müssen in die Konfiguration des Add-ons eingetragen werden.**
+> **Neu ab 3.0.0:** Suche direkt im Backend nach Google Places-Einträgen.
 
-## Google-Place-Informationen
+## Was wird abgerufen?
 
-## Google-Reviews
+### Google-Places-Reviews
 
 Das Add-on ermöglicht den direkten Aufruf über die Google-API, was bei jedem Aufruf über den im Add-on hinterlegten API-Key bei Google abgerechnet wird.
 
