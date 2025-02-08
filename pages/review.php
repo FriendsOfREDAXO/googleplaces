@@ -7,6 +7,11 @@ if (rex_request('sync', 'int', null) === 1) {
     echo rex_view::success($addon->i18n('googleplaces_sync_success'));
 }
 
+// Wenn kein API-Schlüssel hinterlegt ist, dann Hinweis ausgeben
+if (empty($addon->getConfig('api_key'))) {
+    echo rex_view::warning(rex_i18n::msg('googleplaces_no_api_key'));
+}
+
 $table_name = 'rex_googleplaces_review';
 
 rex_extension::register(
