@@ -22,7 +22,7 @@ if ($table->exists()) {
 // Config-Werte übernehmen
 
 if (rex_config::get('mf_googleplaces', 'gmaps-api-key') !== null || rex_config::get('mf_googleplaces', 'gmaps-api-key') !== '') {
-    rex_config::set('googleplaces', 'gmaps-api-key', rex_config::get('mf_googleplaces', 'gmaps-api-key'));
+    rex_config::set('googleplaces', 'api_key', rex_config::get('mf_googleplaces', 'gmaps-api-key'));
 }
 
 // Einrichtung und Installation

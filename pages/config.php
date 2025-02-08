@@ -5,7 +5,7 @@ echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 $form = rex_config_form::factory($addon->getName());
 
-$field = $form->addInputField('text', 'gmaps-api-key', null, ['class' => 'form-control']);
+$field = $form->addInputField('text', 'api_key', null, ['class' => 'form-control']);
 $field->setLabel('Google Maps API-Key');
 
 
