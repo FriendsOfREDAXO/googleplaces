@@ -1,72 +1,49 @@
-.ratings {
-    -webkit-font-smoothing: antialiased;
-    font: normal normal 1rem/1.4 Roboto, Helvetica, Arial, sans-serif;
-    padding-bottom: 15px;
-    background-image: linear-gradient(to top, #fdfdfd, #939393);
+[data-googleplaces-review-stars] {
+    background-image: ('/assets/addons/googleplaces-review/images/review-stars.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    display: inline-block;
+    height: 20px;
+    width: 130px;
 }
 
-.ratings .single-review,
-.ratings .ratings-header {
-    padding: 24px;
-    border-radius: 10px;
-    backdrop-filter: blur(15px);
-    background-color: rgb(250, 250, 250);
-    transition: background-color 0.1s ease 0s;
-    margin-top: 20px;
+[data-googleplaces-review-stars="background"] {
+    width: 100%;
+    opacity: 0.3;
 }
 
-.ratings .ratings-header .avg-rating {
-    margin-right: 13px;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: normal;
-    color: rgb(17, 17, 17);
-}
-.ratings .single-review .media-heading {
-    font-weight: bold;
+[data-googleplaces-review-stars="5"] {
+    width: 100%;
 }
 
-.ratings .grey-text {
-    overflow: hidden;
-    min-width: 0;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.17;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: rgba(17, 17, 17, 0.5);
+[data-googleplaces-review-stars="4.5"] {
+    width: 90%;
 }
 
-.ratings .media-left {
-    padding-right: 16px;
-}
-.ratings .review-stars ul,
-.ratings .review-stars li {
-    display: inline;
+[data-googleplaces-review-stars="4"] {
+    width: 80%;
 }
 
-.ratings .review-stars ul {
-    margin-left: -40px;
+[data-googleplaces-review-stars="3.5"] {
+    width: 70%;
 }
 
-.ratings .review-stars .fa-star,
-.ratings .review-stars .fa-star-half {
-    color: rgb(255, 180, 0);
-    font-size: 1.7em;
+[data-googleplaces-review-stars="3"] {
+    width: 60%;
 }
 
-.ratings .rating-text {
-    padding-top: 15px;
+[data-googleplaces-review-stars="2.5"] {
+    width: 50%;
 }
 
-.ratings .rating-text p {
-    text-align: left;
-    color: rgb(17, 17, 17);
-    word-break: break-word;
-    font-size: 18px;
-    line-height: 1.5em;
+[data-googleplaces-review-stars="2"] {
+    width: 40%;
 }
 
-.ratings .google-heading {
-    font-size: 14px;
+[data-googleplaces-review-stars="1.5"] {
+    width: 30%;
+}
+
+[data-googleplaces-review-stars="1"] {
+    width: 20%;
 }
