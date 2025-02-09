@@ -107,7 +107,7 @@ class Place extends rex_yform_manager_dataset
             'updatedate',
             'custom',
             static function ($a) {
-                return '<span class="text-nowrap">'. \rex_formatter::strftime($a['value'], 'datetime') .'</span>';
+                return '<span class="text-nowrap">'. \rex_formatter::intlDateTime($a['value']) .'</span>';
             },
         );
 

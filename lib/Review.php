@@ -244,7 +244,7 @@ class Review extends rex_yform_manager_dataset
                 if ($a['value'] === "0000-00-00 00:00:00") {
                     return "";
                 }
-                return \rex_formatter::strftime($a['value'], 'datetime');
+                return \rex_formatter::intlDateTime($a['value']);
             },
         );
         // updatedate formatiert ausgeben mit rex_formatter
@@ -255,7 +255,7 @@ class Review extends rex_yform_manager_dataset
                 if ($a['value'] === "0000-00-00 00:00:00") {
                     return "";
                 }
-                return \rex_formatter::strftime($a['value'], 'datetime');
+                return \rex_formatter::intlDateTime($a['value']);
             },
         );
         // publishdate formatierrt ausgeben mit rex_formatter
@@ -266,7 +266,7 @@ class Review extends rex_yform_manager_dataset
                 if ($a['value'] === "0000-00-00 00:00:00") {
                     return "";
                 }
-                return '<span class="text-nowrap">'. \rex_formatter::strftime($a['value'], 'datetime') .'</span>';
+                return '<span class="text-nowrap">'. \rex_formatter::intlDateTime($a['value']) .'</span>';
             },
         );
     }
