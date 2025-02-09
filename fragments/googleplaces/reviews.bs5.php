@@ -46,7 +46,12 @@ $reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
 				<?= rex_formatter::intlDate($review->getPublishdate()) ?>
 			</p>
 			<div class="review-stars">
-				<?= $review->getRating(); ?>
+				<div data-googleplaces-review-stars="background">
+					<div
+						data-googleplaces-review-stars="<?= $review->getRating() ?>">
+						<?= $review->getRating() ?>
+					</div>
+				</div>
 			</div>
 			<p><?= $review->getText() ?></p>
 			<a href="<?= $review->getAuthorUrl()  ?>" target="_blank"
