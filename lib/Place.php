@@ -12,11 +12,12 @@ class Place extends rex_yform_manager_dataset
     
     /* Reviews */
     /** @api */
-    public function getReviews(int $limit = 100, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC') :rex_yform_manager_collection
+    public function getReviews(int $limit = 100, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = Review::STATUS_VISIBLE) :rex_yform_manager_collection
     {
         return Review::query()
-            ->where('place_id', $this->getId())
+            ->where('place_detail_id', $this->getId())
             ->where('rating', $minRating, '>=')
+            ->where('status', $status)
             ->limit($offset, $limit)
             ->orderBy($orderByField, $orderBy)
             ->find();
@@ -122,12 +123,12 @@ class Place extends rex_yform_manager_dataset
         $success = false;
 
         $googlePlace = Helper::getFromGoogle($this->getPlaceId());
-        if($googlePlace === null) {
+        if ($googlePlace === null) {
             dd('Google Place not found');
             return false;
         }
         $reviews_from_api = $googlePlace['reviews'];
-        if($reviews_from_api === null) {
+        if ($reviews_from_api === null) {
             dd('Google Place reviews not found');
             return false;
         }
@@ -191,7 +192,7 @@ class Place extends rex_yform_manager_dataset
     public function countReviews() : int
     {
         return Review::query()
-            ->where('place_id', $this->getId())
+            ->where('place_detail_id', $this->getId())
             ->count();
     }
 
@@ -220,6 +221,40 @@ class Place extends rex_yform_manager_dataset
             return 0;
         }
         return $googlePlace['rating'];
+    }
+
+    // Place-Name aus JSON auslesen
+    /** @api */
+    public function getName() : string
+    {
+        $googlePlace = $this->getApiResponseAsArray();
+        if (!isset($googlePlace['name'])) {
+            return '';
+        }
+        return $googlePlace['name'];
+    }
+
+    // Place-Adresse aus JSON auslesen
+    /** @api */
+    public function getAddress() : string
+    {
+        $googlePlace = $this->getApiResponseAsArray();
+        if (!isset($googlePlace['formatted_address'])) {
+            return '';
+        }
+        return $googlePlace['formatted_address'];
+    }
+
+    // Places-Einträge als $id => $name . " " . $address Array ausgeben
+    /** @api */
+    public static function getPlacesOptions() : array
+    {
+        $places = [];
+        foreach (self::query()->find() as $place) {
+            /** @var Place $place */
+            $places[$place->getId()] = $place->getName() . " " . $place->getAddress();
+        }
+        return $places;
     }
 
 }
