@@ -30,64 +30,71 @@ Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulass
 
 ### Google Places-Einträge
 
-Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden: <https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
+Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden:
 
-> **Neu ab 3.0.0:** Suche direkt im Backend nach Google Places-Einträgen.
+<https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder?hl=de>
+
+> **Neu in 3.0.0:** Über die Backend-Seite `Google Places >  Eintrag suchen` kannst du direkt eine Suche nach Einträgen durchführen und Einträge in deine Datenbank hinzufügen.
 
 ## Was wird abgerufen?
 
-### Google-Places-Reviews
+### Der Google-Places-Eintrag
 
-Das Add-on ermöglicht den direkten Aufruf über die Google-API, was bei jedem Aufruf über den im Add-on hinterlegten API-Key bei Google abgerechnet wird.
+Der Google-Places-Eintrag enthält alle Informationen zu einem Ort und wird als JSON in der Tabelle `rex_googleplaces_place_detail` abgespeichert. 
 
-Außerdem kann man Reviews automatisch in einer eigenen Tabelle speichern und so Googles-API-Beschränkungen umgehen bzw. die Anzahl der API-Calls reduzieren.
+Erstelle einen neuen Eintrag und rufe anschließend die Daten über "Jetzt aktualisieren" ab, oder regelmäßig via Cronjob.
 
-### "Live"-Aufruf der Reviews über die Google-API
+> **Neu in 3.0.0:** Über die Backend-Seite `Google Places >  Eintrag suchen` kannst du direkt eine Suche nach Einträgen durchführen und Einträge in deine Datenbank hinzufügen.
 
-* `Helper::getAllReviewsFromGoogle()`
+Die Google Places API beschränkt den Zugriff auf die letzten 5 Rezensionen.
 
-Ruft Reviews zum Google Place direkt über die Google API ab (wsl. limitiert auf die letzten 5 Reviews). Pro Aufruf wird hier von Google ein API-Call registriert und abgerechnet.
+### Rezensionen (Reviews) zu einem Google-Places-Eintrag ausgeben
 
-### Review-Aufrufe über die eigene Datenbank
+#### Beispiele für die Ausgabe als Fragment und Modul 
 
-Weiterhin ist es möglich die Reviews zu einem Google Place in einer eigenen REDAXO-Datenbank zu speichern und so häufige Aufrufe der Google-API zu vermeiden. Dies hat den Vorteil, dass die Beschränkung auf 5 Reviews bei einem "live" -API-Aufruf von Google mit der Zeit umgangen werden kann, da Reviews automatisch in der eigenen Datenbank via Cronjob gespeichert werden können.
+Details zum Google Places-Eintrag und die Rezensionen (Reviews) können per `rex_sql` oder mittels `YOrm` geholt und individuell ausgegeben werden.
 
-Die Reviews befinden sich in der Tabelle `rex_googleplaces_review`. Entweder greift man selbst per SQL darauf zu oder nutzt die vom Add-on mitgelieferten Funktionen:
+Dieses Beispiel-Modul nutzt das MForm-Addon für die Auswahl eines Google-Places-Eintrags aus der Datenbank und gibt diese über das mitglieferte Fragment aus. 
 
-* `gplace::getAllReviews()`
-* Ruft alle Reviews aus der eigenen DB ab und gibt ein Array zurück.
+Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Ordner des Add-ons unter: `/assets/addons/googleplaces/css/reviews.css`
 
-### Reviews automatisch via Cronjob in Datenbanktabelle speichern
+> **Tipp:** Das Fragment kann bspw. auch im Template ausgegeben werden. 
 
-Bei der Installation des Add-ons wurde eine Tabelle mit dem Namen `rex_googleplaces_review` angelegt. Außerdem steht im Cronjob-Add-on der Cronjob-Typ `Google Places: Reviews per API-Call aktualisieren` zur Verfügung.
-
-Der Cronjob ruft die Funktion `gplace::updateReviewsDB()` aus und speichert die letzten 5 Reviews, die als Antwort von Google kommen in der Tabelle. Anhand des Timestamps wird überprüft, ob der Review bereits in der Tabelle vorhanden ist oder nicht. Entsprechend wird er gespeichert oder übersprungen.
-
-Auf diese Weise wächst die Menge an gespeicherten Reviews in der eigenen Datenbank mit der Zeit an und man kann das Google-Limit umgehen, welches nur die letzten 5 Reviews zurückgibt.
-
-Außerdem spart man so deutlich an API-Aufrufen, wenn man den Cronjob bspw. auf einmal pro Tag  konfiguriert. Die API wird dann nur einmal pro Tag aufgerufen und nicht bei jeder Darstellung der Reviews.
-
-## Modulausgabe
-
-Grundsätzlich können die Reviews aus der Tabelle auch per SQL geholt werden und anschließend individuell ausgegeben und dargestellt werden.
-
-Das Add-on bringt ein Beispiel-Modul für den Output mit. Hierzu wird bspw. das Fragment `googleplaces/reviews.bs4.php` verwendet. Das Fragment kann auch leicht bspw. über das Theme-Add-on oder das Project-Add-on updatesicher überschrieben werden.
-
-Die Beispiel-Module holen die Reviews jeweils aus der eigenen Datenbank und nicht über die Google-API.
-
-Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Ordner des Add-ons.
-
-### Beispiel-Modul mit Bootstrap 5 Markup
-
-Das Modul verwendet Bootstrap 5-Klassen, weitere Styles sind nicht notwendig. Verwende folgendes CSS: `/assets/addons/googleplaces/css/reviews.css`
+#### Modul-Eingabe mit MForm
 
 ```php
 <?php
-$fragment = new rex_fragment();
-$fragment->setVar('place', Place::get(1), false); // Ersetze 1 durch die ID des gewünschten Eintrags
-echo $fragment->parse('googleplaces/reviews.bs5.php');
-?>
+use FriendsOfRedaxo\MForm;
+use FriendsOfRedaxo\GooglePlaces\Place;
+
+$mform = MForm::factory();
+$mform->addFieldsetArea('Select elements');
+
+$places = Place::query()->find();
+$options = [];
+foreach($places as $place) {
+    $options[$place->getId()] = $place->getName();   
+}
+
+$mform->addSelectField("1.0", $options, ['label' => 'Standort auswählen']);
+
+echo $mform->show();
 ```
+#### Modul-Ausgabe
+
+```php
+<?php
+use FriendsOfRedaxo\GooglePlaces\Place;
+
+$fragment = new rex_fragment();
+$id = (int)"REX_VALUE[1]" ?: 1;
+$fragment->setVar('place', Place::get($id), false); // Ersetze 1 durch die ID des gewünschten Eintrags
+echo $fragment->parse('googleplaces/reviews.bs5.php');
+```
+
+### Cronjob: Google Places-Eintrag Rezensionen regelmäßig automatisch abrufen
+
+Bei der Installation des Add-ons wird der Cronjob `Google Places: Reviews per API-Call aktualisieren` installiert und aktiviert. Du kannst den Eintrag jederzeit deaktivieren, wenn du keine automatische Aktualisierung möchtest.
 
 ## Autor
 
