@@ -6,12 +6,13 @@ use FriendsOfRedaxo\GooglePlaces\Review;
 /** @var rex_fragment $this */
 /** @var Place $place */
 $place = $this->getVar('place', Place::query()->orderBy('id')->findOne());
+$limit = $this->getVar('limit', 3);
 
 if ($place === null) {
     return;
 }
 
-$reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
+$reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 
 ?>
 <section data-googleplaces-reviews class="container">
