@@ -12,6 +12,37 @@ $reviews = FriendsOfRedaxo\GooglePlaces\Review::query()->find(); // YOrm-Standar
 
 ## Methoden und Beispiele
 
+### `getPlace()`
+
+Gibt das zugehörige `Place`-Objekt zurück:
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+$place = $dataset->getPlace();
+```
+
+### `findFilter(string $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE)`
+
+Findet gefilterte Einträge basierend auf den angegebenen Parametern:
+
+Beispiel:
+
+```php
+$reviews = Review::findFilter($place_id, $limit, $offset, $minRating, $orderByField, $orderBy, $status);
+```
+
+### `getStatusOptions()`
+
+Gibt die möglichen Statusoptionen als Array zurück:
+
+Beispiel:
+
+```php
+$statusOptions = Review::getStatusOptions();
+```
+
 ### `getGooglePlaceId()`
 
 Gibt den Wert für das Feld `google_place_id` (Google Place ID) zurück:
@@ -31,6 +62,27 @@ Setzt den Wert für das Feld `google_place_id` (Google Place ID).
 $dataset = Review::create();
 $dataset->setGooglePlaceId($value);
 $dataset->save();
+```
+
+### `setPlaceId(int $value)`
+
+Setzt den Wert für das Feld `place_detail_id` (Place ID).
+
+```php
+$dataset = Review::create();
+$dataset->setPlaceId($value);
+$dataset->save();
+```
+
+### `getPlaceId()`
+
+Gibt den Wert für das Feld `place_detail_id` (Place ID) zurück:
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+echo $dataset->getPlaceId();
 ```
 
 ### `getAuthorName()`
@@ -180,24 +232,24 @@ $dataset->setProfilePhotoBase64($value);
 $dataset->save();
 ```
 
-### `getTime()`
+### `getPublishdate()`
 
-Gibt den Wert für das Feld `time` (Datum) zurück:
+Gibt den Wert für das Feld `publishdate` (Veröffentlicht am...) zurück:
 
 Beispiel:
 
 ```php
 $dataset = Review::get($id);
-echo $dataset->getTime();
+$datestamp = $dataset->getPublishdate();
 ```
 
-### `setTime(mixed $value)`
+### `setPublishdate(string $value)`
 
-Setzt den Wert für das Feld `time` (Datum).
+Setzt den Wert für das Feld `publishdate` (Veröffentlicht am...).
 
 ```php
 $dataset = Review::create();
-$dataset->setTime($value);
+$dataset->setPublishdate($value);
 $dataset->save();
 ```
 
