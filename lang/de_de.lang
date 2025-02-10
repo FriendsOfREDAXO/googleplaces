@@ -1,21 +1,21 @@
 googleplaces_title = Google Places
 googleplaces_config = Einstellungen
 googleplaces_docs = Docs
-googleplaces_review = Bewertungen
+googleplaces_review = Rezensionen
 googleplaces_place_detail = Google Places
-googleplaces_cron_title = Google Places: Places-Details und Bewertungen via Google Api abrufen
+googleplaces_cron_title = Google Places: Einträge und Bewertungen via Google Api abrufen
 googleplaces_sync = Jetzt aktualisieren
-googleplaces_sync_success = Die Google Places Daten wurden erfolgreich aktualisiert.
+googleplaces_sync_success = Die Google-Places-Einträge wurden erfolgreich aktualisiert.
 
 googleplaces_docs_intro = Intro
 googleplaces_docs_upgrade = Upgrade
-googleplaces_docs_place = Place
-googleplaces_docs_review = Review
-googleplaces_docs_module = Modul
+googleplaces_docs_place = Google Places
+googleplaces_docs_review = Rezensionen
+googleplaces_docs_review_json = Beispiel-JSON für Rezensionen
+googleplaces_docs_module = Ausgabe (z.B. als Modul)
 
-
-googleplaces_review.place_detail_id = Google Place
-googleplaces.review.google_place_id = Google Place ID
+googleplaces_review.place_detail_id = Google Places-Eintrag
+googleplaces.review.google_place_id = Google Places-ID
 googleplaces.review.author_name = Autor*in
 googleplaces.review.author_url = Autor*in URL
 googleplaces.review.language = Sprache
@@ -36,8 +36,8 @@ googleplaces.place_detail.updatedate = Zuletzt aktualisiert am...
 googleplaces_place_detail.place_id.validate.unique = Die Place ID existiert bereits
 googleplaces_place_detail.review_ids = Bewertungen
 
-googleplaces_place_detail.table = 🏪 Google Places Details
-googleplaces_review.table = 🏪 Google Places Reviews
+googleplaces_place_detail.table = 🏪 Google Places - Einträge
+googleplaces_review.table = 🏪 Google Places - Rezensionen
 
 # Backend-Seite
 
@@ -62,7 +62,7 @@ googleplaces_query_table_name = Name
 
 googleplaces_query_action = Aktion
 googleplaces_query_add = Hinzufügen
-googleplaces_query_place_added = Der Google Places-Eintrag wurde erfolgreich hinzugefügt.
+googleplaces_query_place_added = Der Google-Places-Eintrag wurde erfolgreich hinzugefügt.
 
 googleplaces_review.status = Status
 googleplaces_review_status_hidden = 🚫 Versteckt
