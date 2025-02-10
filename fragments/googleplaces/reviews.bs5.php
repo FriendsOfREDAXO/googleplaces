@@ -63,5 +63,4 @@ $reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
 ?>
 
 	</div>
-	</div>
 </section>
