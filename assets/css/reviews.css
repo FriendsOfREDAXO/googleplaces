@@ -1,13 +1,23 @@
 [data-googleplaces-review-stars] {
-    background-image: ('/assets/addons/googleplaces-review/images/review-stars.png');
+    background-image: url('/assets/addons/googleplaces/img/review-stars.svg');
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: auto 100%;
     display: inline-block;
     height: 20px;
     width: 130px;
+        position: absolute;
+        top: 0;
+        left: 0;
+}
+
+[data-googleplaces-review-stars="container"] {
+    position: relative;
+    background-image: none;
 }
 
 [data-googleplaces-review-stars="background"] {
+    position: absolute; 
+    z-index: -1;
     width: 100%;
     opacity: 0.3;
 }
@@ -16,7 +26,7 @@
     width: 100%;
 }
 
-[data-googleplaces-review-stars="4.5"] {
+[data-googleplaces-review-stars^="4."] {
     width: 90%;
 }
 
@@ -24,7 +34,7 @@
     width: 80%;
 }
 
-[data-googleplaces-review-stars="3.5"] {
+[data-googleplaces-review-stars^="3."] {
     width: 70%;
 }
 
@@ -32,7 +42,7 @@
     width: 60%;
 }
 
-[data-googleplaces-review-stars="2.5"] {
+[data-googleplaces-review-stars^="2."] {
     width: 50%;
 }
 
@@ -40,7 +50,7 @@
     width: 40%;
 }
 
-[data-googleplaces-review-stars="1.5"] {
+[data-googleplaces-review-stars^="1."] {
     width: 30%;
 }
 

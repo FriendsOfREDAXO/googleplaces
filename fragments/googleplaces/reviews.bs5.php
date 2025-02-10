@@ -45,12 +45,12 @@ $reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 				<p class="publishdate">
 					<?= rex_formatter::intlDate($review->getPublishdate()) ?>
 				</p>
-				<div class="review-stars">
-					<div data-googleplaces-review-stars="background">
-						<div
-							data-googleplaces-review-stars="<?= $review->getRating() ?>">
-							<?= $review->getRating() ?>
-						</div>
+
+				<div data-googleplaces-review-stars="container">
+
+					<div data-googleplaces-review-stars="background"></div>
+					<div
+						data-googleplaces-review-stars="<?= $review->getRating() ?>">
 					</div>
 				</div>
 				<p><?= $review->getText() ?></p>
