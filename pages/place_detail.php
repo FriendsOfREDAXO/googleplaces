@@ -1,6 +1,6 @@
 <?php
 
-use FriendsOfRedaxo\GooglePlaces\Helper;
+use FriendsOfRedaxo\GooglePlaces\GooglePlaces;
 
 $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));

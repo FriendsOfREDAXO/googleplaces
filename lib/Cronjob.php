@@ -7,7 +7,7 @@ class Cronjob extends \rex_cronjob
 
     public function execute() : bool
     {
-        return Helper::syncAll();
+        return GooglePlaces::syncAll();
     }
 
     public function getTypeName() : string

@@ -7,7 +7,7 @@ use rex_addon;
 /**
  * Google Places Add-on: Gibt Details zu einem Google Place aus.
  */
-class Helper
+class GooglePlaces
 {
 
 
@@ -40,7 +40,7 @@ class Helper
         $array_response = json_decode(json_encode($json_response->result), true);
         curl_close($curl);
 
-        return $array_response ?? [];	
+        return $array_response ?? [];
     }
 
     /**
