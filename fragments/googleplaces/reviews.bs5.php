@@ -29,10 +29,10 @@ $reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
 		</div>
 
 		<?php
-    foreach ($reviews as $review) {
-        /** @var Review $review */
-        $profile_photo = 'data:image/jpg;base64,' . $review->getProfilePhotoBase64();
-        ?>
+        foreach ($reviews as $review) {
+            /** @var Review $review */
+            $profile_photo = 'data:image/jpg;base64,' . $review->getProfilePhotoBase64();
+            ?>
 		<div class="col-12">
 			<div class="card">
 				<div class="author-image">
@@ -59,7 +59,7 @@ $reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
 		</div>
 
 		<?php
-    }
+        }
 ?>
 
 	</div>
