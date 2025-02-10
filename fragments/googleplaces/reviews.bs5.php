@@ -27,41 +27,41 @@ $reviews = $place->getReviews(5, 0, 5, 'publishdate', 'DESC');
 					class="btn">Eigene Bewertung verfassen</a>
 			</div>
 		</div>
-	</div>
 
-	<?php
+		<?php
     foreach ($reviews as $review) {
         /** @var Review $review */
         $profile_photo = 'data:image/jpg;base64,' . $review->getProfilePhotoBase64();
         ?>
-	<div class="col-12">
-		<div class="card">
-			<div class="author-image">
-				<img src="<?= $profile_photo ?>"
-					alt="<?= $review->getAuthorName() ?>" width="60"
-					height="60">
-			</div>
-			<?= $review->getAuthorName() ?>
-			<p class="publishdate">
-				<?= rex_formatter::intlDate($review->getPublishdate()) ?>
-			</p>
-			<div class="review-stars">
-				<div data-googleplaces-review-stars="background">
-					<div
-						data-googleplaces-review-stars="<?= $review->getRating() ?>">
-						<?= $review->getRating() ?>
+		<div class="col-12">
+			<div class="card">
+				<div class="author-image">
+					<img src="<?= $profile_photo ?>"
+						alt="<?= $review->getAuthorName() ?>"
+						width="60" height="60">
+				</div>
+				<?= $review->getAuthorName() ?>
+				<p class="publishdate">
+					<?= rex_formatter::intlDate($review->getPublishdate()) ?>
+				</p>
+				<div class="review-stars">
+					<div data-googleplaces-review-stars="background">
+						<div
+							data-googleplaces-review-stars="<?= $review->getRating() ?>">
+							<?= $review->getRating() ?>
+						</div>
 					</div>
 				</div>
+				<p><?= $review->getText() ?></p>
+				<a href="<?= $review->getAuthorUrl()  ?>"
+					target="_blank" rel="nofollow noopener">via Google</a>
 			</div>
-			<p><?= $review->getText() ?></p>
-			<a href="<?= $review->getAuthorUrl()  ?>" target="_blank"
-				rel="nofollow noopener">via Google</a>
 		</div>
-	</div>
 
-	<?php
+		<?php
     }
 ?>
 
+	</div>
 	</div>
 </section>
