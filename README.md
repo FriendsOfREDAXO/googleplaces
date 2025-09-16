@@ -4,7 +4,7 @@ Das Add-on Google Places für REDAXO 5 ermöglicht die Nutzung der Google Places
 
 ![splashscreen](https://raw.githubusercontent.com/FriendsOfREDAXO/googleplaces/refs/heads/main/assets/img/splashscreen.jpg)
 
-## Neu in Version 3.X
+## Neu in Version 3.x
 
 * 💯 Verwalte **beliebig viele Places**
 * ⭐ Speichere **Reviews** für mehrere Places
