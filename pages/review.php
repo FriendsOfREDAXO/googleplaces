@@ -34,4 +34,8 @@ $yform = $yform[rex_be_controller::getCurrentPage()] ?? [];
 
 $_REQUEST['table_name'] = $table_name; /** @phpstan-ignore-line */
 
-include rex_path::plugin('yform', 'manager', 'pages/data_edit.php');
+if (version_compare(rex_addon::get('yform')->getVersion(), '5.0.0', '<')) {
+    include rex_path::plugin('yform', 'manager', 'pages/data_edit.php');
+} else {
+    include rex_path::addon('yform', 'pages/manager.data_edit.php');
+}
