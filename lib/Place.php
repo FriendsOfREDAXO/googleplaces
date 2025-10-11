@@ -156,6 +156,22 @@ class Place extends rex_yform_manager_dataset
         // Save place
         $success = $this->save();
 
+        // Check if review synchronization is enabled
+        $addon = \rex_addon::get('googleplaces');
+        $syncReviews = $addon->getConfig('sync_reviews', true);
+        
+        if (!$syncReviews) {
+            // Reviews are disabled, return early
+            return $success;
+        }
+
+        $reviews_from_api = $googlePlace['reviews'];
+        if ($reviews_from_api === null) {
+            // Log warning but don't fail the sync since Place data was successfully saved
+            \rex_logger::factory()->log('warning', 'Google Place reviews not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
+            return $success;
+        }
+
         if ($success) {
 
             $place_dataset_id = $this->getId();
@@ -175,7 +191,6 @@ class Place extends rex_yform_manager_dataset
                     $review = Review::create()
                     ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
                     // Set initial status based on configuration
-                    $addon = \rex_addon::get('googleplaces');
                     $autoPublish = $addon->getConfig('auto_publish_reviews', false);
                     $initialStatus = $autoPublish ? Review::STATUS_VISIBLE : Review::STATUS_HIDDEN;
                     $review->setStatus($initialStatus);

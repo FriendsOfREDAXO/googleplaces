@@ -40,3 +40,8 @@ googleplaces_config_auto_publish_reviews = Publicar automáticamente nuevas rese
 googleplaces_config_auto_publish_reviews_notice = Cuando está activado, las nuevas reseñas se publicarán automáticamente durante la sincronización. De lo contrario, deben ser aprobadas manualmente.
 googleplaces_config_auto_publish_reviews_yes = Sí, publicar automáticamente
 googleplaces_config_auto_publish_reviews_no = No, aprobar manualmente
+
+googleplaces_config_sync_reviews = Sincronizar reseñas
+googleplaces_config_sync_reviews_notice = Cuando está activado, las reseñas se obtendrán de Google Places y se almacenarán. Desactive esta opción si solo necesita las entradas de Places sin reseñas.
+googleplaces_config_sync_reviews_yes = Sí, sincronizar reseñas
+googleplaces_config_sync_reviews_no = No, solo entradas de Places
