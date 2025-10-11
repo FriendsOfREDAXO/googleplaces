@@ -36,9 +36,22 @@ class GooglePlaces
         ));
         $response = curl_exec($curl);
         $json_response = json_decode($response);
+        curl_close($curl);
+
+        // Check if the API response has an error
+        if (isset($json_response->status) && $json_response->status !== 'OK') {
+            $error_message = $json_response->error_message ?? $json_response->status;
+            \rex_logger::factory()->log('warning', 'Google Places API Error: ' . $error_message, [], __FILE__, __LINE__);
+            return ['error' => $error_message, 'status' => $json_response->status];
+        }
+
+        // Check if result exists
+        if (!isset($json_response->result)) {
+            \rex_logger::factory()->log('warning', 'Google Places API: No result returned', [], __FILE__, __LINE__);
+            return ['error' => 'No result returned from API'];
+        }
 
         $array_response = json_decode(json_encode($json_response->result), true);
-        curl_close($curl);
 
         return $array_response ?? [];
     }
@@ -99,7 +112,13 @@ class GooglePlaces
     public static function getAllReviewsLive(string $place_id = null): array
     {
         $response = self::googleApiResult($place_id);
-        return $response['reviews'];
+        
+        // Check for API errors
+        if (isset($response['error'])) {
+            return [];
+        }
+        
+        return $response['reviews'] ?? [];
     }
 
     /**
@@ -113,11 +132,23 @@ class GooglePlaces
     {
         $places = Place::query()->find();
         $success = false;
+        $errorCount = 0;
+        $successCount = 0;
 
         foreach ($places as $place) {
             /** @var Place $place */
-            $success = $place->sync();
+            if ($place->sync()) {
+                $success = true;
+                $successCount++;
+            } else {
+                $errorCount++;
+            }
         }
+        
+        if ($errorCount > 0) {
+            \rex_logger::factory()->log('warning', "Google Places sync completed with {$errorCount} error(s), {$successCount} success(es)", [], __FILE__, __LINE__);
+        }
+        
         return $success;
     }
 }

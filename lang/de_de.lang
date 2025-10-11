@@ -6,6 +6,7 @@ googleplaces_place_detail = Google Places
 googleplaces_cron_title = Google Places: Einträge und Bewertungen via Google Api abrufen
 googleplaces_sync = Jetzt aktualisieren
 googleplaces_sync_success = Die Google-Places-Einträge wurden erfolgreich aktualisiert.
+googleplaces_sync_errors = Dabei traten {0} Fehler auf. Details finden Sie im Systemprotokoll.
 
 googleplaces_docs_intro = Intro
 googleplaces_docs_upgrade = Upgrade
