@@ -40,3 +40,8 @@ googleplaces_config_auto_publish_reviews = Nieuwe beoordelingen automatisch publ
 googleplaces_config_auto_publish_reviews_notice = Wanneer ingeschakeld, worden nieuwe beoordelingen automatisch gepubliceerd tijdens synchronisatie. Anders moeten ze handmatig worden goedgekeurd.
 googleplaces_config_auto_publish_reviews_yes = Ja, automatisch publiceren
 googleplaces_config_auto_publish_reviews_no = Nee, handmatig goedkeuren
+
+googleplaces_config_sync_reviews = Beoordelingen synchroniseren
+googleplaces_config_sync_reviews_notice = Wanneer ingeschakeld, worden beoordelingen opgehaald van Google Places en opgeslagen. Schakel deze optie uit als u alleen de Places-items zonder beoordelingen nodig hebt.
+googleplaces_config_sync_reviews_yes = Ja, beoordelingen synchroniseren
+googleplaces_config_sync_reviews_no = Nee, alleen Places-items
