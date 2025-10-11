@@ -123,10 +123,30 @@ class Place extends rex_yform_manager_dataset
         $success = false;
 
         $googlePlace = GooglePlaces::getFromGoogle($this->getPlaceId());
-        if ($googlePlace === null) {
-            dd('Google Place not found');
+        
+        // Check for API errors
+        if (isset($googlePlace['error'])) {
+            $errorMsg = 'Google Places API Error for Place ID ' . $this->getPlaceId() . ': ' . $googlePlace['error'];
+            \rex_logger::factory()->log('warning', $errorMsg, [], __FILE__, __LINE__);
             return false;
         }
+        
+        if ($googlePlace === null || empty($googlePlace)) {
+            \rex_logger::factory()->log('warning', 'Google Place not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
+            return false;
+        }
+        
+        // Check if reviews exist in the response
+        if (!isset($googlePlace['reviews'])) {
+            \rex_logger::factory()->log('info', 'No reviews found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
+            // Still update place details even if no reviews
+            $this
+                ->setApiResponseJson(json_encode($googlePlace, \JSON_PRETTY_PRINT))
+                ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
+            return $this->save();
+        }
+        
+        $reviews_from_api = $googlePlace['reviews'];
         
         // Update place details
         $this

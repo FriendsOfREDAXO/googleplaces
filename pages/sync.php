@@ -11,11 +11,22 @@ if (empty($addon->getConfig('api_key'))) {
 } else {
 
     $places = Place::query()->find();
+    $errorCount = 0;
+    $successCount = 0;
 
     foreach ($places as $place) {
         /** @var Place $place */
-        $place->sync();
+        if ($place->sync()) {
+            $successCount++;
+        } else {
+            $errorCount++;
+        }
     }
 
-    rex_response::sendRedirect(rex_url::backendPage('googleplaces/review', ['sync' => '1'], false));
+    // Redirect with sync status
+    $params = ['sync' => '1'];
+    if ($errorCount > 0) {
+        $params['sync_errors'] = $errorCount;
+    }
+    rex_response::sendRedirect(rex_url::backendPage('googleplaces/review', $params, false));
 }

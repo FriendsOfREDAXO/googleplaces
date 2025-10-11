@@ -6,6 +6,7 @@ googleplaces_place_detail = Google Places
 googleplaces_cron_title = Google Places: Fetch Place Details and Reviews via Google API
 googleplaces_sync = Update Now
 googleplaces_sync_success = Google Places data has been successfully updated.
+googleplaces_sync_errors = {0} error(s) occurred. Check the system log for details.
 
 googleplaces_review.place_detail_id = Google Place
 googleplaces.review.google_place_id = Google Place ID
