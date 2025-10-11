@@ -4,7 +4,12 @@ $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
 if (rex_request('sync', 'int', null) === 1) {
-    echo rex_view::success($addon->i18n('googleplaces_sync_success'));
+    $syncErrors = rex_request('sync_errors', 'int', 0);
+    if ($syncErrors > 0) {
+        echo rex_view::warning($addon->i18n('googleplaces_sync_success') . ' ' . $addon->i18n('googleplaces_sync_errors', $syncErrors));
+    } else {
+        echo rex_view::success($addon->i18n('googleplaces_sync_success'));
+    }
 }
 
 // Wenn kein API-Schlüssel hinterlegt ist, dann Hinweis ausgeben
