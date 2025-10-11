@@ -159,7 +159,6 @@ class Place extends rex_yform_manager_dataset
                     // Neuen Review anlegen
                     $review = Review::create()
                     ->setCreatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'));
-                    
                     // Set initial status based on configuration
                     $addon = \rex_addon::get('googleplaces');
                     $autoPublish = $addon->getConfig('auto_publish_reviews', false);
