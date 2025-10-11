@@ -171,7 +171,7 @@ class Place extends rex_yform_manager_dataset
                 // Download and save profile photo to filesystem
                 $profile_photo_filename = null;
                 if (!empty($review_from_api['profile_photo_url'])) {
-                    $profile_photo_data = @rex_file::get($review_from_api['profile_photo_url']);
+                    $profile_photo_data = @file_get_contents($review_from_api['profile_photo_url']);
                     if ($profile_photo_data !== false) {
                         // Create directory if it doesn't exist
                         $photo_dir = \rex_path::addonData('googleplaces', 'profile_photos/');
