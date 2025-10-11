@@ -35,10 +35,26 @@ class GooglePlaces
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
         $response = curl_exec($curl);
+        
+        // Check for cURL errors
+        if ($response === false) {
+            $error = curl_error($curl);
+            curl_close($curl);
+            \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
+            return [];
+        }
+        
+        curl_close($curl);
+        
         $json_response = json_decode($response);
+        
+        // Check if JSON decode was successful and result property exists
+        if ($json_response === null || !isset($json_response->result)) {
+            \rex_logger::logError('googleplaces', 'Invalid API response or missing result property');
+            return [];
+        }
 
         $array_response = json_decode(json_encode($json_response->result), true);
-        curl_close($curl);
 
         return $array_response ?? [];
     }
@@ -99,7 +115,7 @@ class GooglePlaces
     public static function getAllReviewsLive(string $place_id = null): array
     {
         $response = self::googleApiResult($place_id);
-        return $response['reviews'];
+        return $response['reviews'] ?? [];
     }
 
     /**

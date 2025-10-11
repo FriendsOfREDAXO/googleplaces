@@ -123,13 +123,13 @@ class Place extends rex_yform_manager_dataset
         $success = false;
 
         $googlePlace = GooglePlaces::getFromGoogle($this->getPlaceId());
-        if ($googlePlace === null) {
-            dd('Google Place not found');
+        if ($googlePlace === null || empty($googlePlace)) {
+            \rex_logger::logError('googleplaces', 'Google Place not found for place_id: ' . $this->getPlaceId());
             return false;
         }
-        $reviews_from_api = $googlePlace['reviews'];
+        $reviews_from_api = $googlePlace['reviews'] ?? null;
         if ($reviews_from_api === null) {
-            dd('Google Place reviews not found');
+            \rex_logger::logError('googleplaces', 'Google Place reviews not found for place_id: ' . $this->getPlaceId());
             return false;
         }
         
