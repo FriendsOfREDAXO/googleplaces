@@ -194,6 +194,19 @@ class Review extends rex_yform_manager_dataset
         return $this;
     }
 
+    /* Status */
+    /** @api */
+    public function getStatus(): int
+    {
+        return (int) $this->getValue("status");
+    }
+    /** @api */
+    public function setStatus(int $value): self
+    {
+        $this->setValue("status", $value);
+        return $this;
+    }
+
     public static function epYformDataList(\rex_extension_point $ep)
     {
         if ($ep->getParam('table')->getTableName() !== self::table()->getTableName()) {
