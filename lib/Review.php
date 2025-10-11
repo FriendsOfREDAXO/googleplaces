@@ -166,7 +166,7 @@ class Review extends rex_yform_manager_dataset
             return null;
         }
         $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-        if (file_exists($path)) {
+        if (\rex_file::exists($path)) {
             return $path;
         }
         return null;
@@ -183,7 +183,7 @@ class Review extends rex_yform_manager_dataset
         $filename = $this->getProfilePhotoFile();
         if ($filename) {
             $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-            if (file_exists($path)) {
+            if (\rex_file::exists($path)) {
                 return \rex_url::addonData('googleplaces', 'profile_photos/' . $filename);
             }
         }
