@@ -40,3 +40,8 @@ googleplaces_config_auto_publish_reviews = Publier automatiquement les nouveaux 
 googleplaces_config_auto_publish_reviews_notice = Lorsqu'activé, les nouveaux avis seront automatiquement publiés lors de la synchronisation. Sinon, ils doivent être approuvés manuellement.
 googleplaces_config_auto_publish_reviews_yes = Oui, publier automatiquement
 googleplaces_config_auto_publish_reviews_no = Non, approuver manuellement
+
+googleplaces_config_sync_reviews = Synchroniser les avis
+googleplaces_config_sync_reviews_notice = Lorsqu'activé, les avis seront récupérés depuis Google Places et stockés. Désactivez cette option si vous n'avez besoin que des lieux sans les avis.
+googleplaces_config_sync_reviews_yes = Oui, synchroniser les avis
+googleplaces_config_sync_reviews_no = Non, uniquement les lieux

@@ -6,6 +6,7 @@ googleplaces_place_detail = Google Places
 googleplaces_cron_title = Google Places: Einträge und Bewertungen via Google Api abrufen
 googleplaces_sync = Jetzt aktualisieren
 googleplaces_sync_success = Die Google-Places-Einträge wurden erfolgreich aktualisiert.
+googleplaces_sync_errors = Dabei traten {0} Fehler auf. Details finden Sie im Systemprotokoll.
 
 googleplaces_docs_intro = Intro
 googleplaces_docs_upgrade = Upgrade
@@ -72,5 +73,10 @@ googleplaces_config_auto_publish_reviews = Neue Bewertungen automatisch sichtbar
 googleplaces_config_auto_publish_reviews_notice = Wenn aktiviert, werden neue Bewertungen bei der Synchronisierung automatisch sichtbar geschaltet. Andernfalls müssen sie manuell freigeschaltet werden.
 googleplaces_config_auto_publish_reviews_yes = Ja, automatisch sichtbar schalten
 googleplaces_config_auto_publish_reviews_no = Nein, manuell freischalten
+
+googleplaces_config_sync_reviews = Rezensionen synchronisieren
+googleplaces_config_sync_reviews_notice = Wenn aktiviert, werden Rezensionen von Google Places abgerufen und gespeichert. Deaktivieren Sie diese Option, wenn Sie nur die Places-Einträge ohne Rezensionen benötigen.
+googleplaces_config_sync_reviews_yes = Ja, Rezensionen synchronisieren
+googleplaces_config_sync_reviews_no = Nein, nur Places-Einträge
 
 googleplaces_no_api_key = Es wurde kein API-Schlüssel hinterlegt. Bitte fügen Sie einen API-Schlüssel in den Einstellungen hinzu.
