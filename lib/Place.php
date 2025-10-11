@@ -123,13 +123,6 @@ class Place extends rex_yform_manager_dataset
         $success = false;
 
         $googlePlace = GooglePlaces::getFromGoogle($this->getPlaceId());
-        if (!is_array($googlePlace) || count($googlePlace) === 0) {
-            \rex_logger::logError('googleplaces', 'Google Place not found for place_id: ' . $this->getPlaceId());
-            return false;
-        }
-        $reviews_from_api = $googlePlace['reviews'] ?? null;
-        if ($reviews_from_api === null) {
-            \rex_logger::logError('googleplaces', 'Google Place reviews not found for place_id: ' . $this->getPlaceId());
         
         // Check for API errors
         if (isset($googlePlace['error'])) {
@@ -138,7 +131,7 @@ class Place extends rex_yform_manager_dataset
             return false;
         }
         
-        if ($googlePlace === null || empty($googlePlace)) {
+        if (!is_array($googlePlace) || count($googlePlace) === 0) {
             \rex_logger::factory()->log('warning', 'Google Place not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
             return false;
         }
@@ -169,13 +162,6 @@ class Place extends rex_yform_manager_dataset
         
         if (!$syncReviews) {
             // Reviews are disabled, return early
-            return $success;
-        }
-
-        $reviews_from_api = $googlePlace['reviews'];
-        if ($reviews_from_api === null) {
-            // Log warning but don't fail the sync since Place data was successfully saved
-            \rex_logger::factory()->log('warning', 'Google Place reviews not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
             return $success;
         }
 

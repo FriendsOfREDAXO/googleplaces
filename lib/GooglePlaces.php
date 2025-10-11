@@ -52,7 +52,7 @@ class GooglePlaces
         if ($json_response === null || !isset($json_response->result)) {
             \rex_logger::logError('googleplaces', 'Invalid API response or missing result property');
             return [];
-        curl_close($curl);
+        }
 
         // Check if the API response has an error
         if (isset($json_response->status) && $json_response->status !== 'OK') {
