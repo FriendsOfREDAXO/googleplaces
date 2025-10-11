@@ -32,9 +32,7 @@ include(__DIR__ . '/install/tableset.php');
 
 // Create profile photos directory if it doesn't exist
 $photo_dir = rex_path::addonData('googleplaces', 'profile_photos/');
-if (!is_dir($photo_dir)) {
-    mkdir($photo_dir, 0755, true);
-}
+rex_dir::create($photo_dir);
 
 if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== null) {
         
