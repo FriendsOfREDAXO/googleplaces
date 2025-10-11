@@ -123,7 +123,7 @@ class Place extends rex_yform_manager_dataset
         $success = false;
 
         $googlePlace = GooglePlaces::getFromGoogle($this->getPlaceId());
-        if ($googlePlace === null || empty($googlePlace)) {
+        if (!is_array($googlePlace) || count($googlePlace) === 0) {
             \rex_logger::logError('googleplaces', 'Google Place not found for place_id: ' . $this->getPlaceId());
             return false;
         }
