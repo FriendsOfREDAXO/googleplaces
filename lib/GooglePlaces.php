@@ -50,7 +50,13 @@ class GooglePlaces
         
         // Check if JSON decode was successful and result property exists
         if ($json_response === null || !isset($json_response->result)) {
-            \rex_logger::logError('googleplaces', 'Invalid API response or missing result property');
+            $response_length = is_string($response) ? strlen($response) : 0;
+            \rex_logger::logError(
+                'googleplaces',
+                'Invalid API response or missing result property. ' .
+                'Raw response: ' . var_export($response, true) . '; ' .
+                'Response length: ' . $response_length
+            );
             return [];
         }
 
