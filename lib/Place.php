@@ -131,7 +131,7 @@ class Place extends rex_yform_manager_dataset
             return false;
         }
         
-        if (!is_array($googlePlace) || count($googlePlace) === 0) {
+        if (empty($googlePlace)) {
             \rex_logger::factory()->log('warning', 'Google Place not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
             return false;
         }
