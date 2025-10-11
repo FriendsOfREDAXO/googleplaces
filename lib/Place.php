@@ -147,8 +147,9 @@ class Place extends rex_yform_manager_dataset
 
         $reviews_from_api = $googlePlace['reviews'];
         if ($reviews_from_api === null) {
-            dd('Google Place reviews not found');
-            return false;
+            // Log warning but don't fail the sync since Place data was successfully saved
+            \rex_logger::factory()->log('warning', 'Google Place reviews not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
+            return $success;
         }
 
         if ($success) {
