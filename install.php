@@ -30,6 +30,10 @@ if (rex_config::get('mf_googleplaces', 'gmaps-api-key') !== null || rex_config::
 include(__DIR__ . '/install/table.php');
 include(__DIR__ . '/install/tableset.php');
 
+// Create profile photos directory if it doesn't exist
+$photo_dir = rex_path::addonData('googleplaces', 'profile_photos/');
+rex_dir::create($photo_dir);
+
 if (rex_config::get('mf_googleplaces', 'gmaps-location-id') !== null) {
         
     rex_delete_cache();

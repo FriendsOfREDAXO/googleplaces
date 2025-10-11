@@ -142,6 +142,61 @@ class Review extends rex_yform_manager_dataset
         return $this;
     }
 
+    /* Profilbild Dateiname */
+    /** @api */
+    public function getProfilePhotoFile(): ?string
+    {
+        return $this->getValue("profile_photo_file");
+    }
+    /** @api */
+    public function setProfilePhotoFile(mixed $value): self
+    {
+        $this->setValue("profile_photo_file", $value);
+        return $this;
+    }
+
+    /**
+     * Get the file path to the profile photo in the filesystem
+     * @api
+     */
+    public function getProfilePhotoPath(): ?string
+    {
+        $filename = $this->getProfilePhotoFile();
+        if (!$filename) {
+            return null;
+        }
+        $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
+        if (\rex_file::exists($path)) {
+            return $path;
+        }
+        return null;
+    }
+
+    /**
+     * Get the URL to the profile photo
+     * Falls back to base64 data URI if file doesn't exist
+     * @api
+     */
+    public function getProfilePhotoSrc(): ?string
+    {
+        // Try to use filesystem image first
+        $filename = $this->getProfilePhotoFile();
+        if ($filename) {
+            $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
+            if (\rex_file::exists($path)) {
+                return \rex_url::addonData('googleplaces', 'profile_photos/' . $filename);
+            }
+        }
+        
+        // Fallback to base64 if available (for backwards compatibility)
+        $base64 = $this->getProfilePhotoBase64();
+        if ($base64) {
+            return 'data:image/jpeg;base64,' . $base64;
+        }
+        
+        return null;
+    }
+
     /* Erstellt am... */
     /** @api */
     public function getCreatedate(): ?string
@@ -240,10 +295,13 @@ class Review extends rex_yform_manager_dataset
             'author_name',
             'custom',
             static function ($a) {
-                $profile_photo_base64 = $a['list']->getValue('profile_photo_base64');
+                $review = Review::get($a['list']->getValue('id'));
                 $output = $a['value'];
-                if ($profile_photo_base64) {
-                    $output = '<img src="data:image/jpeg;base64,' . $profile_photo_base64 . '" alt="' . $a['value'] . '" style="max-width: 30px; max-height: 30px; border-radius: 50%;"> <span class="text-nowrap">' . $a['value'] . '</span>';
+                if ($review) {
+                    $profile_photo_src = $review->getProfilePhotoSrc();
+                    if ($profile_photo_src) {
+                        $output = '<img src="' . $profile_photo_src . '" alt="' . $a['value'] . '" style="max-width: 30px; max-height: 30px; border-radius: 50%;"> <span class="text-nowrap">' . $a['value'] . '</span>';
+                    }
                 }
                 return $output;
             }

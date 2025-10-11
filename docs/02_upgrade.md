@@ -26,6 +26,24 @@ Die Konfiguration des Add-ons sollte überprüft werden, insbesondere die API-Sc
 
 ## Änderungen
 
+### Version 3.1: Profilbilder im Dateisystem
+
+Ab Version 3.1 werden Profilbilder der Rezensenten nicht mehr als Base64-String in der Datenbank gespeichert, sondern als Dateien im Dateisystem unter `redaxo/data/addons/googleplaces/profile_photos/`. Dies reduziert die Datenbankgröße erheblich und verbessert die Performance.
+
+**Wichtig:** Bestehende Base64-Profilbilder bleiben in der Datenbank erhalten und werden weiterhin angezeigt (Rückwärtskompatibilität). Bei der nächsten Synchronisation werden die Profilbilder automatisch ins Dateisystem übertragen.
+
+Die neue Methode `getProfilePhotoSrc()` liefert automatisch die richtige Bildquelle:
+- Bevorzugt wird die Datei aus dem Dateisystem verwendet
+- Falls nicht vorhanden, wird auf das Base64-Bild zurückgegriffen
+- Falls auch das nicht vorhanden ist, wird `null` zurückgegeben
+
+**Empfohlene Maßnahmen nach dem Upgrade:**
+1. Führen Sie eine Synchronisation aller Places durch, um die Profilbilder ins Dateisystem zu übertragen
+2. Optional: Bereinigen Sie nach erfolgreicher Migration die Base64-Daten aus der Datenbank mit: 
+   ```sql
+   UPDATE rex_googleplaces_review SET profile_photo_base64 = NULL WHERE profile_photo_file IS NOT NULL AND profile_photo_file != '';
+   ```
+
 ### Namespace
 
 Das Add-on wurde in den Namespace `FriendsOfRedaxo\GooglePlaces` verschoben.

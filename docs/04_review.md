@@ -213,6 +213,8 @@ $dataset->save();
 
 ### `getProfilePhotoBase64(bool $asPlaintext = false)`
 
+**⚠️ Veraltet (ab Version 3.1):** Diese Methode ist für die Rückwärtskompatibilität erhalten geblieben. Verwenden Sie stattdessen `getProfilePhotoSrc()`.
+
 Gibt den Wert für das Feld `profile_photo_base64` (Profilbild Base64) zurück:
 
 Beispiel:
@@ -224,12 +226,86 @@ $text = $dataset->getProfilePhotoBase64(true);
 
 ### `setProfilePhotoBase64(mixed $value)`
 
+**⚠️ Veraltet (ab Version 3.1):** Diese Methode ist für die Rückwärtskompatibilität erhalten geblieben. Das System speichert Profilbilder nun automatisch im Dateisystem.
+
 Setzt den Wert für das Feld `profile_photo_base64` (Profilbild Base64).
 
 ```php
 $dataset = Review::create();
 $dataset->setProfilePhotoBase64($value);
 $dataset->save();
+```
+
+### `getProfilePhotoFile()`
+
+**✨ Neu ab Version 3.1**
+
+Gibt den Dateinamen des Profilbildes zurück (ohne Pfad):
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+echo $dataset->getProfilePhotoFile(); // z.B. "a1b2c3d4-e5f6-7890-abcd-ef1234567890.jpg"
+```
+
+### `setProfilePhotoFile(mixed $value)`
+
+**✨ Neu ab Version 3.1**
+
+Setzt den Dateinamen des Profilbildes.
+
+```php
+$dataset = Review::create();
+$dataset->setProfilePhotoFile($value);
+$dataset->save();
+```
+
+### `getProfilePhotoPath()`
+
+**✨ Neu ab Version 3.1**
+
+Gibt den vollständigen Dateisystempfad zum Profilbild zurück. Gibt `null` zurück, wenn kein Bild vorhanden ist oder die Datei nicht existiert.
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+$path = $dataset->getProfilePhotoPath();
+if ($path) {
+    echo "Bild gespeichert unter: " . $path;
+}
+```
+
+### `getProfilePhotoSrc()`
+
+**✨ Neu ab Version 3.1 - Empfohlene Methode für die Bildausgabe**
+
+Gibt die URL oder Data-URI für die Anzeige des Profilbildes zurück. Diese Methode ist intelligent:
+
+1. Prüft zuerst, ob eine Datei im Dateisystem vorhanden ist und gibt die URL zurück
+2. Falls nicht vorhanden, gibt sie den Base64-String zurück (Rückwärtskompatibilität)
+3. Falls auch dieser nicht vorhanden ist, gibt sie `null` zurück
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+$photoSrc = $dataset->getProfilePhotoSrc();
+if ($photoSrc) {
+    echo '<img src="' . $photoSrc . '" alt="Profilbild">';
+}
+```
+
+**Verwendung im Fragment:**
+
+```php
+foreach ($reviews as $review) {
+    $profile_photo = $review->getProfilePhotoSrc();
+    if ($profile_photo) {
+        echo '<img src="' . $profile_photo . '" alt="' . $review->getAuthorName() . '">';
+    }
+}
 ```
 
 ### `getPublishdate()`
