@@ -68,4 +68,9 @@ googleplaces_review.status = Status
 googleplaces_review_status_hidden = 🚫 Versteckt
 googleplaces_review_status_visible = 🟢 Sichtbar
 
+googleplaces_config_auto_publish_reviews = Neue Bewertungen automatisch sichtbar schalten
+googleplaces_config_auto_publish_reviews_notice = Wenn aktiviert, werden neue Bewertungen bei der Synchronisierung automatisch sichtbar geschaltet. Andernfalls müssen sie manuell freigeschaltet werden.
+googleplaces_config_auto_publish_reviews_yes = Ja, automatisch sichtbar schalten
+googleplaces_config_auto_publish_reviews_no = Nein, manuell freischalten
+
 googleplaces_no_api_key = Es wurde kein API-Schlüssel hinterlegt. Bitte fügen Sie einen API-Schlüssel in den Einstellungen hinzu.

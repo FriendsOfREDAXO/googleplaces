@@ -42,3 +42,4 @@ requires:
 
 default_config:
   api_key: ""
+  auto_publish_reviews: false
