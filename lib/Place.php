@@ -168,10 +168,29 @@ class Place extends rex_yform_manager_dataset
 
                 $review->setPlaceId($place_dataset_id);
 
-                // Base64 Profilbild holen wenn verfügbar
-                $review_profile_photo_base64 = @file_get_contents($review_from_api['profile_photo_url']);
-                if ($review_profile_photo_base64 !== false) {
-                    $review_profile_photo_base64 = base64_encode($review_profile_photo_base64);
+                // Download and save profile photo to filesystem
+                $profile_photo_filename = null;
+                if (!empty($review_from_api['profile_photo_url'])) {
+                    $profile_photo_data = @file_get_contents($review_from_api['profile_photo_url']);
+                    if ($profile_photo_data !== false) {
+                        // Create directory if it doesn't exist
+                        $photo_dir = \rex_path::addonData('googleplaces', 'profile_photos/');
+                        if (!is_dir($photo_dir)) {
+                            mkdir($photo_dir, 0755, true);
+                        }
+                        
+                        // Generate filename from UUID to ensure uniqueness
+                        $profile_photo_filename = $uuid . '.jpg';
+                        $photo_path = $photo_dir . $profile_photo_filename;
+                        
+                        // Save the photo to filesystem
+                        if (file_put_contents($photo_path, $profile_photo_data) !== false) {
+                            // Successfully saved to filesystem
+                        } else {
+                            // Failed to save, clear filename
+                            $profile_photo_filename = null;
+                        }
+                    }
                 }
 
                 // Review-Daten über Model-Methoden setzen
@@ -180,7 +199,7 @@ class Place extends rex_yform_manager_dataset
                     ->setRating($review_from_api['rating'])
                     ->setText($review_from_api['text'])
                     ->setProfilePhotoUrl($review_from_api['profile_photo_url'])
-                    ->setProfilePhotoBase64($review_profile_photo_base64)
+                    ->setProfilePhotoFile($profile_photo_filename)
                     ->setGooglePlaceId($this->getPlaceId())
                     ->setPublishdate((new DateTime('@' . $review_from_api['time']))->format('Y-m-d H:i:s'))
                     ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))

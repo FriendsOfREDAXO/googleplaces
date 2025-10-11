@@ -32,15 +32,17 @@ $reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 		<?php
         foreach ($reviews as $review) {
             /** @var Review $review */
-            $profile_photo = 'data:image/jpg;base64,' . $review->getProfilePhotoBase64();
+            $profile_photo = $review->getProfilePhotoSrc();
             ?>
 		<div class="col-12">
 			<div class="card">
+				<?php if ($profile_photo): ?>
 				<div class="author-image">
 					<img src="<?= $profile_photo ?>"
 						alt="<?= $review->getAuthorName() ?>"
 						width="60" height="60">
 				</div>
+				<?php endif; ?>
 				<?= $review->getAuthorName() ?>
 				<p class="publishdate">
 					<?= rex_formatter::intlDate($review->getPublishdate()) ?>
