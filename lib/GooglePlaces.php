@@ -131,19 +131,22 @@ class GooglePlaces
     public static function syncAll(): bool
     {
         $places = Place::query()->find();
-        $success = true;
+        $success = false;
         $errorCount = 0;
+        $successCount = 0;
 
         foreach ($places as $place) {
             /** @var Place $place */
-            if (!$place->sync()) {
-                $success = false;
+            if ($place->sync()) {
+                $success = true;
+                $successCount++;
+            } else {
                 $errorCount++;
             }
         }
         
         if ($errorCount > 0) {
-            \rex_logger::factory()->log('warning', "Google Places sync completed with {$errorCount} error(s)", [], __FILE__, __LINE__);
+            \rex_logger::factory()->log('warning', "Google Places sync completed with {$errorCount} error(s), {$successCount} success(es)", [], __FILE__, __LINE__);
         }
         
         return $success;
