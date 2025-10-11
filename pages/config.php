@@ -1,5 +1,7 @@
 <?php
 
+use FriendsOfRedaxo\GooglePlaces\Review;
+
 $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
@@ -12,8 +14,8 @@ $field = $form->addSelectField('auto_publish_reviews', null, ['class' => 'form-c
 $field->setLabel(rex_i18n::msg('googleplaces_config_auto_publish_reviews'));
 $field->setNotice(rex_i18n::msg('googleplaces_config_auto_publish_reviews_notice'));
 $select = $field->getSelect();
-$select->addOption(rex_i18n::msg('googleplaces_config_auto_publish_reviews_no'), '0');
-$select->addOption(rex_i18n::msg('googleplaces_config_auto_publish_reviews_yes'), '1');
+$select->addOption(rex_i18n::msg('googleplaces_config_auto_publish_reviews_no'), (string) Review::STATUS_HIDDEN);
+$select->addOption(rex_i18n::msg('googleplaces_config_auto_publish_reviews_yes'), (string) Review::STATUS_VISIBLE);
 
 $fragment = new rex_fragment();
 $fragment->setVar('class', 'edit', false);
