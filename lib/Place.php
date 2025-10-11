@@ -131,7 +131,7 @@ class Place extends rex_yform_manager_dataset
             return false;
         }
         
-        if ($googlePlace === null || empty($googlePlace)) {
+        if (empty($googlePlace)) {
             \rex_logger::factory()->log('warning', 'Google Place not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
             return false;
         }
@@ -162,13 +162,6 @@ class Place extends rex_yform_manager_dataset
         
         if (!$syncReviews) {
             // Reviews are disabled, return early
-            return $success;
-        }
-
-        $reviews_from_api = $googlePlace['reviews'];
-        if ($reviews_from_api === null) {
-            // Log warning but don't fail the sync since Place data was successfully saved
-            \rex_logger::factory()->log('warning', 'Google Place reviews not found for Place ID: ' . $this->getPlaceId(), [], __FILE__, __LINE__);
             return $success;
         }
 

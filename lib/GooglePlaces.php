@@ -35,8 +35,34 @@ class GooglePlaces
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
         $response = curl_exec($curl);
-        $json_response = json_decode($response);
+        
+        // Check for cURL errors
+        if ($response === false) {
+            $error = curl_error($curl);
+            curl_close($curl);
+            if (!empty($error)) {
+                \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
+            } else {
+                \rex_logger::logError('googleplaces', 'cURL error: Unknown error');
+            }
+            return [];
+        }
+        
         curl_close($curl);
+        
+        $json_response = json_decode($response);
+        
+        // Check if JSON decode was successful and result property exists
+        if ($json_response === null || !isset($json_response->result)) {
+            $response_length = is_string($response) ? strlen($response) : 0;
+            \rex_logger::logError(
+                'googleplaces',
+                'Invalid API response or missing result property. ' .
+                'Raw response: ' . var_export($response, true) . '; ' .
+                'Response length: ' . $response_length
+            );
+            return [];
+        }
 
         // Check if the API response has an error
         if (isset($json_response->status) && $json_response->status !== 'OK') {
