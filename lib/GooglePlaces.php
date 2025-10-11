@@ -40,7 +40,11 @@ class GooglePlaces
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
-            \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
+            if (!empty($error)) {
+                \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
+            } else {
+                \rex_logger::logError('googleplaces', 'cURL error: Unknown error');
+            }
             return [];
         }
         
