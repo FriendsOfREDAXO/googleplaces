@@ -8,6 +8,17 @@ googleplaces_sync = Update Now
 googleplaces_sync_success = Google Places data has been successfully updated.
 googleplaces_sync_errors = {0} error(s) occurred. Check the system log for details.
 
+googleplaces_docs_intro = Intro
+googleplaces_docs_upgrade = Upgrade
+googleplaces_docs_place = Google Places
+googleplaces_docs_review = Reviews
+googleplaces_docs_review_json = Example JSON for Reviews
+googleplaces_docs_module = Output (e.g. as Module)
+googleplaces_docs_googleplaces = GooglePlaces Class
+googleplaces_docs_cronjob = Cronjob
+googleplaces_docs_backend = Backend Pages
+googleplaces_docs_database = Database Structure
+
 googleplaces_review.place_detail_id = Google Place
 googleplaces.review.google_place_id = Google Place ID
 googleplaces.review.author_name = Author
@@ -15,6 +26,7 @@ googleplaces.review.author_url = Author URL
 googleplaces.review.language = Language
 googleplaces.review.profile_photo_url = Profile Picture URL
 googleplaces.review.profile_photo_base64 = Profile Picture Base64
+googleplaces.review.profile_photo_file = Profile Picture File
 googleplaces.review.rating = Rating
 googleplaces.review.text = Text
 googleplaces.review.time = Date

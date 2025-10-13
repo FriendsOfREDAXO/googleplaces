@@ -1,8 +1,25 @@
 # Klasse `Review` für Bewertungen eines Google Place
 
-Kind-Klasse von `rex_yform_manager_dataset`, damit stehen alle Methoden von YOrm-Datasets zur Verfügung. Greift auf die Tabelle `MeineTabelle` zu.
+Kind-Klasse von `rex_yform_manager_dataset`, damit stehen alle Methoden von YOrm-Datasets zur Verfügung. Greift auf die Tabelle `rex_googleplaces_review` zu.
 
-> Es werden nachfolgend zur die durch dieses Addon ergänzte Methoden beschrieben. Lerne mehr über YOrm und den Methoden für Querys, Datasets und Collections in der [YOrm Doku](https://github.com/yakamara/yform/blob/master/docs/04_yorm.md)
+> Es werden nachfolgend nur die durch dieses Addon ergänzten Methoden beschrieben. Lerne mehr über YOrm und den Methoden für Querys, Datasets und Collections in der [YOrm Doku](https://github.com/yakamara/yform/blob/master/docs/04_yorm.md)
+
+## Status-Konstanten
+
+Die Review-Klasse definiert zwei Status-Konstanten für die Sichtbarkeit von Rezensionen:
+
+- `Review::STATUS_VISIBLE` (Wert: `1`) - Rezension ist sichtbar
+- `Review::STATUS_HIDDEN` (Wert: `0`) - Rezension ist ausgeblendet
+
+Beispiel:
+
+```php
+use FriendsOfRedaxo\GooglePlaces\Review;
+
+$review = Review::get($id);
+$review->setStatus(Review::STATUS_VISIBLE);
+$review->save();
+```
 
 ## Alle Einträge erhalten
 
@@ -389,5 +406,29 @@ Setzt den Wert für das Feld `uuid` (UUID).
 ```php
 $dataset = Review::create();
 $dataset->setUuid($value);
+$dataset->save();
+```
+
+### `getStatus()`
+
+Gibt den Wert für das Feld `status` (Status) zurück:
+
+Beispiel:
+
+```php
+$dataset = Review::get($id);
+$status = $dataset->getStatus();
+if ($status === Review::STATUS_VISIBLE) {
+    echo "Rezension ist sichtbar";
+}
+```
+
+### `setStatus(int $value)`
+
+Setzt den Wert für das Feld `status` (Status).
+
+```php
+$dataset = Review::create();
+$dataset->setStatus(Review::STATUS_VISIBLE); // oder Review::STATUS_HIDDEN
 $dataset->save();
 ```

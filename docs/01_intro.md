@@ -2,6 +2,12 @@
 
 ![splashscreen](https://user-images.githubusercontent.com/16903055/140534021-cd09791c-9dc5-4c11-8f40-d16e72b43cf8.jpg)
 
+## Neu in Version 3.1
+
+* 💾 **Profilbilder im Dateisystem**: Profilbilder werden jetzt als Dateien gespeichert statt als Base64 in der Datenbank (bessere Performance)
+* 📄 **Erweiterte Dokumentation**: Neue Dokumentationsseiten für GooglePlaces-Klasse, Cronjob, Backend und Datenbank-Struktur
+* 🔧 **Verbesserte Fehlerbehandlung**: Bessere Logging-Funktionen für API-Fehler
+
 ## Neu in Version 3.X
 
 * 💯 Verwalte **beliebig viele Places**
