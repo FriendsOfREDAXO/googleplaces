@@ -64,7 +64,7 @@ All classes use the namespace: `FriendsOfRedaxo\GooglePlaces`
 - Extend `rex_yform_manager_dataset` for models
 - Use query builder: `Review::query()->where()->find()`
 - Use `findOne()` for single results, `find()` for collections
-- Define model relationships with `getRelatedDataset()`
+- Define model relationships with `getRelatedDataset('place_detail_id')` (e.g., `$review->getRelatedDataset('place_detail_id');`)
 
 ### Code Documentation
 - Use `/** @api */` annotation for public API methods
