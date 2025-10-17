@@ -127,19 +127,21 @@ public function setFieldName(mixed $value): self
 
 ### Querying reviews
 ```php
+// Returns a collection of Review objects
 $reviews = Review::query()
     ->where('place_detail_id', $placeId)
     ->where('rating', 5, '>=')
     ->where('status', Review::STATUS_VISIBLE)
     ->orderBy('publishdate', 'DESC')
     ->limit(0, 10)
-    ->find();
+    ->find(); // Use findOne() for a single result
 ```
 
 ### Using fragments in modules
 ```php
 $fragment = new rex_fragment();
 $fragment->setVar('place', Place::get($id), false);
+// Fragment path is relative to /fragments/ directory
 echo $fragment->parse('googleplaces/reviews.bs5.php');
 ```
 
