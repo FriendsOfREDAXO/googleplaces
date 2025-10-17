@@ -84,11 +84,25 @@ class Place extends rex_yform_manager_dataset
                 $api_json_response = \json_decode($a['list']->getValue('api_response_json'));
                 $output = "<code>" . $a['value'] . "</code>";
                 if ($api_json_response !== null) {
-                    $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $api_json_response->name. '</a></strong>';
-                    $output .= '<br>' . $api_json_response->formatted_address;
-                    $output .= '<br>' . $api_json_response->formatted_phone_number;
-                    $output .= '<br><i class="fa fa-image"></i> ×' . count($api_json_response->photos ?? []);
-                    $output .= '<br><i class="fa fa-star"></i> ' . $api_json_response->rating ." (".$api_json_response->user_ratings_total .")";
+                    $name = $api_json_response->name ?? 'Unknown';
+                    if (isset($api_json_response->url)) {
+                        $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $name. '</a></strong>';
+                    } else {
+                        $output = '<strong>' . $name . '</strong>';
+                    }
+                    if (isset($api_json_response->formatted_address)) {
+                        $output .= '<br>' . $api_json_response->formatted_address;
+                    }
+                    if (isset($api_json_response->formatted_phone_number)) {
+                        $output .= '<br>' . $api_json_response->formatted_phone_number;
+                    }
+                    $photos_count = count($api_json_response->photos ?? []);
+                    if ($photos_count > 0) {
+                        $output .= '<br><i class="fa fa-image"></i> ×' . $photos_count;
+                    }
+                    if (isset($api_json_response->rating) && isset($api_json_response->user_ratings_total)) {
+                        $output .= '<br><i class="fa fa-star"></i> ' . $api_json_response->rating ." (".$api_json_response->user_ratings_total .")";
+                    }
                     $output .= "<br><code>" . $a['value'] . "</code>";
 
                 }
