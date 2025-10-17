@@ -56,7 +56,7 @@ All classes use the namespace: `FriendsOfRedaxo\GooglePlaces`
 ### REDAXO Conventions
 - Use REDAXO's `rex_` prefixed classes for framework functions
 - Internationalization: Use `rex_i18n::msg('key')` for translations
-- Logging: Use `rex_logger::factory()->log()` for error logging
+- Logging: Use `rex_logger::factory()->log(rex_log::LEVEL_ERROR, 'Error message');` for error logging, or `rex_logger::logException($e);` to log exceptions
 - File operations: Use `rex_file::` and `rex_dir::` helpers
 - Paths: Use `rex_path::` and `rex_url::` for consistent path handling
 
