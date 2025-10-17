@@ -52,21 +52,21 @@ class GooglePlaces
         
         $json_response = json_decode($response);
         
-        // Check if JSON decode was successful and result property exists
-        if ($json_response === null || !isset($json_response->result)) {
+        // Check if JSON decode was successful
+        if ($json_response === null) {
             $response_length = is_string($response) ? strlen($response) : 0;
             \rex_logger::logError(
                 'googleplaces',
-                'Invalid API response or missing result property. ' .
+                'Invalid API response - JSON decode failed. ' .
                 'Raw response: ' . var_export($response, true) . '; ' .
                 'Response length: ' . $response_length
             );
             return [];
         }
 
-        // Check if the API response has an error
+        // Check if the API response has an error status
         if (isset($json_response->status) && $json_response->status !== 'OK') {
-            $error_message = $json_response->error_message ?? $json_response->status;
+            $error_message = isset($json_response->error_message) ? $json_response->error_message : $json_response->status;
             \rex_logger::factory()->log('warning', 'Google Places API Error: ' . $error_message, [], __FILE__, __LINE__);
             return ['error' => $error_message, 'status' => $json_response->status];
         }
