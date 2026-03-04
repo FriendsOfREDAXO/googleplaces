@@ -343,12 +343,12 @@ class Review extends rex_yform_manager_dataset
     }
     
     /** @api */
-    public static function findFilter(string $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE): \rex_yform_manager_collection | null
+    public static function findFilter(?string $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE): \rex_yform_manager_collection | null
     {
 
         $query = self::query();
         if ($place_id !== null) {
-            $query->where('place_id', $place_id);
+            $query->where('google_place_id', $place_id);
         }
         if ($minRating >= 0) {
             $query->where('rating', $minRating, '>=');
