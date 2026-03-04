@@ -348,7 +348,7 @@ class Review extends rex_yform_manager_dataset
 
         $query = self::query();
         if ($place_id !== null) {
-            $query->where('google_place_id', $place_id);
+            $query->where('place_detail_id', $place_id);
         }
         if ($minRating >= 0) {
             $query->where('rating', $minRating, '>=');
