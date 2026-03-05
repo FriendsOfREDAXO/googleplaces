@@ -82,28 +82,29 @@ class Place extends rex_yform_manager_dataset
             'custom',
             static function ($a) {
                 $api_json_response = \json_decode($a['list']->getValue('api_response_json'));
-                $output = "<code>" . $a['value'] . "</code>";
+                $output = "<code>" . \rex_escape($a['value']) . "</code>";
                 if ($api_json_response !== null) {
-                    $name = $api_json_response->name ?? 'Unknown';
+                    $name = \rex_escape($api_json_response->name ?? 'Unknown');
                     if (isset($api_json_response->url)) {
-                        $output = '<strong><a href="'.$api_json_response->url.'" target="_blank">' . $name. '</a></strong>';
+                        $output = '<strong><a href="'. \rex_escape($api_json_response->url) .'" target="_blank">' . $name. '</a></strong>';
                     } else {
                         $output = '<strong>' . $name . '</strong>';
                     }
                     if (isset($api_json_response->formatted_address)) {
-                        $output .= '<br>' . $api_json_response->formatted_address;
+                        $output .= '<br>' . \rex_escape($api_json_response->formatted_address);
                     }
                     if (isset($api_json_response->formatted_phone_number)) {
-                        $output .= '<br>' . $api_json_response->formatted_phone_number;
+                        $output .= '<br>' . \rex_escape($api_json_response->formatted_phone_number);
                     }
                     $photos_count = count($api_json_response->photos ?? []);
                     if ($photos_count > 0) {
                         $output .= '<br><i class="fa fa-image"></i> ×' . $photos_count;
                     }
-                    if (isset($api_json_response->rating) && isset($api_json_response->user_ratings_total)) {
-                        $output .= '<br><i class="fa fa-star"></i> ' . $api_json_response->rating ." (".$api_json_response->user_ratings_total .")";
+                    $ratingsTotal = $api_json_response->user_ratings_total ?? $api_json_response->userRatingCount ?? null;
+                    if (isset($api_json_response->rating) && $ratingsTotal !== null) {
+                        $output .= '<br><i class="fa fa-star"></i> ' . \rex_escape($api_json_response->rating) .' ('. \rex_escape($ratingsTotal) .')';
                     }
-                    $output .= "<br><code>" . $a['value'] . "</code>";
+                    $output .= "<br><code>" . \rex_escape($a['value']) . "</code>";
 
                 }
                 return $output;
@@ -229,16 +230,20 @@ class Place extends rex_yform_manager_dataset
                 }
 
                 // Review-Daten über Model-Methoden setzen
-                $review->setAuthorName($review_from_api['author_name'])
-                    ->setAuthorUrl($review_from_api['author_url'])
-                    ->setRating($review_from_api['rating'])
-                    ->setText($review_from_api['text'])
-                    ->setProfilePhotoUrl($review_from_api['profile_photo_url'])
+                $review->setAuthorName($review_from_api['author_name'] ?? '')
+                    ->setAuthorUrl($review_from_api['author_url'] ?? '')
+                    ->setRating((int) ($review_from_api['rating'] ?? 0))
+                    ->setText($review_from_api['text'] ?? '')
+                    ->setProfilePhotoUrl($review_from_api['profile_photo_url'] ?? '')
                     ->setProfilePhotoFile($profile_photo_filename)
                     ->setGooglePlaceId($this->getPlaceId())
-                    ->setPublishdate((new DateTime('@' . $review_from_api['time']))->format('Y-m-d H:i:s'))
+                    ->setLanguage($review_from_api['language'] ?? '')
                     ->setUpdatedate((new DateTime('NOW'))->format('Y-m-d H:i:s'))
                     ->setUuid($uuid);
+
+                if (!empty($review_from_api['time'])) {
+                    $review->setPublishdate((new DateTime('@' . $review_from_api['time']))->format('Y-m-d H:i:s'));
+                }
 
                 // Review speichern
                 $success = $review->save();

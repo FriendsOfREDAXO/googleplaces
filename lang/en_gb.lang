@@ -81,3 +81,8 @@ googleplaces_query_add = Add
 googleplaces_query_place_added = The Google Places entry has been successfully added.
 googleplaces_query_place_already_added = This Google Places entry has already been added.
 googleplaces_query_no_results = No results found.
+
+googleplaces_fragment_reviews_title = Reviews on Google
+googleplaces_fragment_rating = Rating
+googleplaces_fragment_reviews = Reviews
+googleplaces_fragment_via_google = via Google

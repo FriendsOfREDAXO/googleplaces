@@ -72,6 +72,11 @@ googleplaces_query_place_added = Der Google-Places-Eintrag wurde erfolgreich hin
 googleplaces_query_place_already_added = Dieser Google-Places-Eintrag wurde bereits hinzugefügt.
 googleplaces_query_no_results = Es wurden keine Ergebnisse gefunden.
 
+googleplaces_fragment_reviews_title = Bewertungen auf Google
+googleplaces_fragment_rating = Bewertung
+googleplaces_fragment_reviews = Bewertungen
+googleplaces_fragment_via_google = via Google
+
 googleplaces_review.status = Status
 googleplaces_review_status_hidden = 🚫 Versteckt
 googleplaces_review_status_visible = 🟢 Sichtbar

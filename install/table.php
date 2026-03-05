@@ -34,4 +34,4 @@ rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
 
 // unix timestamp to datetime
 rex_sql::factory()
-    ->setQuery('UPDATE rex_googleplaces_review SET `publishdate` = FROM_UNIXTIME(`time`) WHERE `publishdate` IS NULL OR `publishdate` = "0000-00-00 00:00:00"');
+    ->setQuery('UPDATE ' . rex::getTable('googleplaces_review') . ' SET `publishdate` = FROM_UNIXTIME(`time`) WHERE `publishdate` IS NULL OR `publishdate` = "0000-00-00 00:00:00"');

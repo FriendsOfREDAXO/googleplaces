@@ -19,13 +19,11 @@ $reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
-				<h2>Bewertungen auf Google</h2>
+				<h2><?= rex_i18n::msg('googleplaces_fragment_reviews_title') ?></h2>
 				<p class="sm-text mb-0">
-					Bewertung: <?= $place->getAvgRatingApi() ?> / 5
-					(<?= $place->countReviews() ?> Bewertungen)
+					<?= rex_i18n::msg('googleplaces_fragment_rating') ?>: <?= rex_escape($place->getAvgRatingApi()) ?> / 5
+					(<?= rex_escape($place->countReviews()) ?> <?= rex_i18n::msg('googleplaces_fragment_reviews') ?>)
 				</p>
-				<a href="<?= '' ?>"
-					class="btn">Eigene Bewertung verfassen</a>
 			</div>
 		</div>
 
@@ -38,12 +36,12 @@ $reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 			<div class="card">
 				<?php if ($profile_photo): ?>
 				<div class="author-image">
-					<img src="<?= $profile_photo ?>"
-						alt="<?= $review->getAuthorName() ?>"
+					<img src="<?= rex_escape($profile_photo) ?>"
+						alt="<?= rex_escape($review->getAuthorName()) ?>"
 						width="60" height="60">
 				</div>
 				<?php endif; ?>
-				<?= $review->getAuthorName() ?>
+				<?= rex_escape($review->getAuthorName()) ?>
 				<p class="publishdate">
 					<?= rex_formatter::intlDate($review->getPublishdate()) ?>
 				</p>
@@ -52,12 +50,12 @@ $reviews = $place->getReviews($limit, 0, 5, 'publishdate', 'DESC');
 
 					<div data-googleplaces-review-stars="background"></div>
 					<div
-						data-googleplaces-review-stars="<?= $review->getRating() ?>">
+						data-googleplaces-review-stars="<?= (int) $review->getRating() ?>">
 					</div>
 				</div>
-				<p><?= $review->getText() ?></p>
-				<a href="<?= $review->getAuthorUrl()  ?>"
-					target="_blank" rel="nofollow noopener">via Google</a>
+				<p><?= nl2br(rex_escape($review->getText(true))) ?></p>
+				<a href="<?= rex_escape($review->getAuthorUrl()) ?>"
+					target="_blank" rel="nofollow noopener"><?= rex_i18n::msg('googleplaces_fragment_via_google') ?></a>
 			</div>
 		</div>
 

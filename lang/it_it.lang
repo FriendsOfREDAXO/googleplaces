@@ -45,3 +45,45 @@ googleplaces_config_sync_reviews = Sincronizza recensioni
 googleplaces_config_sync_reviews_notice = Quando attivato, le recensioni verranno recuperate da Google Places e salvate. Disattivare questa opzione se si necessitano solo le voci dei Places senza recensioni.
 googleplaces_config_sync_reviews_yes = Sì, sincronizza recensioni
 googleplaces_config_sync_reviews_no = No, solo voci dei Places
+
+googleplaces_no_api_key = Non è stata configurata nessuna chiave API. Aggiungere una chiave API nelle impostazioni.
+googleplaces_sync_errors = Si sono verificati {0} errore/i. Consultare il registro di sistema per i dettagli.
+
+googleplaces_query = Cerca luogo
+googleplaces_query_title = Cerca in Google Places
+googleplaces_query_info = Qui puoi cercare voci di Google Places e aggiungerle. La chiave API deve avere i permessi corrispondenti.
+googleplaces_query_name = Nome
+googleplaces_query_name_placeholder = Yakamara
+googleplaces_query_street = Via
+googleplaces_query_street_placeholder = Bethmannstraße 7-9
+googleplaces_query_zip = CAP
+googleplaces_query_zip_placeholder = 60311
+googleplaces_query_city = Città
+googleplaces_query_city_placeholder = Frankfurt am Main
+googleplaces_query_submit = Cerca
+googleplaces_query_results = Risultati
+googleplaces_query_place_id = ID del luogo
+googleplaces_query_table_name = Nome
+googleplaces_query_action = Azione
+googleplaces_query_add = Aggiungi
+googleplaces_query_place_added = La voce di Google Places è stata aggiunta con successo.
+googleplaces_query_place_already_added = Questa voce di Google Places è già stata aggiunta.
+googleplaces_query_no_results = Nessun risultato trovato.
+
+googleplaces_fragment_reviews_title = Recensioni su Google
+googleplaces_fragment_rating = Valutazione
+googleplaces_fragment_reviews = Recensioni
+googleplaces_fragment_via_google = via Google
+
+googleplaces_docs_intro = Introduzione
+googleplaces_docs_upgrade = Aggiornamento
+googleplaces_docs_place = Google Places
+googleplaces_docs_review = Recensioni
+googleplaces_docs_review_json = Esempio JSON per recensioni
+googleplaces_docs_module = Output (ad es. come modulo)
+googleplaces_docs_googleplaces = Classe GooglePlaces
+googleplaces_docs_cronjob = Cronjob
+googleplaces_docs_backend = Pagine backend
+googleplaces_docs_database = Struttura database
+
+googleplaces.review.profile_photo_file = File foto profilo

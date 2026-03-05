@@ -27,7 +27,7 @@ class gplace
      */
     public static function get(string $qry = "")
     {
-        return GooglePlaces::getFromGoogle($qry);
+        return GooglePlaces::getFromGoogle($qry ?: null);
     }
 
     /**
@@ -37,7 +37,7 @@ class gplace
      */
     public static function getFromGoogle(string $qry = "")
     {
-        return GooglePlaces::getFromGoogle($qry);
+        return GooglePlaces::getFromGoogle($qry ?: null);
     }
 
     /**
@@ -46,7 +46,7 @@ class gplace
      */
     public static function getPlaceDetails($qry = "")
     {
-        return GooglePlaces::getPlaceDetails($qry);
+        return GooglePlaces::getPlaceDetails($qry ?: null);
     }
 
     /**

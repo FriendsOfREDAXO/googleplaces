@@ -5,7 +5,7 @@ use rex_response;
 use rex_api_function;
 
 class rex_api_find_place_id extends rex_api_function {
-    protected $published = true;
+    protected $published = false;
 
     public function execute()
     {
@@ -15,7 +15,7 @@ class rex_api_find_place_id extends rex_api_function {
         $query['zip'] = rex_request('zip', 'string', '');
         $query['city'] = rex_request('city', 'string', '');
         $apiKey = rex_config::get('googleplaces', 'api_key');
-        $searchTerm = implode(' ', $query);
+        $searchTerm = trim(implode(' ', $query));
         rex_response::cleanOutputBuffers();
         rex_response::sendContentType('application/json; charset=utf-8');
 
@@ -51,8 +51,8 @@ class rex_api_find_place_id extends rex_api_function {
     public static function queryPlaces($name, $street, $zip, $city, $apiKey)
     {
         // Erstelle die Suchanfrage
-        $quarry = [$name, $street, $zip, $city];
-        $query = implode(', ', $quarry);
+        $queryParts = array_filter([$name, $street, $zip, $city], static fn($v) => $v !== '');
+        $query = implode(', ', $queryParts);
         $url = "https://places.googleapis.com/v1/places:searchText?key=$apiKey";
 
 
@@ -75,7 +75,7 @@ class rex_api_find_place_id extends rex_api_function {
             'Content-Type: application/json',
             'Content-Length: ' . strlen($requestBody),
             'X-Goog-Api-Key: ' . $apiKey,
-            'X-Goog-FieldMask: *'
+            'X-Goog-FieldMask: places.id,places.displayName,places.formattedAddress'
 
 
         ]);
