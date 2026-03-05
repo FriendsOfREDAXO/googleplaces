@@ -87,13 +87,8 @@ class rex_api_find_place_id extends rex_api_function {
         // Check for cURL errors
         if ($response === false) {
             $error = curl_error($ch);
-            curl_close($ch);
             return ['error' => 'cURL error: ' . $error];
         }
-
-
-        // Schließe cURL
-        curl_close($ch);
 
         // Dekodiere die JSON-Antwort
         $responseData = json_decode($response, true);
