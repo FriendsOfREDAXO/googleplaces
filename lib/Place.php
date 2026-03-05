@@ -258,18 +258,12 @@ class Place extends rex_yform_manager_dataset
     /** @api */
     public function getAvgRatingDb() : float
     {
-        $reviews = $this->getReviews(0, 0, 0);
-        $rating = 0;
-        $i = 0;
-        foreach ($reviews as $review) {
-            /** @var Review $review */
-            $rating += $review->getRating();
-            $i++;
-        }
-        if ($i === 0) {
-            return 0;
-        }
-        return $rating / $i;
+        $sql = \rex_sql::factory();
+        $sql->setQuery(
+            'SELECT AVG(rating) as avg_rating FROM ' . \rex::getTable('googleplaces_review') . ' WHERE place_detail_id = :id AND status = :status',
+            [':id' => $this->getId(), ':status' => Review::STATUS_VISIBLE]
+        );
+        return (float) $sql->getValue('avg_rating');
     }
 
     /** @api */
