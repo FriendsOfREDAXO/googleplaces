@@ -220,7 +220,7 @@
                 "table_name": "rex_googleplaces_review",
                 "prio": 11,
                 "type_id": "value",
-                "type_name": "choice_status",
+                "type_name": "choice",
                 "db_type": "tinyint(1)",
                 "list_hidden": 0,
                 "search": 1,
