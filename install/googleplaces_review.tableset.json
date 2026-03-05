@@ -218,9 +218,9 @@
             },
             {
                 "table_name": "rex_googleplaces_review",
-                "prio": 11,
+                "prio": 12,
                 "type_id": "value",
-                "type_name": "choice_status",
+                "type_name": "choice",
                 "db_type": "tinyint(1)",
                 "list_hidden": 0,
                 "search": 1,
@@ -243,7 +243,7 @@
             },
             {
                 "table_name": "rex_googleplaces_review",
-                "prio": 12,
+                "prio": 13,
                 "type_id": "value",
                 "type_name": "datestamp",
                 "db_type": "datetime",
@@ -259,7 +259,7 @@
             },
             {
                 "table_name": "rex_googleplaces_review",
-                "prio": 13,
+                "prio": 14,
                 "type_id": "value",
                 "type_name": "datestamp",
                 "db_type": "datetime",
@@ -275,7 +275,7 @@
             },
             {
                 "table_name": "rex_googleplaces_review",
-                "prio": 14,
+                "prio": 15,
                 "type_id": "value",
                 "type_name": "uuid",
                 "db_type": "varchar(36)",

@@ -3,6 +3,7 @@
 namespace FriendsOfRedaxo\GooglePlaces;
 
 use rex_i18n;
+use rex_url;
 use rex_yform_manager_dataset;
 
 class Review extends rex_yform_manager_dataset
@@ -23,7 +24,7 @@ class Review extends rex_yform_manager_dataset
     /** @api */
     public function getPlaceId(): ?int
     {
-        return $this->getValue("place_detail_id");
+        return (int) $this->getValue("place_detail_id");
     }
     /** @api */
     public function setPlaceId(int $value): self
@@ -166,7 +167,7 @@ class Review extends rex_yform_manager_dataset
             return null;
         }
         $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-        if (\rex_file::exists($path)) {
+        if (file_exists($path)) {
             return $path;
         }
         return null;
@@ -179,16 +180,16 @@ class Review extends rex_yform_manager_dataset
      */
     public function getProfilePhotoSrc(): ?string
     {
-        // Try to use filesystem image first
-        $filename = $this->getProfilePhotoFile();
-        if ($filename) {
-            $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-            if (\rex_file::exists($path)) {
-                return \rex_url::addonData('googleplaces', 'profile_photos/' . $filename);
+        // Profilbild aus Datei als Base64-Data-URI
+        $path = $this->getProfilePhotoPath();
+        if ($path) {
+            $data = \rex_file::get($path);
+            if ($data) {
+                return 'data:image/jpeg;base64,' . base64_encode($data);
             }
         }
         
-        // Fallback to base64 if available (for backwards compatibility)
+        // Fallback: gespeichertes Base64 (Abwärtskompatibilität)
         $base64 = $this->getProfilePhotoBase64();
         if ($base64) {
             return 'data:image/jpeg;base64,' . $base64;
@@ -285,7 +286,7 @@ class Review extends rex_yform_manager_dataset
                     if (isset($place_details['name'])) {
                         $place_name = $place_details['name'];
                     }
-                    return '<a href="index.php?page=googleplaces/place/detail&google_place_id='.$place->getId().'" target="_blank">'.$place_name.'</a>';
+                    return '<a href="'.\rex_url::backendPage('googleplaces/place_detail').'">'.\rex_escape($place_name).'</a>';
                 }
                 return "<code>".$a['list']->getValue('place_id')."</code>";
             },
@@ -340,15 +341,39 @@ class Review extends rex_yform_manager_dataset
                 return '<span class="text-nowrap">'. \rex_formatter::intlDateTime($a['value']) .'</span>';
             },
         );
+
+        // Status als klickbaren Toggle anzeigen
+        $list->setColumnFormat(
+            'status',
+            'custom',
+            static function ($a) {
+                $id = (int) $a['list']->getValue('id');
+                $status = (int) $a['value'];
+                $isOnline = $status === self::STATUS_VISIBLE;
+
+                $statusClass = $isOnline ? 'rex-online' : 'rex-offline';
+                $iconClass = $isOnline ? 'rex-icon-online' : 'rex-icon-offline';
+                $label = $isOnline
+                    ? rex_i18n::msg('googleplaces_review_status_visible')
+                    : rex_i18n::msg('googleplaces_review_status_hidden');
+
+                $url = rex_url::currentBackendPage([
+                    'func' => 'changestatus',
+                    'review_id' => $id,
+                ]);
+
+                return '<a class="' . $statusClass . '" href="' . $url . '"><i class="rex-icon ' . $iconClass . '"></i> ' . \rex_escape($label) . '</a>';
+            },
+        );
     }
     
     /** @api */
-    public static function findFilter(string $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE): \rex_yform_manager_collection | null
+    public static function findFilter(?int $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE): \rex_yform_manager_collection | null
     {
 
         $query = self::query();
         if ($place_id !== null) {
-            $query->where('place_id', $place_id);
+            $query->where('place_detail_id', $place_id);
         }
         if ($minRating >= 0) {
             $query->where('rating', $minRating, '>=');

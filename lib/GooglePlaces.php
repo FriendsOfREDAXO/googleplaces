@@ -16,7 +16,7 @@ class GooglePlaces
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
-    public static function googleApiResult(string $place_id = null): array
+    public static function googleApiResult(?string $place_id = null): array
     {
 
         if ($place_id === null) {
@@ -29,7 +29,7 @@ class GooglePlaces
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
+            CURLOPT_TIMEOUT => 30,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
@@ -39,28 +39,16 @@ class GooglePlaces
         // Check for cURL errors
         if ($response === false) {
             $error = curl_error($curl);
-            curl_close($curl);
-            if (!empty($error)) {
-                \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
-            } else {
-                \rex_logger::logError('googleplaces', 'cURL error: Unknown error');
-            }
+            \rex_logger::factory()->log('error', 'Google Places cURL error: ' . ($error ?: 'Unknown error'), [], __FILE__, __LINE__);
             return [];
         }
-        
-        curl_close($curl);
         
         $json_response = json_decode($response);
         
         // Check if JSON decode was successful
         if ($json_response === null) {
             $response_length = is_string($response) ? strlen($response) : 0;
-            \rex_logger::logError(
-                'googleplaces',
-                'Invalid API response - JSON decode failed. ' .
-                'Raw response: ' . var_export($response, true) . '; ' .
-                'Response length: ' . $response_length
-            );
+            \rex_logger::factory()->log('error', 'Google Places API: Invalid response - JSON decode failed. Response length: ' . $response_length, [], __FILE__, __LINE__);
             return [];
         }
 
@@ -89,7 +77,7 @@ class GooglePlaces
      * @return array | string
      * @author Daniel Springer
      */
-    public static function getFromGoogle(string $place_id = null, string $key = null): array | string
+    public static function getFromGoogle(?string $place_id = null, ?string $key = null): array | string
     {
         if ($place_id === null) {
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
@@ -109,7 +97,7 @@ class GooglePlaces
      * @return array | false
      * @author Daniel Springer
      */
-    public static function getPlaceDetails(string $place_id = null): array | string | false
+    public static function getPlaceDetails(?string $place_id = null): array | string | false
     {
 
         if ($place_id === null) {
@@ -135,7 +123,7 @@ class GooglePlaces
      * @return array
      * @author Daniel Springer
      */
-    public static function getAllReviewsLive(string $place_id = null): array
+    public static function getAllReviewsLive(?string $place_id = null): array
     {
         $response = self::googleApiResult($place_id);
         
@@ -157,14 +145,16 @@ class GooglePlaces
     public static function syncAll(): bool
     {
         $places = Place::query()->find();
-        $success = false;
+        if (count($places) === 0) {
+            return true;
+        }
+
         $errorCount = 0;
         $successCount = 0;
 
         foreach ($places as $place) {
             /** @var Place $place */
             if ($place->sync()) {
-                $success = true;
                 $successCount++;
             } else {
                 $errorCount++;
@@ -175,6 +165,6 @@ class GooglePlaces
             \rex_logger::factory()->log('warning', "Google Places sync completed with {$errorCount} error(s), {$successCount} success(es)", [], __FILE__, __LINE__);
         }
         
-        return $success;
+        return $errorCount === 0;
     }
 }

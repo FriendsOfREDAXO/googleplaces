@@ -69,10 +69,17 @@ googleplaces_query_table_name = Name
 googleplaces_query_action = Aktion
 googleplaces_query_add = Hinzufügen
 googleplaces_query_place_added = Der Google-Places-Eintrag wurde erfolgreich hinzugefügt.
+googleplaces_query_place_already_added = Dieser Google-Places-Eintrag wurde bereits hinzugefügt.
+googleplaces_query_no_results = Es wurden keine Ergebnisse gefunden.
+
+googleplaces_fragment_reviews_title = Bewertungen auf Google
+googleplaces_fragment_rating = Bewertung
+googleplaces_fragment_reviews = Bewertungen
+googleplaces_fragment_via_google = via Google
 
 googleplaces_review.status = Status
-googleplaces_review_status_hidden = 🚫 Versteckt
-googleplaces_review_status_visible = 🟢 Sichtbar
+googleplaces_review_status_hidden = Versteckt
+googleplaces_review_status_visible = Sichtbar
 
 googleplaces_config_auto_publish_reviews = Neue Bewertungen automatisch sichtbar schalten
 googleplaces_config_auto_publish_reviews_notice = Wenn aktiviert, werden neue Bewertungen bei der Synchronisierung automatisch sichtbar geschaltet. Andernfalls müssen sie manuell freigeschaltet werden.

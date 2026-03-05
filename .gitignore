@@ -3,3 +3,4 @@ _notes
 /composer.lock
 /.php-cs-fixer.cache
 /vendor
+.vscode/

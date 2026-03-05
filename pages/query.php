@@ -11,16 +11,21 @@ if (empty($addon->getConfig('api_key'))) {
 }
 
 // Wenn ein Place hinzugefügt werden soll
-if (rex_get('place_id')) {
-    $placeId = rex_get('place_id');
-    $place = Place::query()->where('place_id', $placeId)->findOne();
-    if ($place) {
-        echo rex_view::warning(rex_i18n::msg('googleplaces_query_place_already_added'));
+if (rex_post('place_id', 'string', '')) {
+    $csrfToken = rex_csrf_token::factory('googleplaces_query_add');
+    if (!$csrfToken->isValid()) {
+        echo rex_view::error(rex_i18n::msg('csrf_token_invalid'));
     } else {
-        $place = Place::create();
-        $place->setPlaceId($placeId);
-        $place->save();
-        echo rex_view::success(rex_i18n::msg('googleplaces_query_place_added'));
+        $placeId = rex_post('place_id', 'string', '');
+        $place = Place::query()->where('place_id', $placeId)->findOne();
+        if ($place) {
+            echo rex_view::warning(rex_i18n::msg('googleplaces_query_place_already_added'));
+        } else {
+            $place = Place::create();
+            $place->setPlaceId($placeId);
+            $place->save();
+            echo rex_view::success(rex_i18n::msg('googleplaces_query_place_added'));
+        }
     }
 }
 
@@ -96,9 +101,13 @@ if (rex_request('name') || rex_request('street') || rex_request('zip') || rex_re
         <tbody>';
         foreach ($result['places'] as $place) {
             $table .= '<tr>
-            <td>' . $place['id'] . '</td>
-            <td><strong>' . $place['displayName']['text'] . '</strong><br>' . $place['formattedAddress'] . '</td>
-            <td><a href="' . rex_url::currentBackendPage(['place_id' => $place['id'], 'name' => $name, 'street' => $street, 'zip' => $zip, 'city' => $city ]) . '" class="btn btn-primary">' . rex_i18n::msg('googleplaces_query_add') . '</a></td>
+            <td>' . rex_escape($place['id']) . '</td>
+            <td><strong>' . rex_escape($place['displayName']['text'] ?? '') . '</strong><br>' . rex_escape($place['formattedAddress'] ?? '') . '</td>
+            <td><form method="post" action="' . rex_url::currentBackendPage(['name' => $name, 'street' => $street, 'zip' => $zip, 'city' => $city]) . '" style="display:inline">
+            <input type="hidden" name="place_id" value="' . rex_escape($place['id']) . '">
+            ' . rex_csrf_token::factory('googleplaces_query_add')->getHiddenField() . '
+            <button type="submit" class="btn btn-primary">' . rex_i18n::msg('googleplaces_query_add') . '</button>
+            </form></td>
         </tr>';
         }
         $table .= '</tbody>

@@ -33,8 +33,8 @@ googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Beoordelingen
 
 googleplaces_review.status = Status
-googleplaces_review_status_hidden = 🚫 Verborgen
-googleplaces_review_status_visible = 🟢 Zichtbaar
+googleplaces_review_status_hidden = Verborgen
+googleplaces_review_status_visible = Zichtbaar
 
 googleplaces_config_auto_publish_reviews = Nieuwe beoordelingen automatisch publiceren
 googleplaces_config_auto_publish_reviews_notice = Wanneer ingeschakeld, worden nieuwe beoordelingen automatisch gepubliceerd tijdens synchronisatie. Anders moeten ze handmatig worden goedgekeurd.
@@ -45,3 +45,45 @@ googleplaces_config_sync_reviews = Beoordelingen synchroniseren
 googleplaces_config_sync_reviews_notice = Wanneer ingeschakeld, worden beoordelingen opgehaald van Google Places en opgeslagen. Schakel deze optie uit als u alleen de Places-items zonder beoordelingen nodig hebt.
 googleplaces_config_sync_reviews_yes = Ja, beoordelingen synchroniseren
 googleplaces_config_sync_reviews_no = Nee, alleen Places-items
+
+googleplaces_no_api_key = Er is geen API-sleutel geconfigureerd. Voeg een API-sleutel toe in de instellingen.
+googleplaces_sync_errors = Er zijn {0} fout(en) opgetreden. Raadpleeg het systeemlogboek voor details.
+
+googleplaces_query = Plaats zoeken
+googleplaces_query_title = Google Places doorzoeken
+googleplaces_query_info = Hier kunt u zoeken naar Google Places-items en deze toevoegen. De API-sleutel moet de juiste machtigingen hebben.
+googleplaces_query_name = Naam
+googleplaces_query_name_placeholder = Yakamara
+googleplaces_query_street = Straat
+googleplaces_query_street_placeholder = Bethmannstraße 7-9
+googleplaces_query_zip = Postcode
+googleplaces_query_zip_placeholder = 60311
+googleplaces_query_city = Stad
+googleplaces_query_city_placeholder = Frankfurt am Main
+googleplaces_query_submit = Zoeken
+googleplaces_query_results = Resultaten
+googleplaces_query_place_id = Place ID
+googleplaces_query_table_name = Naam
+googleplaces_query_action = Actie
+googleplaces_query_add = Toevoegen
+googleplaces_query_place_added = Het Google Places-item is succesvol toegevoegd.
+googleplaces_query_place_already_added = Dit Google Places-item is al toegevoegd.
+googleplaces_query_no_results = Geen resultaten gevonden.
+
+googleplaces_fragment_reviews_title = Beoordelingen op Google
+googleplaces_fragment_rating = Beoordeling
+googleplaces_fragment_reviews = Beoordelingen
+googleplaces_fragment_via_google = via Google
+
+googleplaces_docs_intro = Introductie
+googleplaces_docs_upgrade = Upgrade
+googleplaces_docs_place = Google Places
+googleplaces_docs_review = Beoordelingen
+googleplaces_docs_review_json = Voorbeeld-JSON voor beoordelingen
+googleplaces_docs_module = Uitvoer (bijv. als module)
+googleplaces_docs_googleplaces = GooglePlaces-klasse
+googleplaces_docs_cronjob = Cronjob
+googleplaces_docs_backend = Backendpagina's
+googleplaces_docs_database = Databasestructuur
+
+googleplaces.review.profile_photo_file = Profielfoto bestand

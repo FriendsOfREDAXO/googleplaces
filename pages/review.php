@@ -1,7 +1,25 @@
 <?php
 
+use FriendsOfRedaxo\GooglePlaces\Review;
+
 $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));
+
+// Status-Toggle verarbeiten
+$func = rex_request('func', 'string', '');
+if ($func === 'changestatus') {
+    $reviewId = rex_request('review_id', 'int', 0);
+    if ($reviewId > 0) {
+        $review = Review::get($reviewId);
+        if ($review) {
+            $newStatus = $review->getStatus() === Review::STATUS_VISIBLE
+                ? Review::STATUS_HIDDEN
+                : Review::STATUS_VISIBLE;
+            $review->setStatus($newStatus);
+            $review->save();
+        }
+    }
+}
 
 if (rex_request('sync', 'int', null) === 1) {
     $syncErrors = rex_request('sync_errors', 'int', 0);

@@ -33,8 +33,8 @@ googleplaces_place_detail.table = 🏪 Detalles de Google Places
 googleplaces_review.table = 🏪 Reseñas de Google Places
 
 googleplaces_review.status = Estado
-googleplaces_review_status_hidden = 🚫 Oculto
-googleplaces_review_status_visible = 🟢 Visible
+googleplaces_review_status_hidden = Oculto
+googleplaces_review_status_visible = Visible
 
 googleplaces_config_auto_publish_reviews = Publicar automáticamente nuevas reseñas
 googleplaces_config_auto_publish_reviews_notice = Cuando está activado, las nuevas reseñas se publicarán automáticamente durante la sincronización. De lo contrario, deben ser aprobadas manualmente.
@@ -45,3 +45,45 @@ googleplaces_config_sync_reviews = Sincronizar reseñas
 googleplaces_config_sync_reviews_notice = Cuando está activado, las reseñas se obtendrán de Google Places y se almacenarán. Desactive esta opción si solo necesita las entradas de Places sin reseñas.
 googleplaces_config_sync_reviews_yes = Sí, sincronizar reseñas
 googleplaces_config_sync_reviews_no = No, solo entradas de Places
+
+googleplaces_no_api_key = No se ha configurado ninguna clave de API. Por favor, añada una clave de API en la configuración.
+googleplaces_sync_errors = Se produjeron {0} error(es). Consulte el registro del sistema para más detalles.
+
+googleplaces_query = Buscar lugar
+googleplaces_query_title = Buscar en Google Places
+googleplaces_query_info = Aquí puede buscar entradas de Google Places y añadirlas. La clave de API debe tener los permisos correspondientes.
+googleplaces_query_name = Nombre
+googleplaces_query_name_placeholder = Yakamara
+googleplaces_query_street = Calle
+googleplaces_query_street_placeholder = Bethmannstraße 7-9
+googleplaces_query_zip = Código postal
+googleplaces_query_zip_placeholder = 60311
+googleplaces_query_city = Ciudad
+googleplaces_query_city_placeholder = Frankfurt am Main
+googleplaces_query_submit = Buscar
+googleplaces_query_results = Resultados
+googleplaces_query_place_id = ID del lugar
+googleplaces_query_table_name = Nombre
+googleplaces_query_action = Acción
+googleplaces_query_add = Añadir
+googleplaces_query_place_added = La entrada de Google Places se ha añadido correctamente.
+googleplaces_query_place_already_added = Esta entrada de Google Places ya ha sido añadida.
+googleplaces_query_no_results = No se encontraron resultados.
+
+googleplaces_fragment_reviews_title = Reseñas en Google
+googleplaces_fragment_rating = Calificación
+googleplaces_fragment_reviews = Reseñas
+googleplaces_fragment_via_google = vía Google
+
+googleplaces_docs_intro = Introducción
+googleplaces_docs_upgrade = Actualización
+googleplaces_docs_place = Google Places
+googleplaces_docs_review = Reseñas
+googleplaces_docs_review_json = Ejemplo JSON para reseñas
+googleplaces_docs_module = Salida (p. ej. como módulo)
+googleplaces_docs_googleplaces = Clase GooglePlaces
+googleplaces_docs_cronjob = Cronjob
+googleplaces_docs_backend = Páginas de backend
+googleplaces_docs_database = Estructura de base de datos
+
+googleplaces.review.profile_photo_file = Archivo de foto de perfil

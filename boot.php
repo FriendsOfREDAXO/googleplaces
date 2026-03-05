@@ -2,10 +2,13 @@
 
 use FriendsOfRedaxo\GooglePlaces\Place;
 use FriendsOfRedaxo\GooglePlaces\Review;
+use FriendsOfRedaxo\GooglePlaces\Api\rex_api_review_status;
 
 if (rex_addon::get('cronjob')->isAvailable()) {
     \rex_cronjob_manager::registerType('FriendsOfRedaxo\GooglePlaces\Cronjob');
 }
+
+rex_api_function::register('review_status', rex_api_review_status::class);
 
 if (rex_addon::get('yform')->isAvailable() && !rex::isSafeMode()) {
     rex_yform_manager_dataset::setModelClass(
