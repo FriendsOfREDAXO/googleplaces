@@ -58,3 +58,26 @@ googleplaces_config_sync_reviews = Synchronize reviews
 googleplaces_config_sync_reviews_notice = When enabled, reviews will be fetched from Google Places and stored. Disable this option if you only need the Places entries without reviews.
 googleplaces_config_sync_reviews_yes = Yes, synchronize reviews
 googleplaces_config_sync_reviews_no = No, only Places entries
+
+googleplaces_no_api_key = No API key has been configured. Please add an API key in the settings.
+
+googleplaces_query = Search Place
+googleplaces_query_title = Search Google Places
+googleplaces_query_info = Here you can search for Google Places entries and add them. The API key must have the corresponding permissions.
+googleplaces_query_name = Name
+googleplaces_query_name_placeholder = Yakamara
+googleplaces_query_street = Street
+googleplaces_query_street_placeholder = Bethmannstraße 7-9
+googleplaces_query_zip = ZIP
+googleplaces_query_zip_placeholder = 60311
+googleplaces_query_city = City
+googleplaces_query_city_placeholder = Frankfurt am Main
+googleplaces_query_submit = Search
+googleplaces_query_results = Results
+googleplaces_query_place_id = Place ID
+googleplaces_query_table_name = Name
+googleplaces_query_action = Action
+googleplaces_query_add = Add
+googleplaces_query_place_added = The Google Places entry has been successfully added.
+googleplaces_query_place_already_added = This Google Places entry has already been added.
+googleplaces_query_no_results = No results found.
