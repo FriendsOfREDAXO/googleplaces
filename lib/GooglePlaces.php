@@ -39,28 +39,16 @@ class GooglePlaces
         // Check for cURL errors
         if ($response === false) {
             $error = curl_error($curl);
-            curl_close($curl);
-            if (!empty($error)) {
-                \rex_logger::logError('googleplaces', 'cURL error: ' . $error);
-            } else {
-                \rex_logger::logError('googleplaces', 'cURL error: Unknown error');
-            }
+            \rex_logger::factory()->log('error', 'Google Places cURL error: ' . ($error ?: 'Unknown error'), [], __FILE__, __LINE__);
             return [];
         }
-        
-        curl_close($curl);
         
         $json_response = json_decode($response);
         
         // Check if JSON decode was successful
         if ($json_response === null) {
             $response_length = is_string($response) ? strlen($response) : 0;
-            \rex_logger::logError(
-                'googleplaces',
-                'Invalid API response - JSON decode failed. ' .
-                'Raw response: ' . var_export($response, true) . '; ' .
-                'Response length: ' . $response_length
-            );
+            \rex_logger::factory()->log('error', 'Google Places API: Invalid response - JSON decode failed. Response length: ' . $response_length, [], __FILE__, __LINE__);
             return [];
         }
 
