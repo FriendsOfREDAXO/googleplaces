@@ -43,9 +43,9 @@ class Place extends rex_yform_manager_dataset
         return $this->getValue("api_response_json");
     }
 
-    public function getApiResponseAsArray() : ?array
+    public function getApiResponseAsArray() : array
     {
-        return json_decode($this->getApiResponseJson() ?: '', true);
+        return json_decode($this->getApiResponseJson() ?: '', true) ?? [];
     }
 
     /** @api */

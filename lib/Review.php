@@ -23,7 +23,7 @@ class Review extends rex_yform_manager_dataset
     /** @api */
     public function getPlaceId(): ?int
     {
-        return $this->getValue("place_detail_id");
+        return (int) $this->getValue("place_detail_id");
     }
     /** @api */
     public function setPlaceId(int $value): self

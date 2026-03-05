@@ -7,7 +7,7 @@
             "description": "",
             "list_amount": 50,
             "list_sortfield": "updatedate",
-            "list_sortorder": "ASC",
+            "list_sortorder": "DESC",
             "search": 1,
             "hidden": 1,
             "export": 1,
