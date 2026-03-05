@@ -16,7 +16,7 @@ class GooglePlaces
      * @return array
      * https://developers.google.com/maps/documentation/places/web-service/details?hl=de
      */
-    public static function googleApiResult(string $place_id = null): array
+    public static function googleApiResult(?string $place_id = null): array
     {
 
         if ($place_id === null) {
@@ -77,7 +77,7 @@ class GooglePlaces
      * @return array | string
      * @author Daniel Springer
      */
-    public static function getFromGoogle(string $place_id = null, string $key = null): array | string
+    public static function getFromGoogle(?string $place_id = null, ?string $key = null): array | string
     {
         if ($place_id === null) {
             $place_id = rex_addon::get('googleplaces')->getConfig('gmaps-location-id');
@@ -97,7 +97,7 @@ class GooglePlaces
      * @return array | false
      * @author Daniel Springer
      */
-    public static function getPlaceDetails(string $place_id = null): array | string | false
+    public static function getPlaceDetails(?string $place_id = null): array | string | false
     {
 
         if ($place_id === null) {
@@ -123,7 +123,7 @@ class GooglePlaces
      * @return array
      * @author Daniel Springer
      */
-    public static function getAllReviewsLive(string $place_id = null): array
+    public static function getAllReviewsLive(?string $place_id = null): array
     {
         $response = self::googleApiResult($place_id);
         
