@@ -28,6 +28,11 @@ Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulass
 
 <https://developers.google.com/maps/documentation/places/web-service/get-api-key>
 
+Der API-Key benötigt folgende zwei API-Berechtigungen:
+
+- **Places API (New)** – zum Abrufen der Place-Details (Öffnungszeiten, Geodaten, Bilder etc.)
+- **Places API** – zum Abrufen der Rezensionen (Reviews)
+
 ### Google Places-Einträge
 
 Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Über diesen Link kann man die ID herausfinden:
