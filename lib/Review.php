@@ -287,7 +287,7 @@ class Review extends rex_yform_manager_dataset
                     if (isset($place_details['name'])) {
                         $place_name = $place_details['name'];
                     }
-                    return '<a href="index.php?page=googleplaces/place/detail&google_place_id='.$place->getId().'" target="_blank">'.$place_name.'</a>';
+                    return '<a href="index.php?page=googleplaces/place_detail&data_id='.$place->getId().'&func=edit">'.\rex_escape($place_name).'</a>';
                 }
                 return "<code>".$a['list']->getValue('place_id')."</code>";
             },
