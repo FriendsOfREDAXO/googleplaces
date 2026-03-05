@@ -78,8 +78,8 @@ googleplaces_fragment_reviews = Bewertungen
 googleplaces_fragment_via_google = via Google
 
 googleplaces_review.status = Status
-googleplaces_review_status_hidden = 🚫 Versteckt
-googleplaces_review_status_visible = 🟢 Sichtbar
+googleplaces_review_status_hidden = Versteckt
+googleplaces_review_status_visible = Sichtbar
 
 googleplaces_config_auto_publish_reviews = Neue Bewertungen automatisch sichtbar schalten
 googleplaces_config_auto_publish_reviews_notice = Wenn aktiviert, werden neue Bewertungen bei der Synchronisierung automatisch sichtbar geschaltet. Andernfalls müssen sie manuell freigeschaltet werden.

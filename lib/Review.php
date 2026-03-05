@@ -2,7 +2,9 @@
 
 namespace FriendsOfRedaxo\GooglePlaces;
 
+use rex_file;
 use rex_i18n;
+use rex_url;
 use rex_yform_manager_dataset;
 
 class Review extends rex_yform_manager_dataset
@@ -338,6 +340,29 @@ class Review extends rex_yform_manager_dataset
                     return "";
                 }
                 return '<span class="text-nowrap">'. \rex_formatter::intlDateTime($a['value']) .'</span>';
+            },
+        );
+
+        // Status als klickbaren Toggle anzeigen
+        $list->setColumnFormat(
+            'status',
+            'custom',
+            static function ($a) {
+                $id = (int) $a['list']->getValue('id');
+                $status = (int) $a['value'];
+                $isOnline = $status === self::STATUS_VISIBLE;
+
+                $statusClass = $isOnline ? 'rex-online' : 'rex-offline';
+                $iconClass = $isOnline ? 'rex-icon-online' : 'rex-icon-offline';
+                $label = $isOnline
+                    ? rex_i18n::msg('googleplaces_review_status_visible')
+                    : rex_i18n::msg('googleplaces_review_status_hidden');
+
+                $params = \rex_url::currentBackendPage(
+                    ['review_id' => $id] + Api\rex_api_review_status::getUrlParams()
+                );
+
+                return '<a class="' . $statusClass . '" href="' . $params . '"><i class="rex-icon ' . $iconClass . '"></i> ' . \rex_escape($label) . '</a>';
             },
         );
     }

@@ -33,8 +33,8 @@ googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Beoordelingen
 
 googleplaces_review.status = Status
-googleplaces_review_status_hidden = 🚫 Verborgen
-googleplaces_review_status_visible = 🟢 Zichtbaar
+googleplaces_review_status_hidden = Verborgen
+googleplaces_review_status_visible = Zichtbaar
 
 googleplaces_config_auto_publish_reviews = Nieuwe beoordelingen automatisch publiceren
 googleplaces_config_auto_publish_reviews_notice = Wanneer ingeschakeld, worden nieuwe beoordelingen automatisch gepubliceerd tijdens synchronisatie. Anders moeten ze handmatig worden goedgekeurd.

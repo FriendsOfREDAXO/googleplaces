@@ -46,8 +46,8 @@ googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Reviews
 
 googleplaces_review.status = Status
-googleplaces_review_status_hidden = 🚫 Hidden
-googleplaces_review_status_visible = 🟢 Visible
+googleplaces_review_status_hidden = Hidden
+googleplaces_review_status_visible = Visible
 
 googleplaces_config_auto_publish_reviews = Automatically publish new reviews
 googleplaces_config_auto_publish_reviews_notice = When enabled, new reviews will be automatically published during synchronization. Otherwise, they must be manually approved.

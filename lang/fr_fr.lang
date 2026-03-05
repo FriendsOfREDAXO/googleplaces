@@ -33,8 +33,8 @@ googleplaces_place_detail.table = 🏪 Détails Google Places
 googleplaces_review.table = 🏪 Avis Google Places
 
 googleplaces_review.status = Statut
-googleplaces_review_status_hidden = 🚫 Masqué
-googleplaces_review_status_visible = 🟢 Visible
+googleplaces_review_status_hidden = Masqué
+googleplaces_review_status_visible = Visible
 
 googleplaces_config_auto_publish_reviews = Publier automatiquement les nouveaux avis
 googleplaces_config_auto_publish_reviews_notice = Lorsqu'activé, les nouveaux avis seront automatiquement publiés lors de la synchronisation. Sinon, ils doivent être approuvés manuellement.
