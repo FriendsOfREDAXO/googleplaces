@@ -180,16 +180,16 @@ class Review extends rex_yform_manager_dataset
      */
     public function getProfilePhotoSrc(): ?string
     {
-        // Try to use filesystem image first
-        $filename = $this->getProfilePhotoFile();
-        if ($filename) {
-            $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-            if (\rex_file::exists($path)) {
-                return \rex_url::addonData('googleplaces', 'profile_photos/' . $filename);
+        // Profilbild aus Datei als Base64-Data-URI
+        $path = $this->getProfilePhotoPath();
+        if ($path) {
+            $data = \rex_file::get($path);
+            if ($data) {
+                return 'data:image/jpeg;base64,' . base64_encode($data);
             }
         }
         
-        // Fallback to base64 if available (for backwards compatibility)
+        // Fallback: gespeichertes Base64 (Abwärtskompatibilität)
         $base64 = $this->getProfilePhotoBase64();
         if ($base64) {
             return 'data:image/jpeg;base64,' . $base64;
