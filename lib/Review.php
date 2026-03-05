@@ -2,7 +2,6 @@
 
 namespace FriendsOfRedaxo\GooglePlaces;
 
-use rex_file;
 use rex_i18n;
 use rex_url;
 use rex_yform_manager_dataset;
@@ -168,7 +167,7 @@ class Review extends rex_yform_manager_dataset
             return null;
         }
         $path = \rex_path::addonData('googleplaces', 'profile_photos/' . $filename);
-        if (\rex_file::exists($path)) {
+        if (file_exists($path)) {
             return $path;
         }
         return null;
@@ -287,7 +286,7 @@ class Review extends rex_yform_manager_dataset
                     if (isset($place_details['name'])) {
                         $place_name = $place_details['name'];
                     }
-                    return '<a href="index.php?page=googleplaces/place_detail&data_id='.$place->getId().'&func=edit">'.\rex_escape($place_name).'</a>';
+                    return '<a href="'.\rex_url::backendPage('googleplaces/place_detail').'">'.\rex_escape($place_name).'</a>';
                 }
                 return "<code>".$a['list']->getValue('place_id')."</code>";
             },
@@ -358,11 +357,12 @@ class Review extends rex_yform_manager_dataset
                     ? rex_i18n::msg('googleplaces_review_status_visible')
                     : rex_i18n::msg('googleplaces_review_status_hidden');
 
-                $params = \rex_url::currentBackendPage(
-                    ['review_id' => $id] + Api\rex_api_review_status::getUrlParams()
-                );
+                $url = rex_url::currentBackendPage([
+                    'func' => 'changestatus',
+                    'review_id' => $id,
+                ]);
 
-                return '<a class="' . $statusClass . '" href="' . $params . '"><i class="rex-icon ' . $iconClass . '"></i> ' . \rex_escape($label) . '</a>';
+                return '<a class="' . $statusClass . '" href="' . $url . '"><i class="rex-icon ' . $iconClass . '"></i> ' . \rex_escape($label) . '</a>';
             },
         );
     }
