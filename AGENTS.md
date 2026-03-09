@@ -70,6 +70,10 @@ googleplaces/
 - **Error logging:** Use `rex_logger::factory()->log('error', $msg, [], __FILE__, __LINE__)`
 - **CSRF protection:** State-changing pages use `rex_csrf_token`
 
+## AGENTS.md Maintenance
+
+- When new project insights are gained during work and they are relevant to agent guidance, workflows, conventions, architecture, or known pitfalls, update this AGENTS.md accordingly.
+
 ## Key Classes
 
 | Class | Description |
