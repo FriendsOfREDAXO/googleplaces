@@ -235,7 +235,13 @@ When adding features, add translation keys to **all** language files using `rex_
 
 ## Versioning
 
-Version is maintained in `package.yml`. Releases are published to REDAXO.org via GitHub Actions (`.github/workflows/publish-to-redaxo-org.yml`).
+This addon follows [Semantic Versioning](https://semver.org/):
+
+- **Major** (1st digit): Breaking changes (e.g. removed classes, renamed methods, incompatible DB changes)
+- **Minor** (2nd digit): New features, new modules, new database fields (backward compatible)
+- **Patch** (3rd digit): Bug fixes, small improvements (backward compatible)
+
+The version number is maintained in `package.yml`. Releases are published to REDAXO.org via GitHub Actions (`.github/workflows/publish-to-redaxo-org.yml`).
 
 ## Testing
 
