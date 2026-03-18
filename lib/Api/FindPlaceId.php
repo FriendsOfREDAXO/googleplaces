@@ -1,11 +1,9 @@
 <?php
 
-use rex_config;
-use rex_response; 
-use rex_api_function;
-
 class rex_api_find_place_id extends rex_api_function {
     protected $published = false;
+
+    private const FIELD_MASK = 'places.id,places.displayName,places.formattedAddress';
 
     public function execute()
     {
@@ -35,9 +33,9 @@ class rex_api_find_place_id extends rex_api_function {
         }
 
         $return = [];
-        foreach($result['places'] as $place) {
-                $return[$place['id']]['text'] = $place['displayName']['text'];
-                $return[$place['id']]['formattedAddress'] = $place['formattedAddress'];
+        foreach (($result['places'] ?? []) as $place) {
+            $return[$place['id']]['text'] = $place['displayName']['text'] ?? '';
+            $return[$place['id']]['formattedAddress'] = $place['formattedAddress'] ?? '';
         }
 
 
@@ -53,6 +51,14 @@ class rex_api_find_place_id extends rex_api_function {
         // Erstelle die Suchanfrage
         $queryParts = array_filter([$name, $street, $zip, $city], static fn($v) => $v !== '');
         $query = implode(', ', $queryParts);
+        if ($query === '') {
+            return ['error' => 'No search term given'];
+        }
+
+        if ($apiKey === '') {
+            return ['error' => 'Google Places API key is missing'];
+        }
+
         $url = "https://places.googleapis.com/v1/places:searchText?key=$apiKey";
 
 
@@ -75,7 +81,7 @@ class rex_api_find_place_id extends rex_api_function {
             'Content-Type: application/json',
             'Content-Length: ' . strlen($requestBody),
             'X-Goog-Api-Key: ' . $apiKey,
-            'X-Goog-FieldMask: places.id,places.displayName,places.formattedAddress'
+            'X-Goog-FieldMask: ' . self::FIELD_MASK
 
 
         ]);
@@ -87,8 +93,12 @@ class rex_api_find_place_id extends rex_api_function {
         // Check for cURL errors
         if ($response === false) {
             $error = curl_error($ch);
+            curl_close($ch);
             return ['error' => 'cURL error: ' . $error];
         }
+
+        $httpStatus = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        curl_close($ch);
 
         // Dekodiere die JSON-Antwort
         $responseData = json_decode($response, true);
@@ -97,8 +107,48 @@ class rex_api_find_place_id extends rex_api_function {
         if ($responseData === null) {
             return ['error' => 'Invalid JSON response from API'];
         }
+
+        if ($httpStatus >= 400 || isset($responseData['error'])) {
+            return ['error' => self::extractErrorMessage($responseData, $httpStatus)];
+        }
+
+        if (!isset($responseData['places']) || !is_array($responseData['places'])) {
+            $responseData['places'] = [];
+        }
         
         return $responseData;
+    }
+
+    private static function extractErrorMessage(array $responseData, int $httpStatus): string
+    {
+        $error = $responseData['error'] ?? null;
+
+        if (is_string($error) && $error !== '') {
+            return $error;
+        }
+
+        if (is_array($error)) {
+            $message = trim((string) ($error['message'] ?? ''));
+            $status = trim((string) ($error['status'] ?? ''));
+
+            if ($message !== '' && $status !== '') {
+                return $status . ': ' . $message;
+            }
+
+            if ($message !== '') {
+                return $message;
+            }
+
+            if ($status !== '') {
+                return $status;
+            }
+        }
+
+        if ($httpStatus >= 400) {
+            return 'Google Places API request failed with HTTP status ' . $httpStatus;
+        }
+
+        return 'Unknown error while requesting Google Places API';
     }
 
 }
