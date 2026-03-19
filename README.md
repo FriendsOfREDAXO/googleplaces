@@ -103,16 +103,15 @@ Bei der Installation des Add-ons wird der Cronjob `Google Places: Reviews per AP
 
 ## Autor
 
-**Friends Of REDAXO**
+### Friends Of REDAXO
 
 * <http://www.redaxo.org>
 * <https://github.com/FriendsOfREDAXO>
 
-**Lead**
+### Lead
 
 [Tobias Krais](https://github.com/TobiasKrais)
 
-**Ursprünglich entwickelt von**
+### Ursprünglich entwickelt von
 
 [Daniel Springer](https://github.com/danspringer)
-weiterentwickelt von [Alexander Walther](https://github.com/alxndr-w)
