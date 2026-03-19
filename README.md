@@ -30,8 +30,8 @@ Das Add-on benötigt einen gültigen API-Key. Der Key muss die Places-API zulass
 
 Der API-Key benötigt folgende zwei API-Berechtigungen:
 
-- **Places API (New)** – zum Abrufen der Place-Details (Öffnungszeiten, Geodaten, Bilder etc.)
-- **Places API** – zum Abrufen der Rezensionen (Reviews)
+* **Places API (New)** – zum Abrufen der Place-Details (Öffnungszeiten, Geodaten, Bilder etc.)
+* **Places API** – zum Abrufen der Rezensionen (Reviews)
 
 ### Google Places-Einträge
 
@@ -45,7 +45,7 @@ Damit man eine Location eindeutig identifizieren kann, benötigt man die ID. Üb
 
 ### Der Google-Places-Eintrag
 
-Der Google-Places-Eintrag enthält alle Informationen zu einem Ort und wird als JSON in der Tabelle `rex_googleplaces_place_detail` abgespeichert. 
+Der Google-Places-Eintrag enthält alle Informationen zu einem Ort und wird als JSON in der Tabelle `rex_googleplaces_place_detail` abgespeichert.
 
 Erstelle einen neuen Eintrag und rufe anschließend die Daten über "Jetzt aktualisieren" ab, oder regelmäßig via Cronjob.
 
@@ -55,15 +55,15 @@ Die Google Places API beschränkt den Zugriff auf die letzten 5 Rezensionen.
 
 ### Rezensionen (Reviews) zu einem Google-Places-Eintrag ausgeben
 
-#### Beispiele für die Ausgabe als Fragment und Modul 
+#### Beispiele für die Ausgabe als Fragment und Modul
 
 Details zum Google Places-Eintrag und die Rezensionen (Reviews) können per `rex_sql` oder mittels `YOrm` geholt und individuell ausgegeben werden.
 
-Dieses Beispiel-Modul nutzt das MForm-Addon für die Auswahl eines Google-Places-Eintrags aus der Datenbank und gibt diese über das mitglieferte Fragment aus. 
+Dieses Beispiel-Modul nutzt das MForm-Addon für die Auswahl eines Google-Places-Eintrags aus der Datenbank und gibt diese über das mitglieferte Fragment aus.
 
 Die entsprechende CSS-Datei mit den Styles für die Ausgabe liegt im `assets`-Ordner des Add-ons unter: `/assets/addons/googleplaces/css/reviews.css`
 
-> **Tipp:** Das Fragment kann bspw. auch im Template ausgegeben werden. 
+> **Tipp:** Das Fragment kann bspw. auch im Template ausgegeben werden.
 
 #### Modul-Eingabe mit MForm
 
@@ -85,6 +85,7 @@ $mform->addSelectField("1.0", $options, ['label' => 'Standort auswählen']);
 
 echo $mform->show();
 ```
+
 #### Modul-Ausgabe
 
 ```php
