@@ -113,6 +113,10 @@ Bei der Installation des Add-ons wird der Cronjob `Google Places: Reviews per AP
 
 [Tobias Krais](https://github.com/TobiasKrais)
 
+### Version 2 auf 3 maßgeblich weiterentwickelt von
+
+[Alexander Walther](https://github.com/AWqxKAWERbXo)
+
 ### Ursprünglich entwickelt von
 
 [Daniel Springer](https://github.com/danspringer)
