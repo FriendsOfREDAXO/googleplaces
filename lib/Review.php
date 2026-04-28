@@ -357,10 +357,12 @@ class Review extends rex_yform_manager_dataset
                     ? rex_i18n::msg('googleplaces_review_status_visible')
                     : rex_i18n::msg('googleplaces_review_status_hidden');
 
+                $csrfToken = \rex_csrf_token::factory('googleplaces_review_status');
+
                 $url = rex_url::currentBackendPage([
                     'func' => 'changestatus',
                     'review_id' => $id,
-                ]);
+                ] + $csrfToken->getUrlParams());
 
                 return '<a class="' . $statusClass . '" href="' . $url . '"><i class="rex-icon ' . $iconClass . '"></i> ' . \rex_escape($label) . '</a>';
             },

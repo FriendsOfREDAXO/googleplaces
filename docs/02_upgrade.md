@@ -26,6 +26,10 @@ Die Konfiguration des Add-ons sollte überprüft werden, insbesondere die API-Sc
 
 ## Änderungen
 
+### Backend-Sicherheit
+
+Die Statusumschaltung von Rezensionen im Backend ist jetzt zusätzlich mit einem CSRF-Token abgesichert.
+
 ### Version 3.1: Profilbilder im Dateisystem
 
 Ab Version 3.1 werden Profilbilder der Rezensenten nicht mehr als Base64-String in der Datenbank gespeichert, sondern als Dateien im Dateisystem unter `redaxo/data/addons/googleplaces/profile_photos/`. Dies reduziert die Datenbankgröße erheblich und verbessert die Performance.

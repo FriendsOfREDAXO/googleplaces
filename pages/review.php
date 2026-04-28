@@ -5,19 +5,29 @@ use FriendsOfRedaxo\GooglePlaces\Review;
 $addon = rex_addon::get('googleplaces');
 echo rex_view::title(rex_i18n::msg('googleplaces_title'));
 
+$csrfToken = rex_csrf_token::factory('googleplaces_review_status');
+
 // Status-Toggle verarbeiten
 $func = rex_request('func', 'string', '');
+$invalidCsrf = false;
 if ($func === 'changestatus') {
-    $reviewId = rex_request('review_id', 'int', 0);
-    if ($reviewId > 0) {
-        $review = Review::get($reviewId);
-        if ($review) {
-            $newStatus = $review->getStatus() === Review::STATUS_VISIBLE
-                ? Review::STATUS_HIDDEN
-                : Review::STATUS_VISIBLE;
-            $review->setStatus($newStatus);
-            $review->save();
-        }
+    if (!$csrfToken->isValid()) {
+        echo rex_view::error(rex_i18n::msg('csrf_token_invalid'));
+		$invalidCsrf = true;
+		$func = '';
+    }
+	if (!$invalidCsrf) {
+		$reviewId = rex_request('review_id', 'int', 0);
+		if ($reviewId > 0) {
+			$review = Review::get($reviewId);
+			if ($review) {
+				$newStatus = $review->getStatus() === Review::STATUS_VISIBLE
+					? Review::STATUS_HIDDEN
+					: Review::STATUS_VISIBLE;
+				$review->setStatus($newStatus);
+				$review->save();
+			}
+		}
     }
 }
 
