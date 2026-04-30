@@ -73,6 +73,7 @@ googleplaces/
 ## AGENTS.md Maintenance
 
 - When new project insights are gained during work and they are relevant to agent guidance, workflows, conventions, architecture, or known pitfalls, update this AGENTS.md accordingly.
+- In Changelog-Dateien, AGENTS.md und README.md echte Umlaute (ä, ö, ü, Ä, Ö, Ü, ß) verwenden und nicht als ae/oe/ue/Ae/Oe/Ue/ss umschreiben.
 
 ## Key Classes
 
