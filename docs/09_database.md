@@ -79,7 +79,7 @@ Speichert die Bewertungen (Reviews) zu Google Places-Einträgen.
 
 - **PRIMARY**: `id`
 - **UNIQUE**: `uuid`
-- **UNIQUE**: `google_place_id`, `author_url` (kombiniert)
+- **INDEX**: `google_place_id`, `author_url` (kombiniert, nicht eindeutig)
 
 ### YForm-Modell
 
@@ -94,12 +94,14 @@ $reviews = Review::query()->find();
 ### Relationen
 
 **Review → Place:**
+
 ```php
 $review = Review::get($id);
 $place = $review->getPlace(); // Gibt das zugehörige Place-Objekt zurück
 ```
 
 **Place → Reviews:**
+
 ```php
 $place = Place::get($id);
 $reviews = $place->getReviews(); // Gibt Collection von Review-Objekten zurück
@@ -158,7 +160,9 @@ Bei der Synchronisation (`Place::sync()` oder `GooglePlaces::syncAll()`):
 
 Die Tabelle nutzt UNIQUE-Constraints, um Duplikate zu vermeiden:
 - Ein Place kann nur einmal mit derselben `place_id` existieren
-- Ein Review kann nur einmal mit derselben Kombination aus `google_place_id` und `author_url` existieren
+- Eine synchronisierte Rezension ist über die `uuid` (`md5(place_id + author_url)`) eindeutig; so werden Duplikate bei der Synchronisierung verhindert
+
+Der kombinierte Index auf `google_place_id` und `author_url` ist **nicht** eindeutig, damit manuell angelegte Rezensionen (mit leeren Werten) nicht kollidieren.
 
 ## Migration von Version 2.X
 

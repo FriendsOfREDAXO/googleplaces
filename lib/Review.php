@@ -369,6 +369,60 @@ class Review extends rex_yform_manager_dataset
         );
     }
     
+    /**
+     * Validiert Pflichtfelder, bevor eine Rezension gespeichert wird.
+     * Wird bei manuellem Anlegen/Bearbeiten im Backend genutzt.
+     */
+    public static function epYformDataForm(\rex_extension_point $ep): \rex_yform
+    {
+        /** @var \rex_yform $yform */
+        $yform = $ep->getSubject();
+
+        /** @var \rex_yform_manager_table $table */
+        $table = $ep->getParam('table');
+        if ($table->getTableName() !== self::table()->getTableName()) {
+            return $yform;
+        }
+
+        // Pflichtfelder: Google Places-Eintrag, Autor*in und Bewertung
+        $yform->setValidateField('empty', ['place_detail_id', rex_i18n::msg('googleplaces_review_validate_place_detail_id')]);
+        $yform->setValidateField('empty', ['author_name', rex_i18n::msg('googleplaces_review_validate_author_name')]);
+        $yform->setValidateField('intfromto', ['rating', 1, 5, rex_i18n::msg('googleplaces_review_validate_rating')]);
+
+        return $yform;
+    }
+
+    /**
+     * Setzt das Veröffentlichungsdatum automatisch, wenn eine Rezension
+     * sichtbar geschaltet wird, aber kein (bzw. ein Legacy-1970-)Datum besitzt.
+     */
+    public static function epYformDataSaved(\rex_extension_point $ep): void
+    {
+        /** @var \rex_yform_manager_table $table */
+        $table = $ep->getParam('table');
+        if ($table->getTableName() !== self::table()->getTableName()) {
+            return;
+        }
+
+        $review = $ep->getParam('data');
+        if (!$review instanceof self) {
+            return;
+        }
+
+        if ($review->getStatus() !== self::STATUS_VISIBLE) {
+            return;
+        }
+
+        $publishdate = (string) $review->getValue('publishdate');
+        if ('' === $publishdate
+            || str_starts_with($publishdate, '0000')
+            || str_starts_with($publishdate, '1970')
+        ) {
+            $review->setPublishdate(date('Y-m-d H:i:s'));
+            $review->save();
+        }
+    }
+
     /** @api */
     public static function findFilter(?int $place_id = null, int $limit = 5, int $offset = 0, int $minRating = 5, string $orderByField = 'publishdate', string $orderBy = 'DESC', int $status = self::STATUS_VISIBLE): \rex_yform_manager_collection | null
     {

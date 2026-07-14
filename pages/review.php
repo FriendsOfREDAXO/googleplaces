@@ -1,5 +1,6 @@
 <?php
 
+use FriendsOfRedaxo\GooglePlaces\Place;
 use FriendsOfRedaxo\GooglePlaces\Review;
 
 $addon = rex_addon::get('googleplaces');
@@ -46,6 +47,19 @@ if (empty($addon->getConfig('api_key'))) {
 }
 
 $table_name = 'rex_googleplaces_review';
+
+// Gibt es nur einen Google Places-Eintrag, diesen beim Anlegen vorbelegen
+if (rex_request('func', 'string', '') === 'add' && rex_request('data_id', 'int', 0) === 0) {
+    if (Place::query()->count() === 1) {
+        $onlyPlace = Place::query()->findOne();
+        if ($onlyPlace !== null) {
+            $set = rex_request('rex_yform_set', 'array', []);
+            if (!isset($set['place_detail_id']) || '' === (string) $set['place_detail_id']) {
+                $_REQUEST['rex_yform_set']['place_detail_id'] = $onlyPlace->getId();
+            }
+        }
+    }
+}
 
 rex_extension::register(
     'YFORM_MANAGER_DATA_PAGE_HEADER',

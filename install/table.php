@@ -1,6 +1,20 @@
 <?php
 
-rex_sql_table::get(rex::getTable('googleplaces_review'))
+$reviewTable = rex_sql_table::get(rex::getTable('googleplaces_review'));
+
+// Migration: früheren UNIQUE-Index auf (google_place_id, author_url) entfernen.
+// Manuell angelegte Rezensionen haben hier leere Werte und würden sonst mit
+// einem "Duplicate entry ''"-Fehler kollidieren. Die Eindeutigkeit der
+// synchronisierten Rezensionen wird bereits über den UNIQUE-Index auf `uuid`
+// sichergestellt.
+if ($reviewTable->hasIndex('google_place_id_author_url')
+    && rex_sql_index::UNIQUE === $reviewTable->getIndex('google_place_id_author_url')->getType()
+) {
+    $reviewTable->removeIndex('google_place_id_author_url')->alter();
+    $reviewTable = rex_sql_table::get(rex::getTable('googleplaces_review'));
+}
+
+$reviewTable
     ->ensurePrimaryIdColumn()
     ->ensureColumn(new rex_sql_column('place_detail_id', 'int(10) unsigned'))
     ->ensureColumn(new rex_sql_column('google_place_id', 'varchar(191)', false, ''))
@@ -19,7 +33,7 @@ rex_sql_table::get(rex::getTable('googleplaces_review'))
     ->ensureColumn(new rex_sql_column('uuid', 'varchar(36)'))
     ->ensureColumn(new rex_sql_column('time', 'varchar(191)', false, ''))
     ->ensureIndex(new rex_sql_index('uuid', ['uuid'], rex_sql_index::UNIQUE))
-    ->ensureIndex(new rex_sql_index('google_place_id_author_url', ['google_place_id', 'author_url'], rex_sql_index::UNIQUE))
+    ->ensureIndex(new rex_sql_index('google_place_id_author_url', ['google_place_id', 'author_url']))
     ->ensure();
 
 rex_sql_table::get(rex::getTable('googleplaces_place_detail'))

@@ -36,6 +36,10 @@ googleplaces_review.status = Stato
 googleplaces_review_status_hidden = Nascosto
 googleplaces_review_status_visible = Visibile
 
+googleplaces_review_validate_place_detail_id = Seleziona una voce di Google Places.
+googleplaces_review_validate_author_name = Inserisci il nome dell'autore.
+googleplaces_review_validate_rating = Inserisci una valutazione compresa tra 1 e 5.
+
 googleplaces_config_auto_publish_reviews = Pubblica automaticamente nuove recensioni
 googleplaces_config_auto_publish_reviews_notice = Quando attivato, le nuove recensioni verranno pubblicate automaticamente durante la sincronizzazione. Altrimenti devono essere approvate manualmente.
 googleplaces_config_auto_publish_reviews_yes = Sì, pubblica automaticamente

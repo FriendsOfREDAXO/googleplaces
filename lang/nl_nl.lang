@@ -36,6 +36,10 @@ googleplaces_review.status = Status
 googleplaces_review_status_hidden = Verborgen
 googleplaces_review_status_visible = Zichtbaar
 
+googleplaces_review_validate_place_detail_id = Selecteer een Google Places-vermelding.
+googleplaces_review_validate_author_name = Voer de naam van de auteur in.
+googleplaces_review_validate_rating = Voer een beoordeling tussen 1 en 5 in.
+
 googleplaces_config_auto_publish_reviews = Nieuwe beoordelingen automatisch publiceren
 googleplaces_config_auto_publish_reviews_notice = Wanneer ingeschakeld, worden nieuwe beoordelingen automatisch gepubliceerd tijdens synchronisatie. Anders moeten ze handmatig worden goedgekeurd.
 googleplaces_config_auto_publish_reviews_yes = Ja, automatisch publiceren
