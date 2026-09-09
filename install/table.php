@@ -43,6 +43,10 @@ rex_sql_table::get(rex::getTable('googleplaces_place_detail'))
     ->ensureColumn(new rex_sql_column('createdate', 'datetime', false, 'current_timestamp()'))
     ->ensureColumn(new rex_sql_column('updatedate', 'datetime', false, 'current_timestamp()'))
     ->ensureColumn(new rex_sql_column('review_ids', 'varchar(191)'))
+    // Optionale Zuordnung zu YRewrite-Domains (Komma-Liste von Domain-IDs).
+    // Die Spalte existiert immer, damit Daten ein De-/Reaktivieren von
+    // YRewrite überleben; das Eingabefeld gibt es nur mit YRewrite (tableset.php).
+    ->ensureColumn(new rex_sql_column('domain_ids', 'text', true))
     ->ensureIndex(new rex_sql_index('unique_index', ['place_id'], rex_sql_index::UNIQUE))
     ->ensure();
 

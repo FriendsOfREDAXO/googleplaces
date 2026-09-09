@@ -28,6 +28,8 @@ googleplaces.place_detail.createdate = Aangemaakt op...
 googleplaces.place_detail.updatedate = Laatst bijgewerkt op...
 googleplaces_place_detail.place_id.validate.unique = Deze Place ID bestaat al
 googleplaces_place_detail.review_ids = Beoordelingen
+googleplaces_place_detail.domain_ids = Domeinen (YRewrite)
+googleplaces_place_detail.domain_ids.notice = Optioneel: deze Google Places-vermelding aan een of meer YRewrite-domeinen toewijzen. De toewijzing kan in de code worden opgevraagd, bijv. via Place::getForDomain().
 
 googleplaces_place_detail.table = 🏪 Google Places Details
 googleplaces_review.table = 🏪 Google Places Beoordelingen

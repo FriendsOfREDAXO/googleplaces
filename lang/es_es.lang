@@ -28,6 +28,8 @@ googleplaces.place_detail.createdate = Creado el...
 googleplaces.place_detail.updatedate = Última actualización el...
 googleplaces_place_detail.place_id.validate.unique = El ID del lugar ya existe
 googleplaces_place_detail.review_ids = Reseñas
+googleplaces_place_detail.domain_ids = Dominios (YRewrite)
+googleplaces_place_detail.domain_ids.notice = Opcional: asignar esta entrada de Google Places a uno o varios dominios de YRewrite. La asignación puede consultarse en el código, p. ej. mediante Place::getForDomain().
 
 googleplaces_place_detail.table = 🏪 Detalles de Google Places
 googleplaces_review.table = 🏪 Reseñas de Google Places
