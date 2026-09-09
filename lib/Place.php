@@ -315,4 +315,85 @@ class Place extends rex_yform_manager_dataset
         return $places;
     }
 
+    /* YRewrite-Domains (optionale Zuordnung, Feld existiert nur mit YRewrite) */
+
+    // Zugeordnete YRewrite-Domain-IDs als Array ausgeben
+    /** @api
+     * @return int[]
+     */
+    public function getDomainIds() : array
+    {
+        $value = (string) $this->getValue('domain_ids');
+        if ('' === trim($value)) {
+            return [];
+        }
+        return array_values(array_unique(array_map('intval', array_filter(array_map('trim', explode(',', $value)), static fn ($id) => '' !== $id && (int) $id > 0))));
+    }
+
+    // Zugeordnete YRewrite-Domain-IDs setzen (Array oder Komma-Liste)
+    /** @api
+     * @param int[]|string $value
+     */
+    public function setDomainIds(array|string $value) : self
+    {
+        if (is_string($value)) {
+            $value = array_filter(array_map('trim', explode(',', $value)), static fn ($id) => '' !== $id);
+        }
+        $this->setValue('domain_ids', implode(',', array_values(array_unique(array_map('intval', $value)))));
+        return $this;
+    }
+
+    // Prüfen, ob der Place einer bestimmten YRewrite-Domain zugeordnet ist
+    /** @api */
+    public function hasDomain(int $domainId) : bool
+    {
+        return in_array($domainId, $this->getDomainIds(), true);
+    }
+
+    // Prüfen, ob die domain_ids-Spalte bereits existiert (schützt vor
+    // SQL-Fehlern, wenn die Addon-Dateien aktualisiert wurden, die
+    // Re-Installation aber noch aussteht)
+    private static function hasDomainIdsColumn() : bool
+    {
+        return \rex_sql_table::get(\rex::getTable('googleplaces_place_detail'))->hasColumn('domain_ids');
+    }
+
+    // Alle Places einer YRewrite-Domain ausgeben
+    /** @api */
+    public static function findByDomainId(int $domainId) : rex_yform_manager_collection
+    {
+        if (!self::hasDomainIdsColumn()) {
+            return new rex_yform_manager_collection(\rex::getTable('googleplaces_place_detail'));
+        }
+        return self::query()
+            ->whereRaw('FIND_IN_SET(:domain_id, `domain_ids`)', ['domain_id' => $domainId])
+            ->find();
+    }
+
+    // Den (ersten) Place einer YRewrite-Domain ausgeben; ohne Angabe wird die
+    // aktuelle Domain verwendet. Gibt null zurück, wenn YRewrite nicht
+    // verfügbar ist oder der Domain kein Place zugeordnet wurde.
+    /** @api */
+    public static function getForDomain(?int $domainId = null) : ?self
+    {
+        if (null === $domainId) {
+            if (!\rex_addon::get('yrewrite')->isAvailable()) {
+                return null;
+            }
+            $domain = \rex_yrewrite::getCurrentDomain();
+            if (null === $domain) {
+                return null;
+            }
+            $domainId = (int) $domain->getId();
+        }
+        if ($domainId <= 0 || !self::hasDomainIdsColumn()) {
+            return null;
+        }
+        /** @var self|null $place */
+        $place = self::query()
+            ->whereRaw('FIND_IN_SET(:domain_id, `domain_ids`)', ['domain_id' => $domainId])
+            ->findOne();
+        return $place;
+    }
+
 }

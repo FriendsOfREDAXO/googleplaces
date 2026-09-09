@@ -28,6 +28,7 @@ Short rules. Core knowledge. No ballast.
 ## Data And Patterns
 
 - Tables: `rex_googleplaces_place_detail`, `rex_googleplaces_review`
+- Optional YRewrite mapping: `domain_ids` column (comma list of yrewrite domain ids); yform choice field only created when yrewrite is available (install/tableset.php); query via `Place::getForDomain()` / `findByDomainId()` / `hasDomain()` (FIND_IN_SET)
 - Review status: visible or hidden
 - Profile photo file path in `profile_photo_file`, Base64 only as legacy fallback
 - Build queries with YForm query builder: `::query()`, `find()`, `findOne()`, `findFilter()`

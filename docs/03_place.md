@@ -173,3 +173,61 @@ $dataset = Place::create();
 $dataset->setUpdatedate($datetime);
 $dataset->save();
 ```
+
+## YRewrite-Domains (optional)
+
+Ist das Add-on [YRewrite](https://github.com/yakamara/yrewrite) verfügbar, kann ein Google-Places-Eintrag im Backend **optional einer oder mehreren YRewrite-Domains** zugeordnet werden (Checkbox-Feld „Domains (YRewrite)"). Das ist besonders in Multi-Domain-Installationen nützlich, um pro Domain den passenden Eintrag (z. B. für Bewertungs-Widgets oder JSON-LD-Schema) zu ermitteln. Ohne YRewrite wird das Feld nicht angelegt; die Zuordnung ist nie Pflicht.
+
+### `getDomainIds()`
+
+Gibt die zugeordneten YRewrite-Domain-IDs als Array zurück:
+
+```php
+$dataset = Place::get($id);
+$domainIds = $dataset->getDomainIds(); // z. B. [1, 3]
+```
+
+### `setDomainIds(array|string $value)`
+
+Setzt die zugeordneten YRewrite-Domain-IDs (Array oder Komma-Liste):
+
+```php
+$dataset = Place::get($id);
+$dataset->setDomainIds([1, 3]);
+$dataset->save();
+```
+
+### `hasDomain(int $domainId)`
+
+Prüft, ob der Place einer bestimmten YRewrite-Domain zugeordnet ist:
+
+```php
+$dataset = Place::get($id);
+if ($dataset->hasDomain(2)) {
+    // ...
+}
+```
+
+### `findByDomainId(int $domainId)`
+
+Gibt alle Places einer YRewrite-Domain als Collection zurück:
+
+```php
+$places = Place::findByDomainId(2);
+```
+
+### `getForDomain(?int $domainId = null)`
+
+Gibt den (ersten) Place einer YRewrite-Domain zurück. Ohne Parameter wird die **aktuelle Domain** verwendet. Gibt `null` zurück, wenn YRewrite nicht verfügbar ist oder der Domain kein Place zugeordnet wurde:
+
+```php
+/* Im Template/Modul: der Place der aktuell aufgerufenen Domain */
+$place = Place::getForDomain();
+
+/* Oder explizit per Domain-ID */
+$place = Place::getForDomain(2);
+
+if ($place !== null) {
+    echo $place->getName();
+}
+```
